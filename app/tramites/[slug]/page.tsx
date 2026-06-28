@@ -66,22 +66,20 @@ export default async function ProcedureDetailPage({
         </div>
 
         <aside className="rounded-[24px] border border-[#dfe6f4] bg-white p-5 shadow-[0_18px_46px_rgba(35,49,86,0.06)]">
-          <p className="text-[12px] font-bold text-[#66718f]">
-            Preparacion estimada
+          <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-primary">
+            Resumen para prepararte
           </p>
-          <div className="mt-3 flex items-end gap-2">
-            <span className="text-[42px] font-extrabold tracking-[-0.05em] text-[#081642]">
-              {procedure.preparationScore}%
-            </span>
-            <span className="mb-2 rounded-full bg-[#e5f8ec] px-2.5 py-1 text-[11px] font-bold text-[#20a660]">
-              Referencial
-            </span>
-          </div>
-          <div className="mt-4 h-2 rounded-full bg-[#edf1f8]">
-            <div
-              className="h-full rounded-full bg-primary"
-              style={{ width: `${procedure.preparationScore}%` }}
-            />
+          <h2 className="mt-2 text-[28px] font-extrabold leading-tight tracking-[-0.05em] text-[#081642]">
+            Revisa antes de avanzar
+          </h2>
+          <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f]">
+            Informacion referencial para ordenar documentos, costos, plazos y
+            alertas. El tramite continua fuera de ChileHub.
+          </p>
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            <SummaryStat label="Docs" value={String(procedure.documents.length)} />
+            <SummaryStat label="Alertas" value={String(procedure.redFlags.length)} />
+            <SummaryStat label="Revision" value={procedure.nextReviewAt} compact />
           </div>
           <dl className="mt-5 grid gap-2 text-[12px] font-semibold text-[#66718f]">
             <InfoRow icon={WalletCards} label="Costo" value={procedure.cost} />
@@ -252,6 +250,33 @@ export default async function ProcedureDetailPage({
         </div>
       </section>
     </ProductShell>
+  );
+}
+
+function SummaryStat({
+  label,
+  value,
+  compact
+}: {
+  label: string;
+  value: string;
+  compact?: boolean;
+}) {
+  return (
+    <div className="rounded-[14px] bg-[#f7f9ff] p-2.5">
+      <p className="text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#8a94ad]">
+        {label}
+      </p>
+      <p
+        className={
+          compact
+            ? "mt-1 text-[10.5px] font-extrabold leading-tight text-[#283451]"
+            : "mt-1 text-[19px] font-extrabold tracking-[-0.04em] text-[#081642]"
+        }
+      >
+        {value}
+      </p>
+    </div>
   );
 }
 

@@ -39,7 +39,6 @@ export type ProcedureDetail = {
   cost: string;
   duration: string;
   channel: string;
-  preparationScore: number;
   documents: Array<{
     title: string;
     detail: string;

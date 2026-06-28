@@ -10,7 +10,6 @@ type ProcedureSeed = {
   channel: string;
   documents: string[];
   sources: ContentSource[];
-  score?: number;
   warning?: string;
 };
 
@@ -251,7 +250,6 @@ function makeProcedure(seed: ProcedureSeed): ProcedureDetail {
     cost: seed.cost,
     duration: seed.duration,
     channel: seed.channel,
-    preparationScore: seed.score ?? 70,
     documents: seed.documents.map((document, index) => ({
       title: document,
       detail: getDocumentDetail(document, seed, index),

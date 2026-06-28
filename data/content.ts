@@ -32,7 +32,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$25.000 a $75.000 aprox.",
     duration: "1 a 3 horas de atencion; entrega puede ser el mismo dia o segun comuna.",
     channel: "Municipalidad correspondiente a tu domicilio.",
-    preparationScore: 72,
     documents: [
       {
         title: "Cedula de identidad vigente",
@@ -130,7 +129,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "1,5% del valor + $30.000 a $90.000 aprox.",
     duration: "30 minutos a 3 dias segun canal, pago y validaciones.",
     channel: "Registro Civil, notaria o plataformas autorizadas segun el caso.",
-    preparationScore: 80,
     documents: [
       {
         title: "Padron o certificado de anotaciones",
@@ -228,7 +226,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$69.660 a $69.740 aprox.",
     duration: "Atencion con reserva; entrega usualmente en dias habiles segun oficina.",
     channel: "Servicio de Registro Civil e Identificacion.",
-    preparationScore: 68,
     documents: [
       {
         title: "Cedula de identidad vigente",
@@ -321,7 +318,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$40.000 a $250.000+ aprox.",
     duration: "10 a 30 minutos online si no hay bloqueos; presencial puede tomar mas.",
     channel: "Municipalidad donde pagas el permiso.",
-    preparationScore: 76,
     documents: [
       {
         title: "Permiso anterior",
@@ -419,7 +415,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 a $150.000+ antes de operar.",
     duration: "Constitucion puede ser rapida; operar legalmente puede tomar dias o semanas.",
     channel: "Empresa en un Dia, SII y otros servicios segun giro.",
-    preparationScore: 64,
     documents: [
       {
         title: "Datos de socios y representante",
@@ -520,7 +515,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0",
     duration: "5 a 20 minutos online; presencial depende de agenda.",
     channel: "ClaveUnica, Registro Civil o ChileAtiende.",
-    preparationScore: 82,
     documents: [
       {
         title: "Cedula de identidad vigente",
@@ -610,7 +604,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 a $1.500 aprox.",
     duration: "Inmediato online con ClaveUnica; presencial depende de atencion.",
     channel: "Registro Civil o ChileAtiende.",
-    preparationScore: 86,
     documents: [
       {
         title: "ClaveUnica",
@@ -700,7 +693,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 a $10.000 aprox.",
     duration: "15 a 45 minutos si esta preparado; desacuerdos pueden tomar mas.",
     channel: "Direccion del Trabajo, notaria o canal acordado.",
-    preparationScore: 78,
     documents: [
       {
         title: "Cedula de identidad",
@@ -795,7 +787,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0",
     duration: "Solicitud online en minutos; validacion puede tomar dias o semanas.",
     channel: "Registro Social de Hogares o municipalidad.",
-    preparationScore: 74,
     documents: [
       {
         title: "ClaveUnica",
@@ -890,7 +881,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$3.820 aprox.",
     duration: "Atencion con reserva; entrega normalmente en dias habiles.",
     channel: "Registro Civil.",
-    preparationScore: 84,
     documents: [
       { title: "Cedula anterior", detail: "Llevala si la tienes; si fue perdida o robo, revisa bloqueo.", required: false },
       { title: "Comprobante de hora", detail: "Guarda respaldo si reservaste atencion.", required: false },
@@ -927,7 +917,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 directo; costos operativos variables.",
     duration: "Puede ser inmediato online si todo esta correcto.",
     channel: "SII.",
-    preparationScore: 76,
     documents: [
       { title: "Clave SII o ClaveUnica", detail: "Necesaria para ingresar.", required: true },
       { title: "Giro definido", detail: "Debe representar la actividad real.", required: true },
@@ -959,7 +948,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 directo; asesoria $30.000 a $150.000+ aprox.",
     duration: "30 minutos a varias horas segun complejidad.",
     channel: "SII.",
-    preparationScore: 72,
     documents: [
       { title: "Clave SII", detail: "Necesaria para revisar propuesta.", required: true },
       { title: "Ingresos y retenciones", detail: "Boletas, sueldos, honorarios y otros ingresos.", required: true },
@@ -991,7 +979,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "Ahorro minimo 4 UF aprox.; beneficio variable.",
     duration: "Postulacion en minutos; resultados segun calendario MINVU.",
     channel: "MINVU o SERVIU.",
-    preparationScore: 70,
     documents: [
       { title: "ClaveUnica", detail: "Necesaria para postular online.", required: true },
       { title: "Registro Social de Hogares", detail: "Debe estar actualizado.", required: true },
@@ -1023,7 +1010,6 @@ export const procedures: ProcedureDetail[] = [
     cost: "$0 directo; ingreso puede verse afectado.",
     duration: "Dias a semanas segun empleador, COMPIN, Isapre o caja.",
     channel: "Empleador, COMPIN, Isapre o licencia electronica.",
-    preparationScore: 73,
     documents: [
       { title: "Licencia emitida", detail: "Digital o papel segun profesional y sistema.", required: true },
       { title: "Datos del empleador", detail: "Necesarios para tramitacion laboral.", required: true },
