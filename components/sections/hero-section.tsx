@@ -3,10 +3,12 @@ import {
   Building2,
   Car,
   FileText,
+  Info,
   Plane,
   Search,
   ShieldCheck
 } from "lucide-react";
+import Link from "next/link";
 import { SectionReveal } from "@/components/layout/section-reveal";
 
 const quickActions = [
@@ -50,25 +52,26 @@ export function HeroSection() {
             <span className="min-w-0 flex-1 truncate text-left text-[13px] font-medium text-[#7b86a0] sm:text-[15px]">
               Que proceso necesitas preparar?
             </span>
-            <button className="flex h-10 shrink-0 items-center gap-1.5 rounded-[12px] bg-primary px-3 text-[12px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-11 sm:gap-2 sm:px-5 sm:text-[13px]">
+            <Link href="/buscar" className="flex h-10 shrink-0 items-center gap-1.5 rounded-[12px] bg-primary px-3 text-[12px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-11 sm:gap-2 sm:px-5 sm:text-[13px]">
               Buscar
               <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            </Link>
           </div>
 
           <div className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-3 sm:grid-cols-4">
             {quickActions.map((action) => {
               const Icon = action.icon;
               return (
-                <button
+                <Link
                   key={action.label}
+                  href={`/buscar?q=${encodeURIComponent(action.label)}`}
                   className="flex items-center gap-2 rounded-[14px] border border-[#e5ebf5] bg-white px-3 py-3 text-left text-[12px] font-bold text-[#283451] transition hover:border-[#cfd9ec] hover:bg-[#fbfcff]"
                 >
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#eef2ff] text-primary">
                     <Icon className="h-4 w-4" />
                   </span>
                   {action.label}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -86,6 +89,18 @@ export function HeroSection() {
               {item}
             </div>
           ))}
+        </SectionReveal>
+
+        <SectionReveal
+          className="mx-auto mt-3 flex max-w-[850px] items-start gap-2 rounded-[16px] border border-[#e5ebf5] bg-white/80 px-3.5 py-3 text-left text-[11px] font-semibold leading-[1.45] text-[#6b7590] shadow-[0_10px_24px_rgba(35,49,86,0.03)] sm:items-center sm:px-4 sm:text-[12px]"
+          delay={0.22}
+        >
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary sm:mt-0" />
+          <span>
+            Informacion referencial recopilada con IA para prepararte mejor.
+            Los tramites no se realizan en este sitio, no generamos cobros y
+            ChileHub es una plataforma gratuita.
+          </span>
         </SectionReveal>
       </div>
     </section>

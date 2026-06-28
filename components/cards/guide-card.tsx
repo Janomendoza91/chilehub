@@ -1,11 +1,11 @@
 import type { GuideCard as GuideCardType } from "@/types/chilehub";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 
 export function GuideCard({ item }: { item: GuideCardType }) {
   const Icon = item.icon;
-
-  return (
-    <Card className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-[12px] border-[#e7ebf3] p-2.5 transition-all hover:shadow-air sm:gap-4 sm:p-3.5">
+  const content = (
+    <>
       <div className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-[#eef7ff] text-[#1597b6] sm:h-9 sm:w-9">
         <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
       </div>
@@ -20,6 +20,17 @@ export function GuideCard({ item }: { item: GuideCardType }) {
       <span className={`shrink-0 rounded-full px-2 py-1 text-[9.5px] font-bold leading-none sm:px-2.5 sm:text-[10px] ${item.time === "Nuevo" ? "bg-[#ffeaf0] text-[#e43d5a]" : "bg-[#e5f8ec] text-[#20a660]"}`}>
         {item.time}
       </span>
+    </>
+  );
+
+  const className =
+    "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-[12px] border-[#e7ebf3] p-2.5 transition-all hover:shadow-air sm:gap-4 sm:p-3.5";
+
+  return item.href ? (
+    <Card asChild className={className}>
+      <Link href={item.href}>{content}</Link>
     </Card>
+  ) : (
+    <Card className={className}>{content}</Card>
   );
 }

@@ -1,4 +1,5 @@
 import { Bell, ChevronDown, ChevronRight, MessageCircle } from "lucide-react";
+import Link from "next/link";
 import {
   guides,
   popularProcedures,
@@ -70,9 +71,9 @@ export function HomePreviewSection() {
                   <h3 className="text-[13px] font-extrabold tracking-[-0.02em] text-[#081642] sm:text-[17px]">
                     Tramites mas buscados
                   </h3>
-                  <button className="text-[12px] font-bold text-primary">
+                  <Link href="/tramites" className="text-[12px] font-bold text-primary">
                     Ver todos
-                  </button>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-4">
                   {popularProcedures.map((item) => (
@@ -98,10 +99,10 @@ export function HomePreviewSection() {
                       <h3 className="text-[13px] font-extrabold tracking-[-0.02em] text-[#081642] sm:text-[17px]">
                         Mas guias utiles
                       </h3>
-                      <button className="flex items-center gap-1 text-[11px] font-bold text-primary sm:text-[12px]">
+                      <Link href="/guias" className="flex items-center gap-1 text-[11px] font-bold text-primary sm:text-[12px]">
                         Ver todas
                         <ChevronRight className="h-3.5 w-3.5" />
-                      </button>
+                      </Link>
                     </div>
                     <div className="space-y-2 sm:space-y-3">
                       {guides.slice(3, 6).map((item) => (

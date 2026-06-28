@@ -120,12 +120,31 @@ Toda documentacion, copy, UX y futura UI debe evitar frases como "completar el t
 Owner:
 Product / Design / Architecture.
 
+## 2026-06-27 - V2 navegable con datos locales referenciales
+
+Status: Accepted
+
+Context:
+ChileHub necesita pasar de landing visual a producto usable sin introducir backend, autenticacion, APIs, cobros ni ejecucion de tramites.
+
+Decision:
+Implementar una primera version navegable con rutas internas para tramites, guias, calculadoras, busqueda frontend y paginas informativas de cuenta/guardados/contacto. Los datos viven localmente en `data/`, incluyen fuentes y fecha de revision, y se presentan siempre como informacion referencial recopilada con IA.
+
+Rationale:
+Esto permite probar el valor central del producto: que una persona encuentre un proceso, entienda que preparar, revise errores frecuentes y sepa donde continuar fuera de ChileHub.
+
+Consequences:
+La experiencia ya es navegable, pero no debe presentarse como fuente oficial, tramite ejecutable, cotizacion final, asesoría profesional ni servicio pagado. El siguiente paso es fortalecer gobierno editorial, ampliar cobertura y definir validacion de fuentes antes de escalar contenido.
+
+Owner:
+Product / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.
 - Definir tokens exactos de color desde la imagen.
-- Definir set inicial de tramites V1/V2.
-- Definir modelo de datos de tramite.
+- Ampliar set inicial de tramites V2.
+- Refinar modelo de datos de tramite con estados editoriales.
 - Definir estrategia de autenticacion futura.
 - Definir estrategia de contenido verificado.
 - Definir estrategia comercial SaaS.

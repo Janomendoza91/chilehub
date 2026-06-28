@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import type { ProcedureCard as ProcedureCardType } from "@/types/chilehub";
 import { Card } from "@/components/ui/card";
 
@@ -10,9 +11,8 @@ const iconTone = {
 
 export function ProcedureCard({ item }: { item: ProcedureCardType }) {
   const Icon = item.icon;
-
-  return (
-    <Card className="group min-h-[112px] p-2.5 shadow-[0_8px_24px_rgba(38,52,94,0.035)] transition-all hover:-translate-y-0.5 hover:shadow-air sm:min-h-[170px] sm:p-4 xl:min-h-[190px]">
+  const content = (
+    <>
       <div className="mb-3 flex items-start justify-between gap-3 sm:mb-5">
         <div className={`grid h-8 w-8 place-items-center rounded-[9px] sm:h-10 sm:w-10 ${iconTone[item.status]}`}>
           <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -28,6 +28,17 @@ export function ProcedureCard({ item }: { item: ProcedureCardType }) {
         <span>{item.meta}</span>
         <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
       </div>
+    </>
+  );
+
+  const className =
+    "group block min-h-[112px] p-2.5 shadow-[0_8px_24px_rgba(38,52,94,0.035)] transition-all hover:-translate-y-0.5 hover:shadow-air sm:min-h-[170px] sm:p-4 xl:min-h-[190px]";
+
+  return item.href ? (
+    <Card asChild className={className}>
+      <Link href={item.href}>{content}</Link>
     </Card>
+  ) : (
+    <Card className={className}>{content}</Card>
   );
 }

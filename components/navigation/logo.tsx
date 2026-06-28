@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export function Logo({
@@ -10,8 +11,8 @@ export function Logo({
   className?: string;
 }) {
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className={cn("flex min-w-0 items-center gap-2.5", className)}
       aria-label="ChileHub"
     >
@@ -19,11 +20,11 @@ export function Logo({
         className={cn(
           "relative grid place-items-center rounded-[13px] bg-gradient-to-br from-[#204bff] to-[#e33b54] text-white shadow-[0_14px_28px_rgba(37,99,235,0.24)]",
           compact
-            ? "h-8 w-8 shrink-0 rounded-[10px] text-[16px]"
-            : "h-[58px] w-[58px] shrink-0 text-[28px]"
+            ? "h-8 w-8 shrink-0 rounded-[10px] text-[10px] font-extrabold"
+            : "h-[58px] w-[58px] shrink-0 text-[16px] font-extrabold"
         )}
       >
-        ★
+        CH
       </span>
       <span
         className={cn(
@@ -34,6 +35,6 @@ export function Logo({
       >
         ChileHub
       </span>
-    </a>
+    </Link>
   );
 }

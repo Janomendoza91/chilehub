@@ -23,8 +23,11 @@ import type {
   GuideCard,
   ProcedureCard
 } from "@/types/chilehub";
+import { calculatorsContent, guideCards, procedureCards } from "@/data/content";
 
-export const popularProcedures: ProcedureCard[] = [
+export const popularProcedures: ProcedureCard[] = procedureCards;
+
+export const legacyPopularProcedures: ProcedureCard[] = [
   {
     title: "Renovar licencia de conducir",
     description: "Paso a paso, requisitos, costos y mas.",
@@ -55,7 +58,9 @@ export const popularProcedures: ProcedureCard[] = [
   }
 ];
 
-export const guides: GuideCard[] = [
+export const guides: GuideCard[] = guideCards;
+
+export const legacyGuides: GuideCard[] = [
   {
     title: "Como vender un auto en Chile?",
     label: "Paso a paso para hacerlo rapido y seguro.",
@@ -94,7 +99,9 @@ export const guides: GuideCard[] = [
   }
 ];
 
-export const calculators: CalculatorCard[] = [
+export const calculators: CalculatorCard[] = calculatorsContent;
+
+export const legacyCalculators: CalculatorCard[] = [
   {
     title: "Calculadora de finiquito",
     value: "",
@@ -122,14 +129,14 @@ export const calculators: CalculatorCard[] = [
 ];
 
 export const sidebarItems = [
-  { label: "Inicio", icon: Home, active: true },
-  { label: "Buscar", icon: Search },
-  { label: "Categorias", icon: UsersRound },
-  { label: "Mis tramites", icon: ShieldCheck },
-  { label: "Guardados", icon: HeartPulse },
-  { label: "Calculadoras", icon: Calculator },
-  { label: "Noticias utiles", icon: Newspaper },
-  { label: "Contacto", icon: CircleEllipsis }
+  { label: "Inicio", icon: Home, active: true, href: "/" },
+  { label: "Buscar", icon: Search, href: "/buscar" },
+  { label: "Categorias", icon: UsersRound, href: "/tramites" },
+  { label: "Mis tramites", icon: ShieldCheck, href: "/mis-tramites" },
+  { label: "Guardados", icon: HeartPulse, href: "/guardados" },
+  { label: "Calculadoras", icon: Calculator, href: "/calculadoras" },
+  { label: "Noticias utiles", icon: Newspaper, href: "/guias" },
+  { label: "Contacto", icon: CircleEllipsis, href: "/contacto" }
 ];
 
 export const heroCategories = [

@@ -132,6 +132,52 @@ Variantes:
 - Compact.
 - App.
 
+## SearchResults
+
+Descripcion: listado interactivo de resultados locales para tramites y guias.
+
+Responsabilidad:
+
+- Filtrar contenido local disponible.
+- Mostrar resultados navegables.
+- Evitar sugerir cobertura oficial completa.
+
+Estados:
+
+- Sin busqueda.
+- Con resultados.
+- Sin resultados.
+
+## ProductShell
+
+Descripcion: layout base para paginas internas del producto.
+
+Responsabilidad:
+
+- Componer Header, contenido principal y Footer.
+- Mantener espaciado compatible con el header absoluto.
+- Reutilizar la estructura premium de paginas navegables.
+
+## ReferenceNotice
+
+Descripcion: aviso visible de informacion referencial.
+
+Responsabilidad:
+
+- Aclarar que ChileHub no realiza tramites.
+- Aclarar que ChileHub no genera cobros.
+- Reforzar que la plataforma es gratuita y que los tramites continuan fuera del sitio.
+
+## CalculatorPanel
+
+Descripcion: modulo interactivo de calculadoras referenciales.
+
+Responsabilidad:
+
+- Permitir estimaciones simples.
+- Separar claramente resultado referencial de valores oficiales.
+- Mantener la interaccion client-side sin backend.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

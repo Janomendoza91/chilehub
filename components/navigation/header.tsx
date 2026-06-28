@@ -1,4 +1,5 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { sidebarItems } from "@/data/home";
 import { Logo } from "@/components/navigation/logo";
 
@@ -11,9 +12,9 @@ export function Header() {
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 px-3 xl:flex">
             {sidebarItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href="#tramites"
+                href={item.href}
                 className={
                   item.active
                     ? "rounded-full bg-[#eef2ff] px-3 py-2 text-[12px] font-bold text-primary"
@@ -21,18 +22,18 @@ export function Header() {
                 }
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <button className="h-9 rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] sm:h-10 sm:px-4 sm:text-[13px]">
+            <Link href="/ingresar" className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] sm:h-10 sm:px-4 sm:text-[13px]">
               Ingresar
-            </button>
-            <button className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
+            </Link>
+            <Link href="/registrarte" className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
               Registrarte
               <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="relative mt-1.5 xl:hidden">
@@ -46,9 +47,9 @@ export function Header() {
             {sidebarItems.map((item) => {
               const Icon = item.icon;
               return (
-                <a
+                <Link
                   key={item.label}
-                  href="#tramites"
+                  href={item.href}
                   className={
                     item.active
                       ? "flex shrink-0 items-center gap-1.5 rounded-full bg-[#eef2ff] px-2.5 py-1.5 text-[10.5px] font-bold text-primary sm:px-3 sm:py-2 sm:text-[11px]"
@@ -57,7 +58,7 @@ export function Header() {
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>

@@ -73,18 +73,19 @@
 
 ## Etapa 4 - Producto navegable V2
 
-- [ ] Definir modelo de proceso informativo.
+- [x] Definir modelo de proceso informativo.
 - [ ] Definir fuentes oficiales por tramite inicial.
 - [ ] Definir estado editorial de cada tramite.
-- [ ] Crear data local de procesos.
-- [ ] Crear pagina de detalle de proceso.
-- [ ] Crear pagina de guia.
-- [ ] Crear pagina de calculadora.
-- [ ] Crear busqueda frontend.
-- [ ] Crear filtros.
-- [ ] Crear estados de preparacion simulados.
-- [ ] Crear checklist de documentos.
-- [ ] Crear vista de oficinas.
+- [x] Crear data local de procesos.
+- [x] Crear pagina de detalle de proceso.
+- [x] Crear pagina de guia.
+- [x] Crear pagina de calculadora.
+- [x] Crear busqueda frontend.
+- [x] Crear filtros.
+- [x] Crear estados de preparacion simulados.
+- [x] Crear checklist de documentos.
+- [x] Crear vista de oficinas.
+- [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
 
 ## Etapa 5 - Personalizacion V3
 
