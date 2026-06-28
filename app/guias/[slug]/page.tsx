@@ -37,7 +37,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           Volver a guias
         </Link>
         <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
-          {guide.category} · {guide.readingTime}
+          {guide.category} / {guide.readingTime}
         </p>
         <h1 className="mt-2 text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-[#081642] sm:text-[56px]">
           {guide.title}

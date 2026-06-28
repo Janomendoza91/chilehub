@@ -35,6 +35,7 @@ export type ProcedureDetail = {
   category: string;
   summary: string;
   updatedAt: string;
+  nextReviewAt: string;
   cost: string;
   duration: string;
   channel: string;
@@ -44,9 +45,18 @@ export type ProcedureDetail = {
     detail: string;
     required: boolean;
   }>;
+  beforeYouStart: string[];
+  keyQuestions: string[];
+  estimatedCosts: Array<{
+    label: string;
+    amount: string;
+    detail: string;
+  }>;
   steps: string[];
   commonMistakes: string[];
+  redFlags: string[];
   variations: string[];
+  whatToAsk: string[];
   externalAction: {
     label: string;
     url: string;

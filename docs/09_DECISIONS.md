@@ -139,6 +139,25 @@ La experiencia ya es navegable, pero no debe presentarse como fuente oficial, tr
 Owner:
 Product / Engineering.
 
+## 2026-06-27 - Montos estimados con revision mensual
+
+Status: Accepted
+
+Context:
+Las fichas de tramite eran utiles visualmente, pero demasiado genericas para tomar decisiones. El usuario necesita rangos realistas de costo, plazo y bloqueos para prepararse mejor.
+
+Decision:
+Mostrar montos y rangos estimados en las fichas cuando aporten claridad, siempre marcados como referenciales, con fecha de revision y proxima revision mensual. Cuando el costo dependa de municipalidad, institucion, tasacion, canal o caso particular, se debe mostrar un rango practico y explicar que variable lo mueve.
+
+Rationale:
+La promesa de ChileHub es reducir incertidumbre. Evitar todos los montos por miedo a variacion vuelve el producto poco util. Mostrar rangos honestos con revision periodica entrega mas valor sin fingir oficialidad.
+
+Consequences:
+El contenido requiere mantenimiento mensual. Ningun monto debe presentarse como cobro de ChileHub, precio oficial definitivo ni garantia. Las fuentes deben revisarse antes de ampliar cobertura.
+
+Owner:
+Product / Content.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

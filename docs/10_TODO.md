@@ -76,6 +76,8 @@
 - [x] Definir modelo de proceso informativo.
 - [ ] Definir fuentes oficiales por tramite inicial.
 - [ ] Definir estado editorial de cada tramite.
+- [x] Agregar montos estimados y proxima revision mensual en fichas iniciales.
+- [ ] Crear rutina editorial mensual para revisar montos, plazos y fuentes.
 - [x] Crear data local de procesos.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.

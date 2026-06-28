@@ -15,7 +15,7 @@ export default function CalculadorasPage() {
         description="Herramientas gratuitas para ordenar numeros y variables antes de revisar el valor final en la fuente correspondiente."
       />
       <ReferenceNotice />
-      <section className="pb-10 pt-6">
+      <section className="pb-8 pt-4">
         <CalculatorPanel />
       </section>
     </ProductShell>

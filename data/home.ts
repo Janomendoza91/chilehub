@@ -135,7 +135,7 @@ export const sidebarItems = [
   { label: "Mis tramites", icon: ShieldCheck, href: "/mis-tramites" },
   { label: "Guardados", icon: HeartPulse, href: "/guardados" },
   { label: "Calculadoras", icon: Calculator, href: "/calculadoras" },
-  { label: "Noticias utiles", icon: Newspaper, href: "/guias" },
+  { label: "Guias rapidas", icon: Newspaper, href: "/guias" },
   { label: "Contacto", icon: CircleEllipsis, href: "/contacto" }
 ];
 
