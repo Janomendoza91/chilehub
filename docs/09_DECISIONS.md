@@ -196,6 +196,25 @@ La cobertura amplia queda util para exploracion y preparacion, pero los tramites
 Owner:
 Product / Content.
 
+## 2026-06-28 - Enriquecimiento transversal de contenido
+
+Status: Accepted
+
+Context:
+Algunas guias y tramites tenian contenido rico, pero otras fichas mantenian una estructura demasiado simple. Eso producia una experiencia inconsistente y debilitaba la promesa de claridad.
+
+Decision:
+Aplicar una capa editorial transversal que enriquece tramites y guias con contexto por categoria, preguntas clave, errores frecuentes, variaciones, proxima accion y criterios de ayuda externa. El enriquecimiento complementa los datos manuales sin reemplazar la verificacion oficial individual.
+
+Rationale:
+ChileHub debe entregar valor incluso cuando el usuario entra a una ficha secundaria. La consistencia editorial permite escalar cobertura sin volver a contenido generico.
+
+Consequences:
+Los datos base siguen siendo la fuente del contenido especifico, pero toda ficha publicada recibe un minimo de utilidad accionable. La verificacion oficial por ficha sigue siendo necesaria para declarar contenido como validado.
+
+Owner:
+Product / Content.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

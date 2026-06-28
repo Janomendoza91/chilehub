@@ -83,6 +83,7 @@
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
 - [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.
+- [x] Aplicar enriquecimiento editorial transversal a tramites y guias rapidas.
 - [x] Crear pagina de calculadora.
 - [x] Crear busqueda frontend.
 - [x] Crear filtros.

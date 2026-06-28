@@ -19,7 +19,7 @@ import { expandedGuides, expandedProcedures } from "@/data/expanded-content";
 export const disclosureText =
   "Informacion referencial recopilada con IA para prepararte mejor. Los tramites no se realizan en ChileHub, no generamos cobros y la plataforma es gratuita.";
 
-export const procedures: ProcedureDetail[] = [
+const baseProcedures: ProcedureDetail[] = [
   ...expandedProcedures,
   {
     slug: "renovar-licencia-conducir",
@@ -1032,7 +1032,7 @@ export const procedures: ProcedureDetail[] = [
   }
 ];
 
-export const guidesContent: GuideDetail[] = [
+const baseGuidesContent: GuideDetail[] = [
   ...expandedGuides,
   {
     slug: "como-preparar-inicio-actividades-sii",
@@ -1552,6 +1552,10 @@ export const officeChannels = [
   }
 ];
 
+export const procedures: ProcedureDetail[] = baseProcedures.map(enrichProcedure);
+
+export const guidesContent: GuideDetail[] = baseGuidesContent.map(enrichGuide);
+
 export const procedureCards: ProcedureCard[] = procedures.slice(0, 4).map((item, index) => ({
   title: item.title,
   description: item.summary,
@@ -1589,4 +1593,333 @@ export function getProcedure(slug: string) {
 
 export function getGuide(slug: string) {
   return guidesContent.find((item) => item.slug === slug);
+}
+
+function uniqueList(items: string[]) {
+  return Array.from(new Set(items.filter(Boolean)));
+}
+
+function procedureCategoryContext(category: string) {
+  const context: Record<string, {
+    before: string[];
+    questions: string[];
+    mistakes: string[];
+    variations: string[];
+    asks: string[];
+  }> = {
+    Autos: {
+      before: [
+        "Revisa patente, propietario, multas, permiso, SOAP, revision tecnica y restricciones antes de pagar o firmar.",
+        "Si hay prenda, leasing, embargo, deuda TAG o propietario distinto, valida el caso antes de avanzar."
+      ],
+      questions: [
+        "La patente, propietario y documentos coinciden?",
+        "Hay multas, deudas, restricciones o pagos pendientes?"
+      ],
+      mistakes: [
+        "Entregar llaves o documentos originales sin pago confirmado.",
+        "Comprar o transferir sin revisar limitaciones vigentes."
+      ],
+      variations: [
+        "Valores y requisitos pueden cambiar por municipalidad, planta, Registro Civil o estado del vehiculo."
+      ],
+      asks: [
+        "Que deuda o restriccion impediria cerrar este proceso?"
+      ]
+    },
+    Vivienda: {
+      before: [
+        "Separa precio, deuda, certificados, gastos notariales, banco, conservador, municipio y gastos comunes.",
+        "No firmes promesa, arriendo o solicitud si no entiendes multas, plazos, reajustes o salida anticipada."
+      ],
+      questions: [
+        "El costo total incluye gastos indirectos y pagos posteriores?",
+        "Existen deudas, gravamenes, prohibiciones o condiciones municipales?"
+      ],
+      mistakes: [
+        "Calcular solo el monto principal y olvidar costos operativos.",
+        "Firmar sin revisar certificados o contrato completo."
+      ],
+      variations: [
+        "Requisitos cambian por comuna, banco, Conservador, subsidio, tipo de propiedad y contrato."
+      ],
+      asks: [
+        "Que certificado o clausula deberia revisar antes de comprometer dinero?"
+      ]
+    },
+    Familia: {
+      before: [
+        "Ordena certificados, acuerdos, ingresos, gastos, domicilio y respaldos antes de explicar el caso.",
+        "Si hay menores, violencia, salud o conflicto fuerte, confirma el canal correcto antes de actuar."
+      ],
+      questions: [
+        "Esto se resuelve en Registro Civil, notaria, mediacion, tribunal o entidad de beneficios?",
+        "Tengo respaldo documental de lo que estoy solicitando?"
+      ],
+      mistakes: [
+        "Llegar solo con relato y sin documentos.",
+        "Creer que un acuerdo verbal sirve para exigir cumplimiento."
+      ],
+      variations: [
+        "Menores, representantes, extranjeros, herencias y conflictos pueden exigir documentos extra."
+      ],
+      asks: [
+        "Que documento prueba mejor mi situacion?"
+      ]
+    },
+    Trabajo: {
+      before: [
+        "Contrasta contrato, anexos, liquidaciones, cotizaciones, asistencia, correos y mensajes.",
+        "Antes de firmar, entiende causal, fechas, descuentos, vacaciones, pago y copia."
+      ],
+      questions: [
+        "Las fechas, montos y descuentos coinciden con mis registros?",
+        "Existe plazo legal, fuero, licencia, deuda previsional o presion para firmar?"
+      ],
+      mistakes: [
+        "Firmar sin desglose o sin copia.",
+        "No guardar pruebas desde el primer problema."
+      ],
+      variations: [
+        "Contrato, causal, jornada, fuero, licencia o tipo de empleador pueden cambiar la ruta."
+      ],
+      asks: [
+        "Que plazo tengo para reclamar, corregir o reservar derechos?"
+      ]
+    },
+    Impuestos: {
+      before: [
+        "Ten respaldos de ingresos, compras, ventas, giro, domicilio, folios y claves antes de declarar o modificar.",
+        "Distingue tramite tributario de permiso para operar: SII no reemplaza patente ni permisos sectoriales."
+      ],
+      questions: [
+        "El giro, domicilio y documentos tributarios representan mi actividad real?",
+        "Los montos tienen respaldo suficiente?"
+      ],
+      mistakes: [
+        "Declarar sin respaldo o con datos tributarios incorrectos.",
+        "Aceptar una propuesta sin revisar ingresos, retenciones o observaciones."
+      ],
+      variations: [
+        "Persona natural, empresa, regimen, IVA, giro y volumen cambian obligaciones."
+      ],
+      asks: [
+        "Esta operacion requiere contador, rectificatoria o permiso adicional?"
+      ]
+    },
+    Viajes: {
+      before: [
+        "Confirma destino, fechas, escalas, viajeros, vigencias, visas, vacunas, seguro y autorizaciones.",
+        "No compres servicios no reembolsables si el viaje depende de documentos pendientes."
+      ],
+      questions: [
+        "El destino exige vigencia minima, visa, seguro, vacunas o documentos extra?",
+        "Viajan menores, mascotas o documentos que deban apostillarse?"
+      ],
+      mistakes: [
+        "Revisar requisitos del destino demasiado tarde.",
+        "Comprar pasajes antes de confirmar documentos criticos."
+      ],
+      variations: [
+        "Cada pais, aerolinea, escala y tipo de viajero puede exigir documentos distintos."
+      ],
+      asks: [
+        "Que requisito podria impedir embarcar o entrar al destino?"
+      ]
+    },
+    Documentos: {
+      before: [
+        "Pregunta nombre exacto, finalidad, antiguedad maxima y formato aceptado antes de solicitar.",
+        "Verifica que nombre, RUN, fecha y codigo de validacion coincidan antes de enviar."
+      ],
+      questions: [
+        "Sirve digital, impreso, apostillado o notarial?",
+        "La institucion acepta este documento para esta finalidad?"
+      ],
+      mistakes: [
+        "Descargar un certificado parecido pero no el solicitado.",
+        "Enviar documentos vencidos o con finalidad incorrecta."
+      ],
+      variations: [
+        "La institucion solicitante define finalidad, vigencia y formato aceptado."
+      ],
+      asks: [
+        "Que antiguedad maxima acepta la institucion?"
+      ]
+    },
+    Salud: {
+      before: [
+        "Identifica si responde Fonasa, Isapre, COMPIN, prestador, empleador o Superintendencia.",
+        "Guarda diagnosticos, ordenes, boletas, resoluciones y comprobantes de recepcion con fecha."
+      ],
+      questions: [
+        "Tengo plazo vigente para licencia, apelacion, reembolso o reclamo?",
+        "Quien debe responder formalmente por este caso?"
+      ],
+      mistakes: [
+        "Dejar vencer plazos de licencia, apelacion o reclamo.",
+        "No guardar resolucion o comprobante de recepcion."
+      ],
+      variations: [
+        "Tramo, plan, diagnostico, edad, cargas y plazos pueden cambiar cobertura o pago."
+      ],
+      asks: [
+        "Que comprobante necesito para reclamar si algo falla?"
+      ]
+    },
+    Empresas: {
+      before: [
+        "Distingue idea, constitucion, inicio tributario, patente, facturacion, permisos, banco y operacion real.",
+        "Antes de vender, confirma giro, domicilio, representante, documentos tributarios y permisos sectoriales."
+      ],
+      questions: [
+        "La empresa ya puede operar o solo esta constituida?",
+        "Que obligacion mensual aparece despues de iniciar?"
+      ],
+      mistakes: [
+        "Constituir sin acordar socios, administracion, capital o salida.",
+        "Operar sin patente, facturacion o permiso requerido."
+      ],
+      variations: [
+        "Tipo societario, giro, comuna, rubro, trabajadores y permisos sectoriales cambian obligaciones."
+      ],
+      asks: [
+        "Que permiso externo falta antes de vender o contratar?"
+      ]
+    }
+  };
+
+  return context[category] ?? {
+    before: ["Confirma fuente, canal, costo, plazo y documentos antes de avanzar."],
+    questions: ["Que condicion cambia mi caso?"],
+    mistakes: ["Avanzar con informacion antigua o incompleta."],
+    variations: ["Puede cambiar por institucion, comuna, canal o perfil del usuario."],
+    asks: ["Donde reviso estado o correcciones?"]
+  };
+}
+
+function enrichProcedure(procedure: ProcedureDetail): ProcedureDetail {
+  const context = procedureCategoryContext(procedure.category);
+
+  return {
+    ...procedure,
+    beforeYouStart: uniqueList([
+      ...context.before,
+      ...procedure.beforeYouStart,
+      "Confirma la fuente el mismo dia si tienes una fecha limite o pagaras un monto relevante."
+    ]),
+    keyQuestions: uniqueList([
+      ...context.questions,
+      ...procedure.keyQuestions,
+      "Que pasa si falta un documento o existe una observacion?"
+    ]),
+    steps: uniqueList([
+      procedure.steps[0] ?? "Confirma requisitos y canal vigente.",
+      "Revisa si hay condiciones que cambian por comuna, institucion, fecha o perfil.",
+      ...procedure.steps.slice(1),
+      "Guarda folio, comprobante, correo o captura del resultado final."
+    ]),
+    commonMistakes: uniqueList([
+      ...context.mistakes,
+      ...procedure.commonMistakes,
+      "No revisar si el documento debe estar vigente o emitido recientemente."
+    ]),
+    variations: uniqueList([
+      ...context.variations,
+      ...procedure.variations
+    ]),
+    whatToAsk: uniqueList([
+      ...context.asks,
+      ...procedure.whatToAsk,
+      "Cual es el requisito exacto para mi caso?"
+    ])
+  };
+}
+
+function guideCategoryContext(category: string) {
+  const context = procedureCategoryContext(category);
+  const decisionLabel: Record<string, string> = {
+    Autos: "Patente y deuda",
+    Vivienda: "Costo total",
+    Familia: "Canal correcto",
+    Trabajo: "Firma y plazo",
+    Impuestos: "Respaldo tributario",
+    Viajes: "Destino manda",
+    Documentos: "Formato exacto",
+    Salud: "Entidad responsable",
+    Empresas: "Listo para operar"
+  };
+
+  return {
+    ...context,
+    decisionLabel: decisionLabel[category] ?? "Decision clave"
+  };
+}
+
+function enrichGuide(guide: GuideDetail): GuideDetail {
+  const context = guideCategoryContext(guide.category);
+  const sourceNames = guide.sources.map((source) => source.label).join(", ");
+
+  return {
+    ...guide,
+    keyTakeaways: uniqueList([
+      ...(guide.keyTakeaways ?? []),
+      `Antes de avanzar, identifica que dato puede bloquear este caso en ${guide.category}.`,
+      "No tomes costos, plazos o requisitos como definitivos sin revisar la fuente vigente.",
+      "La salida correcta de ChileHub es una accion concreta: documento, pregunta, fuente o canal externo."
+    ]).slice(0, 5),
+    decisionCards: guide.decisionCards ?? [
+      {
+        label: context.decisionLabel,
+        value: "Revisar antes",
+        detail: context.questions[0] ?? "Identifica la condicion que cambia tu caso antes de avanzar."
+      },
+      {
+        label: "Fuente",
+        value: sourceNames || "Institucion",
+        detail: "Usa la guia para prepararte y confirma requisitos vigentes en la fuente correspondiente."
+      },
+      {
+        label: "Riesgo comun",
+        value: "Documento o plazo",
+        detail: context.mistakes[0] ?? "La mayoria de errores aparece por informacion incompleta o antigua."
+      }
+    ],
+    fiveMinutePlan: uniqueList([
+      ...(guide.fiveMinutePlan ?? []),
+      "Define el objetivo exacto y anota que resultado necesitas obtener.",
+      "Revisa documentos, costo, plazo y canal antes de salir de ChileHub.",
+      "Marca la pregunta que debes confirmar en la fuente oficial o institucion.",
+      "Guarda enlaces, folios o comprobantes cuando continues fuera del sitio."
+    ]).slice(0, 5),
+    commonMistakes: uniqueList([
+      ...(guide.commonMistakes ?? []),
+      ...context.mistakes,
+      "Leer una guia y asumir que reemplaza la fuente oficial."
+    ]).slice(0, 5),
+    whenToGetHelp: uniqueList([
+      ...(guide.whenToGetHelp ?? []),
+      ...context.variations,
+      "Hay dinero relevante, plazo vencido, conflicto, rechazo, deuda o una excepcion personal."
+    ]).slice(0, 5),
+    sections:
+      guide.sections.length >= 5
+        ? guide.sections
+        : [
+            ...guide.sections,
+            {
+              title: "Lo que debes confirmar",
+              body: `${context.questions[0] ?? "Confirma el requisito critico"} y revisa si la fuente ${sourceNames || "correspondiente"} tiene condiciones vigentes distintas para tu caso.`
+            },
+            {
+              title: "Proxima accion",
+              body: `Al cerrar esta guia deberias saber que documento preparar, que costo o plazo confirmar y donde continuar fuera de ChileHub.`
+            }
+          ],
+    checklist: uniqueList([
+      ...guide.checklist,
+      "Fuente vigente revisada.",
+      "Pregunta critica anotada."
+    ]).slice(0, 6)
+  };
 }
