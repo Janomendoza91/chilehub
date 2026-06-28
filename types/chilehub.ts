@@ -71,6 +71,15 @@ export type GuideDetail = {
   summary: string;
   updatedAt: string;
   readingTime: string;
+  keyTakeaways?: string[];
+  decisionCards?: Array<{
+    label: string;
+    value: string;
+    detail: string;
+  }>;
+  fiveMinutePlan?: string[];
+  commonMistakes?: string[];
+  whenToGetHelp?: string[];
   sections: Array<{
     title: string;
     body: string;

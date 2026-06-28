@@ -144,6 +144,7 @@ export const heroCategories = [
   { label: "Vivienda", count: "18 tramites", icon: Home, tone: "orange" },
   { label: "Familia", count: "15 tramites", icon: UsersRound, tone: "rose" },
   { label: "Trabajo", count: "20 tramites", icon: BriefcaseBusiness, tone: "indigo" },
+  { label: "Empresas", count: "12 tramites", icon: BriefcaseBusiness, tone: "emerald" },
   { label: "Impuestos", count: "15 tramites", icon: FileBadge, tone: "emerald" },
   { label: "Viajes", count: "12 tramites", icon: Plane, tone: "blue" },
   { label: "Documentos", count: "14 tramites", icon: FileText, tone: "indigo" },

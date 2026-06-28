@@ -158,6 +158,25 @@ El contenido requiere mantenimiento mensual. Ningun monto debe presentarse como 
 Owner:
 Product / Content.
 
+## 2026-06-28 - Guias rapidas como fichas accionables
+
+Status: Accepted
+
+Context:
+Las guias rapidas entregaban orientacion general, pero su estructura de secciones y checklist era insuficiente para cumplir la promesa de reducir incertidumbre antes de procesos importantes.
+
+Decision:
+Elevar el estandar editorial de guias rapidas para incluir conclusiones clave, rangos o variables a revisar, plan de 5 minutos, errores frecuentes y situaciones donde una guia no basta. La guia debe ayudar a tomar una siguiente accion concreta, no solo explicar contexto.
+
+Rationale:
+ChileHub compite contra busqueda generica y contenido superficial. La ventaja debe estar en ordenar la decision del usuario con informacion practica, compacta y honesta sobre incertidumbre.
+
+Consequences:
+Las nuevas guias requieren mas criterio editorial y mantencion. Cuando una guia toque costos, plazos, derechos, obligaciones o excepciones, debe marcarse como referencial y apuntar a fuentes oficiales o profesionales cuando corresponda.
+
+Owner:
+Product / Content.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

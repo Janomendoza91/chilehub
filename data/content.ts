@@ -14,11 +14,13 @@ import type {
   ProcedureCard,
   ProcedureDetail
 } from "@/types/chilehub";
+import { expandedGuides, expandedProcedures } from "@/data/expanded-content";
 
 export const disclosureText =
   "Informacion referencial recopilada con IA para prepararte mejor. Los tramites no se realizan en ChileHub, no generamos cobros y la plataforma es gratuita.";
 
 export const procedures: ProcedureDetail[] = [
+  ...expandedProcedures,
   {
     slug: "renovar-licencia-conducir",
     title: "Renovar licencia de conducir",
@@ -1045,6 +1047,7 @@ export const procedures: ProcedureDetail[] = [
 ];
 
 export const guidesContent: GuideDetail[] = [
+  ...expandedGuides,
   {
     slug: "como-preparar-inicio-actividades-sii",
     title: "Como preparar inicio de actividades en SII",
@@ -1139,6 +1142,33 @@ export const guidesContent: GuideDetail[] = [
     updatedAt: "27 junio 2026",
     readingTime: "4 min",
     relatedProcedureSlug: "obtener-clave-unica",
+    keyTakeaways: [
+      "La ClaveUnica abre acceso a certificados, postulaciones y datos personales: no se comparte ni se dicta.",
+      "Antes de un proceso importante, prueba ingreso, correo, telefono y recuperacion de clave.",
+      "Si alguien debe ayudarte, que te guie mirando tu pantalla; no le entregues acceso."
+    ],
+    decisionCards: [
+      { label: "Riesgo principal", value: "Suplantacion", detail: "Quien entra con tu clave puede descargar documentos o iniciar gestiones en tu nombre." },
+      { label: "Tiempo a preparar", value: "5 a 15 min", detail: "Probar ingreso y actualizar datos es rapido si tienes acceso a correo o telefono." },
+      { label: "Bloqueo comun", value: "Correo antiguo", detail: "Si el correo o telefono no estan vigentes, recuperar acceso puede tomar mas tiempo." }
+    ],
+    fiveMinutePlan: [
+      "Entra al sitio oficial de ClaveUnica y prueba tu acceso.",
+      "Verifica correo, telefono y metodo de recuperacion.",
+      "Guarda la clave en un administrador o lugar seguro, no en chats.",
+      "Cierra sesiones abiertas si usaste un computador compartido."
+    ],
+    commonMistakes: [
+      "Mandar la clave por WhatsApp o correo.",
+      "Dejar que otra persona haga el tramite desde tu cuenta.",
+      "Esperar al ultimo dia de una postulacion para recuperar acceso.",
+      "Confundir ayuda guiada con entregar control de la cuenta."
+    ],
+    whenToGetHelp: [
+      "Perdiste acceso al correo o telefono asociado.",
+      "Sospechas que alguien uso tu cuenta sin permiso.",
+      "Necesitas recuperar acceso antes de una fecha limite."
+    ],
     sections: [
       {
         title: "Por que importa",
@@ -1176,6 +1206,33 @@ export const guidesContent: GuideDetail[] = [
     updatedAt: "27 junio 2026",
     readingTime: "6 min",
     relatedProcedureSlug: "ratificar-finiquito",
+    keyTakeaways: [
+      "No revises solo el total: mira causal, fechas, vacaciones, indemnizaciones, descuentos y forma de pago.",
+      "Firmar no siempre significa pago inmediato; confirma fecha, medio y copia valida.",
+      "Si no estas de acuerdo, identifica la diferencia antes de firmar y evalua reserva de derechos o asesoria."
+    ],
+    decisionCards: [
+      { label: "Monto a revisar", value: "Total y desglose", detail: "Sueldo pendiente, feriado, indemnizacion, bonos, descuentos y cotizaciones deben cuadrar." },
+      { label: "Tiempo minimo", value: "20 a 40 min", detail: "Revisa con contrato, liquidaciones, vacaciones y asistencia a mano." },
+      { label: "Bloqueo comun", value: "Descuento no entendido", detail: "Prestamos, anticipos, ausencias o cotizaciones pueden alterar el monto final." }
+    ],
+    fiveMinutePlan: [
+      "Marca causal, fecha de termino y fecha de pago.",
+      "Compara sueldo base, dias trabajados, vacaciones e indemnizaciones con tus registros.",
+      "Revisa descuentos uno por uno y pide explicacion si alguno no cuadra.",
+      "Antes de firmar, confirma copia, medio de pago y si necesitas dejar reserva."
+    ],
+    commonMistakes: [
+      "Firmar por presion sin llevarse copia.",
+      "Mirar solo el monto final y no el calculo.",
+      "No verificar vacaciones pendientes o cotizaciones.",
+      "Confundir ratificacion con dinero ya recibido."
+    ],
+    whenToGetHelp: [
+      "Hay despido discutido, fuero, licencia, accidente o deuda previsional.",
+      "El monto cambia mucho respecto de tus calculos.",
+      "Te piden firmar sin explicar causal, descuentos o pago."
+    ],
     sections: [
       {
         title: "No partas por la firma",
@@ -1213,6 +1270,33 @@ export const guidesContent: GuideDetail[] = [
     updatedAt: "27 junio 2026",
     readingTime: "5 min",
     relatedProcedureSlug: "registro-social-hogares",
+    keyTakeaways: [
+      "El RSH debe reflejar tu hogar real: integrantes, domicilio e ingresos inconsistentes pueden afectar beneficios.",
+      "No actualices el ultimo dia de una postulacion; algunas solicitudes requieren validacion.",
+      "Ten respaldos listos antes de cambiar datos: domicilio, ingresos, cuidado, estudios o salud."
+    ],
+    decisionCards: [
+      { label: "Dato critico", value: "Composicion del hogar", detail: "Quienes viven contigo impactan la clasificacion y postulaciones." },
+      { label: "Plazo realista", value: "Dias a semanas", detail: "Algunos cambios se procesan rapido, otros requieren revision municipal o respaldo." },
+      { label: "Bloqueo comun", value: "Respaldo faltante", detail: "Domicilio, ingresos o integrantes sin prueba pueden atrasar la actualizacion." }
+    ],
+    fiveMinutePlan: [
+      "Lista integrantes reales del hogar y revisa si todos corresponden.",
+      "Ordena respaldos de domicilio, ingresos, estudios, salud o dependencia.",
+      "Identifica que beneficio o postulacion usaras despues del RSH.",
+      "Actualiza con margen y guarda comprobante de solicitud."
+    ],
+    commonMistakes: [
+      "Actualizar sin documentos y quedar esperando validacion.",
+      "Olvidar cambios recientes de empleo, pension, domicilio o integrantes.",
+      "Postular a un beneficio antes de que el RSH refleje el cambio.",
+      "No guardar comprobante de la solicitud."
+    ],
+    whenToGetHelp: [
+      "Hay separacion, cuidado de menores, dependencia, discapacidad o cambio fuerte de ingresos.",
+      "La informacion del hogar aparece incorrecta y no puedes corregirla.",
+      "Tienes una postulacion con fecha limite cercana."
+    ],
     sections: [
       {
         title: "Composicion del hogar",

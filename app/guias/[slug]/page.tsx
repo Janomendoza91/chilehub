@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle2,
+  Clock3,
+  HelpCircle,
+  ListChecks,
+  Sparkles
+} from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
 import { getGuide, guidesContent } from "@/data/content";
 
@@ -32,7 +40,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
 
   return (
     <ProductShell>
-      <article className="mx-auto max-w-[900px] pb-10 pt-3">
+      <article className="mx-auto max-w-[980px] pb-10 pt-3">
         <Link href="/guias" className="text-[13px] font-bold text-primary">
           Volver a guias
         </Link>
@@ -50,38 +58,175 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           <ReferenceNotice />
         </div>
 
-        <div className="mt-6 grid gap-4">
+        {guide.keyTakeaways?.length ? (
+          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
+            <div className="flex items-center gap-2">
+              <span className="grid h-9 w-9 place-items-center rounded-[13px] bg-[#eef7ff] text-primary">
+                <Sparkles className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+                  En 30 segundos
+                </p>
+                <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                  Lo que no puedes pasar por alto
+                </h2>
+              </div>
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+              {guide.keyTakeaways.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[16px] border border-[#e7edf6] bg-[#fbfcff] p-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {guide.decisionCards?.length ? (
+          <section className="mt-4 grid gap-3 sm:grid-cols-3">
+            {guide.decisionCards.map((card) => (
+              <div
+                key={card.label}
+                className="rounded-[20px] border border-[#e3e9f4] bg-white p-4 shadow-[0_12px_28px_rgba(35,49,86,0.035)]"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#7b86a3]">
+                  {card.label}
+                </p>
+                <p className="mt-2 text-[17px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                  {card.value}
+                </p>
+                <p className="mt-2 text-[12.5px] font-medium leading-5 text-[#66718f]">
+                  {card.detail}
+                </p>
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        <div className="mt-5 grid gap-3">
           {guide.sections.map((section) => (
             <section
               key={section.title}
-              className="rounded-[24px] border border-[#e3e9f4] bg-white p-5 shadow-[0_14px_34px_rgba(35,49,86,0.04)]"
+              className="rounded-[22px] border border-[#e3e9f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5"
             >
-              <h2 className="text-[21px] font-extrabold tracking-[-0.03em] text-[#081642]">
-                {section.title}
-              </h2>
-              <p className="mt-3 text-[14px] font-medium leading-7 text-[#66718f]">
-                {section.body}
-              </p>
+              <div className="flex gap-3">
+                <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-[12px] bg-[#f7f9ff] text-primary">
+                  <Clock3 className="h-4 w-4" />
+                </span>
+                <div>
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] sm:text-[20px]">
+                    {section.title}
+                  </h2>
+                  <p className="mt-2 text-[13.5px] font-medium leading-7 text-[#66718f] sm:text-[14px]">
+                    {section.body}
+                  </p>
+                </div>
+              </div>
             </section>
           ))}
         </div>
 
-        <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-5">
-          <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
-            Checklist rapido
-          </h2>
-          <div className="mt-4 grid gap-2">
-            {guide.checklist.map((item) => (
-              <div
-                key={item}
-                className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold text-[#56617f]"
-              >
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
-                {item}
-              </div>
-            ))}
+        <div className="mt-5 grid gap-3 lg:grid-cols-[1.05fr_0.95fr]">
+          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 sm:p-5">
+            <div className="flex items-center gap-2">
+              <ListChecks className="h-5 w-5 text-primary" />
+              <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                Plan de 5 minutos
+              </h2>
+            </div>
+            <div className="mt-4 grid gap-2">
+              {(guide.fiveMinutePlan ?? guide.checklist).map((item, index) => (
+                <div
+                  key={item}
+                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                >
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-[11px] font-extrabold text-primary">
+                    {index + 1}
+                  </span>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 sm:p-5">
+            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+              Checklist rapido
+            </h2>
+            <div className="mt-4 grid gap-2">
+              {guide.checklist.map((item) => (
+                <div
+                  key={item}
+                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                >
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {(guide.commonMistakes?.length || guide.whenToGetHelp?.length) ? (
+          <div className="mt-5 grid gap-3 lg:grid-cols-2">
+            {guide.commonMistakes?.length ? (
+              <section className="rounded-[24px] border border-[#f2dfc7] bg-[#fffaf3] p-4 sm:p-5">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5 text-[#b46b14]" />
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                    Errores que cuestan tiempo
+                  </h2>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {guide.commonMistakes.map((item) => (
+                    <p
+                      key={item}
+                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#6f5b3b]"
+                    >
+                      {item}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {guide.whenToGetHelp?.length ? (
+              <section className="rounded-[24px] border border-[#dce9f7] bg-[#f7fbff] p-4 sm:p-5">
+                <div className="flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5 text-primary" />
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                    Cuando no basta una guia
+                  </h2>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {guide.whenToGetHelp.map((item) => (
+                    <p
+                      key={item}
+                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#52607f]"
+                    >
+                      {item}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            ) : null}
           </div>
-        </section>
+        ) : null}
+
+        {!guide.fiveMinutePlan ? null : (
+          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-5">
+            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+              Resultado esperado
+            </h2>
+            <p className="mt-3 text-[14px] font-medium leading-7 text-[#66718f]">
+              Al terminar esta guia deberias saber que dato falta, que fuente revisar y que accion externa corresponde. Si una condicion cambia por comuna, institucion o caso personal, confirmala antes de avanzar.
+            </p>
+          </section>
+        )}
 
         {guide.relatedProcedureSlug ? (
           <Link

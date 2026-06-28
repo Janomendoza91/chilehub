@@ -81,6 +81,7 @@
 - [x] Crear data local de procesos.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
+- [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.
 - [x] Crear pagina de calculadora.
 - [x] Crear busqueda frontend.
 - [x] Crear filtros.
