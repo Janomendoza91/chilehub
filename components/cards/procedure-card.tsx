@@ -1,33 +1,32 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ProcedureCard as ProcedureCardType } from "@/types/chilehub";
 import { Card } from "@/components/ui/card";
 
-const statusLabel = {
-  popular: "Popular",
-  new: "Nuevo",
-  fast: "Rapido"
+const iconTone = {
+  popular: "bg-[#eee7ff] text-[#7d4ce6]",
+  new: "bg-[#e9efff] text-primary",
+  fast: "bg-[#fff1df] text-[#f07b22]"
 };
 
 export function ProcedureCard({ item }: { item: ProcedureCardType }) {
   const Icon = item.icon;
 
   return (
-    <Card className="group p-4 transition-all hover:-translate-y-0.5 hover:shadow-air">
-      <div className="mb-5 flex items-start justify-between gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-primary">
-          <Icon className="h-5 w-5" />
+    <Card className="group min-h-[112px] p-2.5 shadow-[0_8px_24px_rgba(38,52,94,0.035)] transition-all hover:-translate-y-0.5 hover:shadow-air sm:min-h-[170px] sm:p-4 xl:min-h-[190px]">
+      <div className="mb-3 flex items-start justify-between gap-3 sm:mb-5">
+        <div className={`grid h-8 w-8 place-items-center rounded-[9px] sm:h-10 sm:w-10 ${iconTone[item.status]}`}>
+          <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
-        <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[11px] font-bold text-slate-500">
-          {statusLabel[item.status]}
-        </span>
       </div>
-      <h3 className="text-base font-bold tracking-tight">{item.title}</h3>
-      <p className="mt-2 min-h-[42px] text-sm leading-5 text-muted-foreground">
+      <h3 className="text-[11px] font-bold leading-[1.12] tracking-[-0.02em] text-[#081642] sm:text-[15px]">
+        {item.title}
+      </h3>
+      <p className="mt-1.5 hidden min-h-[32px] text-[10.5px] leading-4 text-[#6c7897] sm:block sm:text-[12px] sm:leading-5">
         {item.description}
       </p>
-      <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-        <span className="text-xs font-semibold text-slate-500">{item.meta}</span>
-        <ArrowUpRight className="h-4 w-4 text-slate-400 transition-colors group-hover:text-primary" />
+      <div className="mt-3 flex items-center gap-1 text-[10.5px] font-bold text-primary sm:mt-5 sm:text-[12px]">
+        <span>{item.meta}</span>
+        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
       </div>
     </Card>
   );

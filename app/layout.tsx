@@ -10,7 +10,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "ChileHub",
-  description: "La plataforma visual para completar tramites en Chile."
+  description:
+    "Claridad visual para preparar procesos importantes en Chile antes de avanzar."
 };
 
 export default function RootLayout({

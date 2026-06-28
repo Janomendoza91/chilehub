@@ -4,18 +4,18 @@
 
 :root {
   --background: 0 0% 100%;
-  --foreground: 222 47% 10%;
+  --foreground: 229 64% 13%;
   --card: 0 0% 100%;
   --card-foreground: 222 47% 10%;
-  --primary: 218 92% 55%;
+  --primary: 227 87% 56%;
   --primary-foreground: 0 0% 100%;
   --success: 151 72% 42%;
   --success-foreground: 0 0% 100%;
-  --muted: 216 33% 97%;
-  --muted-foreground: 220 9% 46%;
-  --border: 220 22% 92%;
-  --input: 220 22% 92%;
-  --ring: 218 92% 55%;
+  --muted: 222 45% 97%;
+  --muted-foreground: 226 25% 48%;
+  --border: 226 36% 91%;
+  --input: 226 36% 91%;
+  --ring: 227 87% 56%;
 }
 
 * {
@@ -40,10 +40,11 @@ body {
 
 @layer utilities {
   .container-page {
-    @apply mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1210px] px-5 sm:px-8 lg:px-7;
   }
 
   .glass-line {
     @apply border border-border/80 bg-white/90 shadow-air backdrop-blur-xl;
   }
+
 }

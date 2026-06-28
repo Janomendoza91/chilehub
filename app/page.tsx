@@ -6,7 +6,7 @@ import { MobileMockupsSection } from "@/components/sections/mobile-mockups-secti
 
 export default function Page() {
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+    <main className="min-h-screen overflow-hidden bg-[#fbfcff] text-foreground">
       <Header />
       <HeroSection />
       <HomePreviewSection />

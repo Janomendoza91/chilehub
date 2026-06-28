@@ -1,58 +1,60 @@
-import { Building2, CircleHelp, ShieldCheck, Sparkles } from "lucide-react";
-import { Logo } from "@/components/navigation/logo";
+import { BadgeCheck, HeartHandshake, MonitorSmartphone, ShieldCheck } from "lucide-react";
 
 const footerItems = [
   {
-    title: "Tramites",
-    text: "Procesos populares convertidos en pasos accionables.",
-    icon: Sparkles
+    title: "Fuentes oficiales",
+    text: "Información 100% actualizada desde sitios del gobierno.",
+    icon: ShieldCheck,
+    tone: "bg-[#eef0ff] text-primary"
   },
   {
-    title: "Documentos",
-    text: "Checklist simple para preparar todo antes de salir.",
-    icon: ShieldCheck
+    title: "Siempre contigo",
+    text: "Úsalo desde tu celular, tablet o computador.",
+    icon: MonitorSmartphone,
+    tone: "bg-[#eaf7ff] text-[#1597b6]"
   },
   {
-    title: "Instituciones",
-    text: "Municipalidades, Registro Civil, SII y servicios publicos.",
-    icon: Building2
+    title: "Gratis siempre",
+    text: "La mayoría de nuestras guías son gratuitas.",
+    icon: BadgeCheck,
+    tone: "bg-[#e9f8ef] text-[#20a660]"
   },
   {
-    title: "Ayuda",
-    text: "Guias claras para usuarios que quieren avanzar sin friccion.",
-    icon: CircleHelp
+    title: "Hecho en Chile",
+    text: "Pensado para los chilenos, por chilenos.",
+    icon: HeartHandshake,
+    tone: "bg-[#ffeaf0] text-[#e43d5a]"
   }
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-white py-16">
+    <footer className="bg-[#fbfcff] pb-12 pt-0">
       <div className="container-page">
-        <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
-          <div>
-            <Logo />
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted-foreground">
-              ChileHub acompana a las personas a completar tramites en Chile con
-              claridad, velocidad y una experiencia premium.
-            </p>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {footerItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.title}>
-                  <div className="mb-4 grid h-10 w-10 place-items-center rounded-2xl bg-slate-50 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-sm font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+            <div className="rounded-[22px] bg-white px-7 py-8 shadow-[0_18px_58px_rgba(35,49,86,0.055)]">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {footerItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.title} className="flex gap-4">
+                      <div
+                        className={`grid h-[50px] w-[50px] shrink-0 place-items-center rounded-[13px] ${item.tone}`}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-[14px] font-extrabold tracking-[-0.01em] text-[#081642]">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-[12px] font-medium leading-5 text-[#6f7a96]">
+                          {item.text}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
       </div>
     </footer>
   );

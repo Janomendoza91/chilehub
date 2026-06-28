@@ -1,16 +1,22 @@
 import {
   BadgeCheck,
-  Building2,
   Calculator,
   Car,
+  CalendarDays,
+  CircleEllipsis,
+  FileBadge,
   FileText,
+  HeartPulse,
   Home,
   IdCard,
-  Landmark,
+  Newspaper,
+  Plane,
+  Search,
+  ShieldCheck,
+  UsersRound,
   ReceiptText,
-  Ship,
-  Sparkles,
-  WalletCards
+  WalletCards,
+  BriefcaseBusiness
 } from "lucide-react";
 import type {
   CalculatorCard,
@@ -20,81 +26,120 @@ import type {
 
 export const popularProcedures: ProcedureCard[] = [
   {
-    title: "Renovar licencia",
-    description: "Requisitos, documentos y pasos para renovar sin errores.",
-    meta: "Municipalidad",
+    title: "Renovar licencia de conducir",
+    description: "Paso a paso, requisitos, costos y mas.",
+    meta: "Ver guia",
     status: "popular",
-    icon: BadgeCheck
+    icon: IdCard
   },
   {
-    title: "Comprar auto",
-    description: "Checklist completo antes de pagar y transferir.",
-    meta: "Registro Civil",
+    title: "Vender un auto",
+    description: "Paso a paso, requisitos, costos y mas.",
+    meta: "Ver guia",
     status: "fast",
     icon: Car
   },
   {
-    title: "Abrir empresa",
-    description: "Constitucion, inicio de actividades y permisos.",
-    meta: "SII",
+    title: "Sacar pasaporte",
+    description: "Paso a paso, requisitos, costos y mas.",
+    meta: "Ver guia",
     status: "new",
-    icon: Building2
+    icon: BadgeCheck
   },
   {
-    title: "Sacar pasaporte",
-    description: "Reserva, documentos y costos actualizados.",
-    meta: "Registro Civil",
+    title: "Permiso de circulacion",
+    description: "Paso a paso, requisitos, costos y mas.",
+    meta: "Ver guia",
     status: "popular",
-    icon: IdCard
+    icon: FileText
   }
 ];
 
 export const guides: GuideCard[] = [
   {
-    title: "Vender un auto usado",
-    label: "Guia paso a paso",
-    time: "12 min",
-    icon: WalletCards
+    title: "Como vender un auto en Chile?",
+    label: "Paso a paso para hacerlo rapido y seguro.",
+    time: "Popular",
+    icon: Car
   },
   {
-    title: "Comprar casa",
-    label: "Documentos clave",
-    time: "18 min",
+    title: "Que necesito para comprar una casa?",
+    label: "Guia completa para compradores.",
+    time: "Popular",
     icon: Home
   },
   {
-    title: "Importar desde China",
-    label: "Aduanas y costos",
-    time: "15 min",
-    icon: Ship
+    title: "Como abrir una empresa?",
+    label: "Guia completa paso a paso.",
+    time: "Nuevo",
+    icon: BriefcaseBusiness
+  },
+  {
+    title: "Que revisar antes de firmar?",
+    label: "Errores frecuentes y documentos clave.",
+    time: "Popular",
+    icon: FileBadge
+  },
+  {
+    title: "Como preparar un viaje?",
+    label: "Pasaporte, permisos y costos estimados.",
+    time: "Nuevo",
+    icon: Plane
+  },
+  {
+    title: "Documentos que suelen faltar",
+    label: "Checklist rapido antes de avanzar.",
+    time: "Popular",
+    icon: FileText
   }
 ];
 
 export const calculators: CalculatorCard[] = [
   {
-    title: "Permiso de circulacion",
-    value: "$146.200",
-    caption: "Estimado para sedan 2021",
+    title: "Calculadora de finiquito",
+    value: "",
+    caption: "",
     icon: Calculator
   },
   {
-    title: "Gastos notariales",
-    value: "$38.900",
-    caption: "Transferencia vehicular",
+    title: "Calculadora de horas extra",
+    value: "",
+    caption: "",
+    icon: CalendarDays
+  },
+  {
+    title: "Calculadora de IVA",
+    value: "",
+    caption: "",
     icon: ReceiptText
   },
   {
-    title: "Inicio de actividades",
-    value: "3 pasos",
-    caption: "Ruta recomendada",
+    title: "Calculadora de permiso de circulacion",
+    value: "",
+    caption: "",
     icon: FileText
   }
 ];
 
 export const sidebarItems = [
-  { label: "Inicio", icon: Sparkles, active: true },
-  { label: "Tramites", icon: Landmark },
-  { label: "Guias", icon: FileText },
+  { label: "Inicio", icon: Home, active: true },
+  { label: "Buscar", icon: Search },
+  { label: "Categorias", icon: UsersRound },
+  { label: "Mis tramites", icon: ShieldCheck },
+  { label: "Guardados", icon: HeartPulse },
   { label: "Calculadoras", icon: Calculator },
-  { label: "Documentos", icon: WalletCards }
+  { label: "Noticias utiles", icon: Newspaper },
+  { label: "Contacto", icon: CircleEllipsis }
+];
+
+export const heroCategories = [
+  { label: "Autos", count: "12 tramites", icon: Car, tone: "cyan" },
+  { label: "Vivienda", count: "18 tramites", icon: Home, tone: "orange" },
+  { label: "Familia", count: "15 tramites", icon: UsersRound, tone: "rose" },
+  { label: "Trabajo", count: "20 tramites", icon: BriefcaseBusiness, tone: "indigo" },
+  { label: "Impuestos", count: "15 tramites", icon: FileBadge, tone: "emerald" },
+  { label: "Viajes", count: "12 tramites", icon: Plane, tone: "blue" },
+  { label: "Documentos", count: "14 tramites", icon: FileText, tone: "indigo" },
+  { label: "Salud", count: "9 tramites", icon: HeartPulse, tone: "rose" },
+  { label: "Mas", count: "Ver todo", icon: CircleEllipsis, tone: "slate" }
 ];

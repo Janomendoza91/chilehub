@@ -5,19 +5,19 @@ export function GuideCard({ item }: { item: GuideCardType }) {
   const Icon = item.icon;
 
   return (
-    <Card className="flex items-center gap-4 p-4 transition-all hover:shadow-air">
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-50 text-primary">
-        <Icon className="h-5 w-5" />
+    <Card className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-[12px] border-[#e7ebf3] p-2.5 transition-all hover:shadow-air sm:gap-4 sm:p-3.5">
+      <div className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-[#eef7ff] text-[#1597b6] sm:h-9 sm:w-9">
+        <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
       </div>
-      <div className="min-w-0 flex-1">
-        <p className="text-xs font-semibold text-muted-foreground">
-          {item.label}
-        </p>
-        <h3 className="truncate text-sm font-bold tracking-tight">
+      <div className="min-w-0">
+        <h3 className="line-clamp-2 text-[11px] font-bold leading-tight tracking-[-0.01em] text-[#101a3f] sm:truncate sm:text-[13px]">
           {item.title}
         </h3>
+        <p className="mt-1 line-clamp-1 text-[9.5px] font-medium text-[#7c87a2] sm:truncate sm:text-[11.5px]">
+          {item.label}
+        </p>
       </div>
-      <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
+      <span className={`shrink-0 rounded-full px-2 py-1 text-[9.5px] font-bold leading-none sm:px-2.5 sm:text-[10px] ${item.time === "Nuevo" ? "bg-[#ffeaf0] text-[#e43d5a]" : "bg-[#e5f8ec] text-[#20a660]"}`}>
         {item.time}
       </span>
     </Card>

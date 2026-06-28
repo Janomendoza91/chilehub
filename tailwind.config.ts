@@ -34,9 +34,9 @@ const config: Config = {
         }
       },
       boxShadow: {
-        air: "0 24px 70px rgba(15, 23, 42, 0.08)",
+        air: "0 22px 60px rgba(33, 49, 92, 0.08)",
         line: "0 1px 0 rgba(15, 23, 42, 0.06)",
-        phone: "0 32px 80px rgba(15, 23, 42, 0.14)"
+        phone: "0 32px 80px rgba(23, 31, 55, 0.18)"
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "ui-sans-serif", "system-ui"]
