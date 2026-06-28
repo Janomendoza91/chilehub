@@ -130,6 +130,23 @@ ChileHub debe explicitar cuando:
 - Una regla puede cambiar por fecha o normativa.
 - El usuario debe confirmar informacion con una fuente oficial.
 
+## Enriquecimiento de tramites
+
+Cuando se amplie cobertura con muchos tramites a la vez, el contenido debe separarse en dos niveles:
+
+- Enriquecimiento referencial: mejora de claridad usando categoria, canal, documentos, costo estimado, plazo estimado, fuente primaria, errores comunes y variaciones conocidas.
+- Verificacion oficial individual: revision puntual de una ficha contra una pagina oficial o institucion especifica.
+
+Un tramite enriquecido referencialmente puede publicarse si:
+
+- Indica fuente institucional o canal responsable.
+- Marca costos y plazos como referenciales.
+- Explica variaciones por comuna, institucion, canal o caso personal.
+- No afirma requisitos exactos como definitivos si no fueron verificados uno a uno.
+- Mantiene fecha de revision y proxima revision mensual.
+
+Un tramite solo debe considerarse verificado cuando sus requisitos, costos, plazos y canal fueron revisados contra fuente oficial concreta y vigente.
+
 ## Comportamientos prohibidos
 
 - Presentar contenido no verificado como oficial.

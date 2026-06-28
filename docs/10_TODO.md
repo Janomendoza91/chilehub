@@ -79,6 +79,7 @@
 - [x] Agregar montos estimados y proxima revision mensual en fichas iniciales.
 - [ ] Crear rutina editorial mensual para revisar montos, plazos y fuentes.
 - [x] Crear data local de procesos.
+- [x] Ampliar cobertura inicial con 10 tramites adicionales por categoria principal.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
 - [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.

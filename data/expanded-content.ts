@@ -21,6 +21,223 @@ const minvu = { label: "MINVU", url: "https://www.minvu.gob.cl/" };
 const dt = { label: "Direccion del Trabajo", url: "https://www.dt.gob.cl/" };
 const municipalidades = { label: "Municipalidades", url: "https://www.gob.cl/municipalidades/" };
 
+function getDocumentDetail(document: string, seed: ProcedureSeed, index: number) {
+  const lowerDocument = document.toLowerCase();
+
+  if (lowerDocument.includes("cedula") || lowerDocument.includes("rut") || lowerDocument.includes("run")) {
+    return "Verifica que el dato de identidad este vigente, legible y coincida con los demas antecedentes.";
+  }
+
+  if (lowerDocument.includes("clave")) {
+    return "Prueba el acceso antes de iniciar. Si debes recuperar clave, hazlo con margen.";
+  }
+
+  if (lowerDocument.includes("contrato") || lowerDocument.includes("escritura") || lowerDocument.includes("estatuto")) {
+    return "Lee fechas, nombres, obligaciones, montos y firmas antes de usarlo como respaldo.";
+  }
+
+  if (lowerDocument.includes("comprobante") || lowerDocument.includes("folio") || lowerDocument.includes("pago")) {
+    return "Guarda respaldo digital y, si el proceso es presencial, lleva una copia accesible.";
+  }
+
+  if (lowerDocument.includes("certificado") || lowerDocument.includes("informe")) {
+    return "Confirma antiguedad maxima aceptada, finalidad y si debe venir en PDF verificable o impreso.";
+  }
+
+  if (index === 0) {
+    return `Documento base para iniciar o validar este proceso ante ${seed.channel}.`;
+  }
+
+  return "Puede ser solicitado segun canal, institucion, comuna o situacion personal.";
+}
+
+function indirectCostFor(category: string) {
+  const costs: Record<string, string> = {
+    Autos: "$0 a $80.000+",
+    Vivienda: "$10.000 a $500.000+",
+    Familia: "$0 a $300.000+",
+    Trabajo: "$0 a asesoria variable",
+    Impuestos: "$0 a gestion contable variable",
+    Viajes: "$0 a $250.000+",
+    Documentos: "$0 a $30.000+",
+    Salud: "$0 a copagos o informes variables",
+    Empresas: "$0 a $500.000+"
+  };
+
+  return costs[category] ?? "$0 a $20.000+";
+}
+
+function categoryBeforeYouStart(seed: ProcedureSeed, primarySource: ContentSource) {
+  const shared = [
+    `Confirma requisitos vigentes en ${primarySource.label} o en el canal responsable antes de avanzar.`,
+    `Canal donde normalmente continua: ${seed.channel}. Verifica si requiere agenda, cuenta, pago previo o atencion presencial.`,
+    `Costo referencial: ${seed.cost}. Plazo referencial: ${seed.duration}.`
+  ];
+
+  const extras: Record<string, string> = {
+    Autos: "Revisa patente, propietario, multas, vigencia de documentos y restricciones antes de pagar o firmar.",
+    Vivienda: "Separa costo visible, gastos indirectos, antecedentes legales y requisitos municipales o financieros.",
+    Familia: "Ordena certificados, acuerdos, ingresos, gastos y respaldos antes de explicar el caso.",
+    Trabajo: "Contrasta todo con contrato, anexos, liquidaciones, cotizaciones, asistencia y comunicaciones.",
+    Impuestos: "Ten respaldos de ingresos, compras, ventas, giro, domicilio y folios antes de declarar o modificar datos.",
+    Viajes: "El destino, las escalas y quienes viajan pueden cambiar documentos, vigencias, seguros, vacunas o visas.",
+    Documentos: "Pregunta nombre exacto, finalidad, antiguedad maxima y formato aceptado antes de solicitarlo.",
+    Salud: "Guarda diagnosticos, ordenes, boletas, resoluciones y comprobantes de recepcion con fecha.",
+    Empresas: "Constituir o iniciar actividad no reemplaza permisos, patente, facturacion, banco ni obligaciones mensuales."
+  };
+
+  return [
+    ...shared,
+    extras[seed.category] ?? "Si tu caso tiene excepciones, valida con la institucion o un profesional.",
+    seed.warning ?? "Si aparecen datos inconsistentes, deudas, plazos vencidos o excepciones, detente y confirma el caso."
+  ];
+}
+
+function categoryQuestions(seed: ProcedureSeed) {
+  const questions: Record<string, string[]> = {
+    Autos: [
+      "La patente y propietario coinciden con el proceso que quiero hacer?",
+      "Hay multas, prendas, TAG, revision tecnica, SOAP o permiso pendientes?",
+      "Quien paga certificados, regularizaciones o transferencia?"
+    ],
+    Vivienda: [
+      "Estoy revisando compra, arriendo, subsidio, regularizacion o pago recurrente?",
+      "Que costo no visible podria aparecer: garantia, banco, notaria, CBR, municipio o reparaciones?",
+      "Existe deuda, gravamen, plazo de postulacion o requisito comunal?"
+    ],
+    Familia: [
+      "El objetivo requiere Registro Civil, notaria, mediacion, tribunal o entidad de beneficios?",
+      "Tengo certificados y respaldos de gastos, ingresos, domicilio o cuidado?",
+      "Hay menores, conflicto, violencia, salud o urgencia que cambie el canal?"
+    ],
+    Trabajo: [
+      "Que documento estoy revisando: contrato, anexo, liquidacion, finiquito, licencia o reclamo?",
+      "Las fechas, montos, descuentos y cotizaciones coinciden con mis registros?",
+      "Existe plazo legal, presion para firmar o deuda previsional?"
+    ],
+    Impuestos: [
+      "La actividad, giro, domicilio y documentos tributarios representan lo que hago realmente?",
+      "Los montos declarados tienen respaldo de boletas, facturas, contratos o pagos?",
+      "Este caso requiere contador por empresa, IVA, renta, rectificatoria o inversiones?"
+    ],
+    Viajes: [
+      "El destino exige visa, vigencia minima, seguro, vacunas o documentos adicionales?",
+      "Viajan menores, mascotas o documentos que deban apostillarse?",
+      "Tengo margen suficiente antes de comprar pasajes o asistir a la cita?"
+    ],
+    Documentos: [
+      "Cual es el nombre exacto del documento que me pidieron?",
+      "Que antiguedad y formato aceptan: digital, impreso, apostillado o notarial?",
+      "Los datos personales coinciden en todos los documentos?"
+    ],
+    Salud: [
+      "Quien responde en este caso: Fonasa, Isapre, COMPIN, prestador, empleador o Superintendencia?",
+      "Tengo plazo vigente para licencia, apelacion, reembolso o reclamo?",
+      "Guarde copia de diagnosticos, boletas, resoluciones y comprobantes?"
+    ],
+    Empresas: [
+      "La empresa ya puede operar o solo esta constituida?",
+      "Estan claros giro, domicilio, representante, permisos, patente y facturacion?",
+      "Tengo obligaciones mensuales identificadas: impuestos, cotizaciones, contabilidad o banco?"
+    ]
+  };
+
+  return [
+    ...(questions[seed.category] ?? []),
+    "Donde reviso estado, observaciones o correcciones despues de iniciar?"
+  ];
+}
+
+function categorySteps(seed: ProcedureSeed, primarySource: ContentSource) {
+  const firstStep: Record<string, string> = {
+    Autos: "Anota patente, propietario, documentos vigentes y estado del vehiculo antes de pagar o asistir.",
+    Vivienda: "Define si el proceso es compra, arriendo, subsidio, regularizacion o pago, porque cada ruta pide respaldos distintos.",
+    Familia: "Ordena objetivo, personas involucradas, certificados y respaldos antes de elegir canal.",
+    Trabajo: "Reune contrato, anexos, liquidaciones, cotizaciones y comunicaciones antes de firmar o reclamar.",
+    Impuestos: "Ordena giro, domicilio, ingresos, compras, ventas, folios y claves antes de declarar o modificar.",
+    Viajes: "Confirma destino, fechas, viajeros, documentos y vigencias antes de comprar o reservar.",
+    Documentos: "Confirma nombre exacto, finalidad, antiguedad maxima y formato aceptado del documento.",
+    Salud: "Identifica entidad responsable y reune ordenes, diagnosticos, boletas, licencias o resoluciones.",
+    Empresas: "Define estado real de la empresa: idea, constitucion, inicio tributario, operacion o cierre."
+  };
+
+  return [
+    firstStep[seed.category] ?? "Confirma requisitos y canal vigente.",
+    `Prepara: ${seed.documents.slice(0, 3).join(", ")}.`,
+    `Valida costo, plazo y requisitos actualizados en ${primarySource.label} o directamente en ${seed.channel}.`,
+    "Inicia el proceso solo por el canal oficial o externo correspondiente y guarda folio, comprobante o correo.",
+    "Revisa estado y corrige observaciones antes de asumir que el proceso quedo cerrado."
+  ];
+}
+
+function categoryMistakes(category: string) {
+  const mistakes: Record<string, string[]> = {
+    Autos: ["No revisar multas, limitaciones o propietario antes de comprar o transferir.", "Entregar el vehiculo sin pago confirmado o sin comprobante."],
+    Vivienda: ["Firmar sin entender deudas, gravamenes, reajustes, gastos comunes o multas.", "Calcular solo el precio principal y olvidar costos notariales, municipales o bancarios."],
+    Familia: ["Llegar solo con relato y sin certificados o respaldos.", "Usar acuerdo verbal cuando el caso requiere formalizacion."],
+    Trabajo: ["Firmar anexo o finiquito sin revisar desglose.", "No guardar liquidaciones, mensajes, asistencia o comprobantes."],
+    Impuestos: ["Declarar sin respaldo o con giro/domicilio incorrecto.", "Confundir tramite SII con permiso suficiente para operar."],
+    Viajes: ["Revisar tarde vigencia, autorizaciones, visa, vacunas o requisitos del destino.", "Comprar pasajes antes de confirmar documentos criticos."],
+    Documentos: ["Descargar un certificado parecido, pero no el solicitado.", "No revisar fecha de emision, finalidad o formato aceptado."],
+    Salud: ["Dejar vencer plazos de licencia, apelacion, reembolso o reclamo.", "No guardar resolucion, comprobante de recepcion o boleta."],
+    Empresas: ["Constituir sin acordar socios, administracion, capital o salida.", "Operar sin revisar SII, patente, permisos, facturacion o obligaciones laborales."]
+  };
+
+  return [
+    ...(mistakes[category] ?? []),
+    "Confiar en requisitos antiguos o comentarios de terceros.",
+    "No guardar folio, comprobante o respaldo de envio."
+  ];
+}
+
+function categoryRedFlags(category: string) {
+  const redFlags: Record<string, string[]> = {
+    Autos: ["Aparece prenda, embargo, leasing, deuda grande o propietario distinto.", "Te piden pagar por fuera sin comprobante verificable."],
+    Vivienda: ["Hay deuda, prohibicion, litigio, promesa apurada o clausula que no entiendes.", "El vendedor, corredor o arrendador evita entregar antecedentes."],
+    Familia: ["Hay violencia, amenazas, menores, salud o incumplimiento grave.", "Te presionan a firmar acuerdos sin entender efectos."],
+    Trabajo: ["Te piden firmar sin copia, sin desglose o sin fecha de pago clara.", "Hay fuero, accidente, acoso, cotizaciones impagas o despido discutido."],
+    Impuestos: ["Hay diferencias con SII, observaciones, multas o rectificatorias.", "No puedes respaldar ingresos, compras, ventas o domicilio."],
+    Viajes: ["El viaje depende de visa, menor, mascota, urgencia medica o documento internacional.", "No hay citas disponibles antes de la fecha de viaje."],
+    Documentos: ["El documento se usara fuera de Chile, ante tribunal o para una operacion de alto monto.", "Los datos personales no coinciden."],
+    Salud: ["Existe rechazo de licencia, negativa de cobertura, deuda alta o urgencia medica.", "No sabes que entidad debe responder."],
+    Empresas: ["Hay socios, inversionistas, trabajadores, deuda, permisos sanitarios o rubro regulado.", "Se empieza a vender sin facturacion, patente o permiso requerido."]
+  };
+
+  return redFlags[category] ?? [
+    "Te piden pagar fuera del canal informado.",
+    "No puedes identificar fuente oficial o responsable del proceso."
+  ];
+}
+
+function categoryVariations(category: string) {
+  const variations: Record<string, string[]> = {
+    Autos: ["Los valores y requisitos pueden cambiar por municipalidad, planta, Registro Civil o estado del vehiculo.", "Vehiculos con deuda, prenda, leasing, herencia o importacion requieren revision especial."],
+    Vivienda: ["Los requisitos cambian por comuna, banco, Conservador, subsidio, tipo de propiedad y contrato.", "Subsidios dependen de llamados, tramo, ahorro, region y condiciones vigentes."],
+    Familia: ["Menores, representantes, extranjeros, herencias y conflictos familiares pueden requerir documentos extra.", "Mediacion, notaria, Registro Civil y tribunal no resuelven lo mismo."],
+    Trabajo: ["El contrato, causal, jornada, fuero, licencia o tipo de empleador pueden cambiar la ruta.", "Trabajadores independientes, casa particular o sector publico pueden tener reglas distintas."],
+    Impuestos: ["Persona natural, empresa, regimen tributario, IVA, giro y volumen de operaciones cambian obligaciones.", "Fechas de declaracion y porcentajes pueden cambiar por calendario tributario."],
+    Viajes: ["Cada pais, aerolinea, escala y tipo de viajero puede exigir documentos distintos.", "Menores, mascotas, estudios, trabajo o residencia requieren preparacion adicional."],
+    Documentos: ["La institucion solicitante define finalidad, vigencia y formato aceptado.", "Uso internacional puede requerir apostilla, traduccion o legalizacion."],
+    Salud: ["Fonasa, Isapre, COMPIN, prestador, empleador y Superintendencia tienen circuitos distintos.", "Tramo, plan, diagnostico, edad, cargas y plazos pueden cambiar cobertura o pago."],
+    Empresas: ["Tipo societario, giro, comuna, rubro, trabajadores y permisos sectoriales cambian obligaciones.", "Alimentos, salud, educacion, transporte y construccion suelen exigir permisos especiales."]
+  };
+
+  return variations[category] ?? [
+    "Los requisitos pueden cambiar por comuna, region o institucion.",
+    "Personas extranjeras, menores de edad o representantes pueden necesitar documentos extra."
+  ];
+}
+
+function categoryWhatToAsk(seed: ProcedureSeed) {
+  return [
+    `Cual es el requisito vigente para ${seed.title.toLowerCase()} en mi caso?`,
+    `El costo actual coincide con este rango referencial: ${seed.cost}?`,
+    `El plazo realista para mi canal es ${seed.duration} o debo considerar espera adicional?`,
+    "Que documento se rechaza con mas frecuencia y por que?",
+    "Donde reviso estado, folio, observaciones o correcciones?"
+  ];
+}
+
 function makeProcedure(seed: ProcedureSeed): ProcedureDetail {
   const primarySource = seed.sources[0] ?? chileAtiende;
 
@@ -37,70 +254,33 @@ function makeProcedure(seed: ProcedureSeed): ProcedureDetail {
     preparationScore: seed.score ?? 70,
     documents: seed.documents.map((document, index) => ({
       title: document,
-      detail:
-        index === 0
-          ? "Documento base para iniciar o validar el proceso."
-          : "Puede ser solicitado segun canal, institucion o situacion personal.",
+      detail: getDocumentDetail(document, seed, index),
       required: index < 2
     })),
-    beforeYouStart: [
-      `Confirma requisitos vigentes en ${primarySource.label} antes de avanzar.`,
-      "Revisa costo, plazo y documentos el mismo dia si tienes una fecha limite.",
-      "Guarda comprobantes, folios, correos y capturas de pantalla del proceso.",
-      seed.warning ?? "Si tu caso tiene excepciones, valida con la institucion o un profesional."
-    ],
-    keyQuestions: [
-      "Estoy usando el canal correcto para mi caso?",
-      "Tengo los documentos vigentes y legibles?",
-      "El costo estimado considera pagos externos o solo el tramite base?",
-      "Que pasa si falta un documento o existe una observacion?"
-    ],
+    beforeYouStart: categoryBeforeYouStart(seed, primarySource),
+    keyQuestions: categoryQuestions(seed),
     estimatedCosts: [
       {
         label: "Costo estimado",
         amount: seed.cost,
-        detail: "Rango referencial. Puede cambiar por comuna, institucion, canal, fecha o situacion personal."
+        detail: `Rango referencial para prepararte. Confirma valor vigente en ${primarySource.label} o directamente en ${seed.channel}.`
       },
       {
         label: "Tiempo estimado",
         amount: seed.duration,
-        detail: "Considera preparacion, espera, validacion y eventual correccion de antecedentes."
+        detail: "Incluye preparacion, espera, validacion, observaciones y eventual correccion de antecedentes."
       },
       {
         label: "Costos indirectos",
-        amount: "$0 a $20.000+",
-        detail: "Impresiones, certificados, traslados, notariales o asesorias pueden sumar costo."
+        amount: indirectCostFor(seed.category),
+        detail: "Puede incluir certificados, copias, traslados, notariales, permisos, copagos, software o asesoria segun caso."
       }
     ],
-    steps: [
-      "Confirma requisitos y canal vigente.",
-      "Prepara documentos, datos personales y medio de pago si aplica.",
-      "Inicia la solicitud en el canal oficial o externo correspondiente.",
-      "Guarda comprobante y revisa estado hasta cerrar el proceso."
-    ],
-    commonMistakes: [
-      "Confiar en requisitos antiguos o comentarios de terceros.",
-      "No revisar si el documento debe estar vigente o emitido recientemente.",
-      "No guardar folio, comprobante o respaldo de envio.",
-      "Esperar al ultimo dia cuando existe validacion posterior."
-    ],
-    redFlags: [
-      "Te piden pagar fuera del canal informado.",
-      "No puedes identificar fuente oficial o responsable del proceso.",
-      "Hay datos personales incorrectos.",
-      "El plazo vence pronto y falta validacion."
-    ],
-    variations: [
-      "Los requisitos pueden cambiar por comuna, region o institucion.",
-      "Personas extranjeras, menores de edad o representantes pueden necesitar documentos extra.",
-      "Procesos online pueden pedir validacion presencial en casos puntuales."
-    ],
-    whatToAsk: [
-      "Cual es el requisito exacto para mi caso?",
-      "Que documentos aceptan como respaldo?",
-      "Cual es el costo vigente y medio de pago?",
-      "Donde reviso estado o hago correcciones?"
-    ],
+    steps: categorySteps(seed, primarySource),
+    commonMistakes: categoryMistakes(seed.category),
+    redFlags: categoryRedFlags(seed.category),
+    variations: categoryVariations(seed.category),
+    whatToAsk: categoryWhatToAsk(seed),
     externalAction: {
       label: `Continuar en ${primarySource.label}`,
       url: primarySource.url
@@ -202,7 +382,7 @@ const procedureSeeds: ProcedureSeed[] = [
   { slug: "solicitar-ges", title: "Activar garantia GES/AUGE", category: "Salud", summary: "Ordena diagnostico, derivacion y plazos cuando una patologia puede estar cubierta.", cost: "Copago variable segun tramo/plan.", duration: "Segun garantia y prestador.", channel: "Fonasa, Isapre o prestador", documents: ["Diagnostico", "Derivacion", "Cedula"], sources: [chileAtiende] },
   { slug: "reembolso-isapre", title: "Solicitar reembolso Isapre", category: "Salud", summary: "Prepara boletas, ordenes y bonos antes de pedir reembolso.", cost: "$0 directo; reembolso variable.", duration: "Dias a semanas.", channel: "Isapre", documents: ["Boleta", "Orden medica", "Datos bancarios"], sources: [chileAtiende] },
   { slug: "agendar-hora-consultorio", title: "Agendar hora en consultorio", category: "Salud", summary: "Revisa inscripcion, sector, disponibilidad y documentos antes de pedir atencion primaria.", cost: "$0 directo.", duration: "Minutos a semanas segun disponibilidad.", channel: "CESFAM o municipio", documents: ["Cedula", "Comprobante domicilio", "Carnet salud si aplica"], sources: [municipalidades, chileAtiende] },
-  { slug: "inscribirse-cesfam", title: "Inscribirse en CESFAM", category: "Salud", summary: "Prepara domicilio, identidad y previsión para atenderte en salud primaria.", cost: "$0", duration: "Minutos a dias.", channel: "CESFAM municipal", documents: ["Cedula", "Comprobante domicilio", "Fonasa/Isapre"], sources: [municipalidades, chileAtiende] },
+  { slug: "inscribirse-cesfam", title: "Inscribirse en CESFAM", category: "Salud", summary: "Prepara domicilio, identidad y prevision para atenderte en salud primaria.", cost: "$0", duration: "Minutos a dias.", channel: "CESFAM municipal", documents: ["Cedula", "Comprobante domicilio", "Fonasa/Isapre"], sources: [municipalidades, chileAtiende] },
   { slug: "solicitar-certificado-vacunas", title: "Certificado de vacunas", category: "Salud", summary: "Obtiene respaldo de vacunas para colegio, trabajo o viaje.", cost: "$0 a $5.000 aprox.", duration: "Minutos a dias.", channel: "MINSAL, vacunatorio o ChileAtiende", documents: ["RUN", "Carnet vacunas", "Finalidad"], sources: [chileAtiende] },
   { slug: "reclamo-superintendencia-salud", title: "Reclamar ante Superintendencia de Salud", category: "Salud", summary: "Prepara antecedentes para reclamar por Fonasa, Isapre o prestadores.", cost: "$0", duration: "Dias a semanas.", channel: "Superintendencia de Salud", documents: ["Cedula", "Resolucion o respuesta", "Comprobantes"], sources: [chileAtiende] }
 ,
@@ -222,8 +402,118 @@ const procedureSeeds: ProcedureSeed[] = [
   { slug: "obtener-resolucion-sanitaria", title: "Obtener resolucion sanitaria", category: "Empresas", summary: "Prepara local, planos, giro y antecedentes antes de operar rubros de alimentos o salud.", cost: "$50.000 a $500.000+ aprox.", duration: "Semanas a meses.", channel: "SEREMI de Salud", documents: ["Inicio actividades", "Plano/local", "Antecedentes sanitarios"], sources: [chileAtiende] }
 ];
 
+const additionalProcedureSeeds: ProcedureSeed[] = [
+  // Autos
+  { slug: "levantar-prenda-vehiculo", title: "Levantar prenda de un vehiculo", category: "Autos", summary: "Prepara certificados y autorizaciones para eliminar una limitacion por financiamiento pagado.", cost: "$10.000 a $60.000+ aprox.", duration: "Dias a semanas segun acreedor y registro.", channel: "Entidad financiera y Registro Civil", documents: ["Certificado de alzamiento", "Padron", "Cedula"], sources: [registroCivil, chileAtiende] },
+  { slug: "cambiar-color-vehiculo", title: "Actualizar color de vehiculo", category: "Autos", summary: "Ordena documentos para modificar datos registrales despues de pintar o alterar el vehiculo.", cost: "$5.000 a $30.000 aprox.", duration: "1 hora a varios dias.", channel: "Registro Civil o canal autorizado", documents: ["Padron", "Cedula", "Declaracion o respaldo del cambio"], sources: [registroCivil, chileAtiende] },
+  { slug: "regularizar-motor-vehiculo", title: "Regularizar cambio de motor", category: "Autos", summary: "Prepara factura, numero de motor y antecedentes para actualizar el registro del vehiculo.", cost: "$20.000 a $120.000+ aprox.", duration: "Dias a semanas.", channel: "Registro Civil y revision tecnica", documents: ["Factura motor", "Padron", "Certificado tecnico si aplica"], sources: [registroCivil, chileAtiende] },
+  { slug: "pedir-certificado-multas-no-pagadas", title: "Certificado de multas no pagadas", category: "Autos", summary: "Revisa multas asociadas al vehiculo antes de comprar, vender o renovar permiso.", cost: "$1.000 a $3.000 aprox.", duration: "Inmediato online si esta disponible.", channel: "Registro Civil o municipalidad", documents: ["Patente", "Medio de pago", "Correo"], sources: [registroCivil, municipalidades] },
+  { slug: "apelar-parte-transito", title: "Apelar o revisar un parte de transito", category: "Autos", summary: "Ordena citacion, pruebas y plazos antes de responder ante el juzgado correspondiente.", cost: "Variable segun multa y gestion.", duration: "Dias a semanas.", channel: "Juzgado de Policia Local", documents: ["Parte o citacion", "Cedula", "Pruebas o descargos"], sources: [municipalidades, chileAtiende] },
+  { slug: "pagar-permiso-fuera-plazo", title: "Pagar permiso de circulacion atrasado", category: "Autos", summary: "Prepara multas, intereses, revision tecnica y SOAP antes de regularizar el permiso.", cost: "Permiso + multas/intereses variables.", duration: "30 minutos a varios dias.", channel: "Municipalidad", documents: ["Patente", "Revision tecnica", "SOAP"], sources: [municipalidades, chileAtiende] },
+  { slug: "trasladar-permiso-circulacion", title: "Trasladar permiso de circulacion a otra comuna", category: "Autos", summary: "Revisa requisitos municipales para pagar el permiso en una comuna distinta.", cost: "$0 a costo del permiso.", duration: "Minutos a dias segun comuna.", channel: "Municipalidad", documents: ["Padron", "Permiso anterior", "Revision tecnica"], sources: [municipalidades] },
+  { slug: "obtener-certificado-homologacion", title: "Obtener certificado de homologacion", category: "Autos", summary: "Prepara antecedentes de vehiculo nuevo o importado cuando te pidan homologacion.", cost: "$0 a $30.000+ aprox.", duration: "Dias segun emisor.", channel: "Concesionario, importador o entidad tecnica", documents: ["Factura", "Datos vehiculo", "VIN"], sources: [chileAtiende] },
+  { slug: "cancelar-inscripcion-vehiculo", title: "Cancelar inscripcion de vehiculo", category: "Autos", summary: "Prepara documentos para dar de baja un vehiculo por destruccion, exportacion u otro caso.", cost: "$0 a $20.000 aprox.", duration: "Dias a semanas.", channel: "Registro Civil", documents: ["Padron", "Cedula", "Antecedente que justifica baja"], sources: [registroCivil, chileAtiende] },
+  { slug: "solicitar-placas-patentes", title: "Solicitar reposicion de placas patentes", category: "Autos", summary: "Ordena denuncia, documentos y requisitos para reponer placas perdidas o danadas.", cost: "$10.000 a $60.000 aprox.", duration: "Dias a semanas.", channel: "Registro Civil", documents: ["Cedula", "Padron", "Denuncia o declaracion"], sources: [registroCivil, chileAtiende] },
+
+  // Vivienda
+  { slug: "solicitar-certificado-avaluo-fiscal", title: "Certificado de avaluo fiscal", category: "Vivienda", summary: "Prepara rol y comuna para revisar avaluo usado en contribuciones y antecedentes de propiedad.", cost: "$0 a $2.000 aprox.", duration: "Inmediato online si esta disponible.", channel: "SII", documents: ["Rol de propiedad", "Comuna", "Clave si aplica"], sources: [sii] },
+  { slug: "pedir-certificado-deuda-contribuciones", title: "Certificado de deuda de contribuciones", category: "Vivienda", summary: "Revisa si una propiedad registra deudas antes de comprar, vender o regularizar.", cost: "$0 a $5.000 aprox.", duration: "Minutos a dias.", channel: "Tesoreria o SII", documents: ["Rol", "Comuna", "Medio de pago si aplica"], sources: [chileAtiende, sii] },
+  { slug: "inscribir-compraventa-cbr", title: "Inscribir compraventa en Conservador", category: "Vivienda", summary: "Prepara escritura, impuestos y antecedentes para inscribir una compraventa de inmueble.", cost: "$50.000 a $500.000+ aprox.", duration: "Dias a semanas.", channel: "Conservador de Bienes Raices", documents: ["Escritura", "Certificados", "Comprobante de pago"], sources: [chileAtiende] },
+  { slug: "solicitar-copia-escritura", title: "Solicitar copia de escritura", category: "Vivienda", summary: "Ordena datos de notaria, fecha y partes para obtener una copia de escritura.", cost: "$5.000 a $50.000+ aprox.", duration: "Horas a dias.", channel: "Notaria o archivo judicial", documents: ["Datos de escritura", "Cedula", "Medio de pago"], sources: [chileAtiende] },
+  { slug: "regularizar-posesion-propiedad", title: "Regularizar posesion de propiedad", category: "Vivienda", summary: "Prepara antecedentes de ocupacion, dominio y vecinos antes de iniciar una regularizacion.", cost: "$0 a $500.000+ segun asesoria.", duration: "Meses.", channel: "Ministerio de Bienes Nacionales o profesional", documents: ["Antecedentes de posesion", "Plano o croquis", "Cedula"], sources: [chileAtiende] },
+  { slug: "solicitar-permiso-edificacion", title: "Solicitar permiso de edificacion", category: "Vivienda", summary: "Ordena planos, propiedad y antecedentes tecnicos antes de construir o ampliar.", cost: "Variable segun obra y comuna.", duration: "Semanas a meses.", channel: "Direccion de Obras Municipales", documents: ["Planos", "Dominio", "Antecedentes tecnicos"], sources: [municipalidades] },
+  { slug: "obtener-recepcion-final", title: "Obtener recepcion final de obra", category: "Vivienda", summary: "Prepara certificados y antecedentes municipales para cerrar una construccion regular.", cost: "Variable segun comuna y obra.", duration: "Semanas a meses.", channel: "Direccion de Obras Municipales", documents: ["Permiso", "Planos", "Certificados tecnicos"], sources: [municipalidades] },
+  { slug: "cambiar-destino-propiedad", title: "Cambiar destino de una propiedad", category: "Vivienda", summary: "Revisa si una vivienda puede cambiar a oficina, local u otro uso segun normativa municipal.", cost: "$20.000 a $300.000+ aprox.", duration: "Semanas a meses.", channel: "Municipalidad", documents: ["Dominio", "Plano", "Solicitud municipal"], sources: [municipalidades] },
+  { slug: "solicitar-subsidio-ds19", title: "Revisar acceso a subsidio DS19", category: "Vivienda", summary: "Prepara ahorro, preaprobacion y requisitos antes de evaluar proyectos con integracion social.", cost: "Ahorro y pie variable.", duration: "Dias a meses segun proyecto.", channel: "MINVU e inmobiliaria", documents: ["RSH", "Ahorro", "Preaprobacion si aplica"], sources: [minvu, chileAtiende] },
+  { slug: "denunciar-problemas-arriendo", title: "Preparar reclamo por problemas de arriendo", category: "Vivienda", summary: "Ordena contrato, pagos, comunicaciones y evidencias antes de reclamar o negociar.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "Partes, mediacion o tribunal", documents: ["Contrato", "Comprobantes", "Evidencias"], sources: [chileAtiende] },
+
+  // Familia
+  { slug: "solicitar-pension-alimentos", title: "Solicitar pension de alimentos", category: "Familia", summary: "Prepara ingresos, gastos y certificados antes de mediacion o tribunal de familia.", cost: "$0 a asesoria variable.", duration: "Semanas a meses.", channel: "Mediacion o tribunal de familia", documents: ["Certificado nacimiento", "Gastos del menor", "Ingresos"], sources: [chileAtiende] },
+  { slug: "pedir-retencion-pension-alimentos", title: "Pedir retencion por deuda de alimentos", category: "Familia", summary: "Ordena liquidacion de deuda y antecedentes antes de solicitar medidas de cobro.", cost: "$0 a asesoria variable.", duration: "Dias a meses.", channel: "Tribunal de familia", documents: ["Liquidacion deuda", "Datos del deudor", "Resolucion"], sources: [chileAtiende] },
+  { slug: "solicitar-divorcio-comun-acuerdo", title: "Preparar divorcio de comun acuerdo", category: "Familia", summary: "Revisa acuerdos, cese de convivencia y documentos antes de iniciar divorcio.", cost: "$0 a honorarios variables.", duration: "Semanas a meses.", channel: "Tribunal de familia o abogado", documents: ["Certificado matrimonio", "Acuerdo completo", "Cese convivencia"], sources: [chileAtiende] },
+  { slug: "inscribir-defuncion", title: "Inscribir defuncion", category: "Familia", summary: "Prepara certificado medico y antecedentes para registrar una defuncion.", cost: "$0 directo.", duration: "Horas a dias.", channel: "Registro Civil", documents: ["Certificado medico", "Cedula fallecido", "Datos solicitante"], sources: [registroCivil, chileAtiende] },
+  { slug: "solicitar-certificado-nacimiento-hijos", title: "Certificado de nacimiento para asignacion familiar", category: "Familia", summary: "Obtiene certificados necesarios para cargas, beneficios o postulaciones familiares.", cost: "$0 a $1.500 aprox.", duration: "Inmediato online si esta disponible.", channel: "Registro Civil", documents: ["RUN", "ClaveUnica si aplica", "Finalidad"], sources: [registroCivil, chileAtiende] },
+  { slug: "autorizar-salida-menor-tribunal", title: "Autorizacion judicial de salida de menor", category: "Familia", summary: "Prepara antecedentes cuando falta autorizacion de uno de los padres para viajar.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "Tribunal de familia", documents: ["Certificado nacimiento", "Itinerario", "Antecedentes del viaje"], sources: [chileAtiende] },
+  { slug: "solicitar-adopcion", title: "Preparar postulacion a adopcion", category: "Familia", summary: "Ordena antecedentes personales, familiares y evaluaciones antes de iniciar el proceso.", cost: "$0 a costos documentales variables.", duration: "Meses a anos.", channel: "Mejor Ninez o entidades acreditadas", documents: ["Cedula", "Antecedentes familiares", "Informes requeridos"], sources: [chileAtiende] },
+  { slug: "actualizar-carga-familiar", title: "Actualizar carga familiar", category: "Familia", summary: "Prepara certificados y acreditaciones para incorporar o modificar cargas.", cost: "$0 directo.", duration: "Dias a semanas.", channel: "Caja, IPS o empleador", documents: ["Certificado nacimiento", "Cedula", "Antecedente de carga"], sources: [chileAtiende] },
+  { slug: "solicitar-bono-proteccion", title: "Revisar Bono de Proteccion", category: "Familia", summary: "Confirma requisitos familiares y programa asociado antes de revisar acceso al beneficio.", cost: "$0", duration: "Consulta en minutos; pago segun programa.", channel: "ChileAtiende o Ministerio Desarrollo Social", documents: ["RUN", "RSH", "Antecedentes programa"], sources: [chileAtiende] },
+  { slug: "pedir-medida-proteccion-familiar", title: "Preparar solicitud de medida de proteccion", category: "Familia", summary: "Ordena antecedentes urgentes cuando hay riesgo, vulneracion o necesidad de proteccion.", cost: "$0 directo.", duration: "Urgente a variable.", channel: "Tribunal de familia o institucion competente", documents: ["Relato de hechos", "Pruebas", "Datos de afectados"], sources: [chileAtiende] },
+
+  // Trabajo
+  { slug: "reclamar-no-pago-sueldo", title: "Reclamar no pago de sueldo", category: "Trabajo", summary: "Prepara contrato, liquidaciones y registros antes de denunciar o exigir pago.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "Direccion del Trabajo", documents: ["Contrato", "Liquidaciones", "Comprobantes"], sources: [dt] },
+  { slug: "revisar-cotizaciones-impagas", title: "Revisar cotizaciones impagas", category: "Trabajo", summary: "Ordena certificados previsionales para detectar deudas de AFP, salud o seguro.", cost: "$0", duration: "Minutos online; regularizacion variable.", channel: "AFP, salud, AFC o DT", documents: ["RUT", "Clave AFP o ClaveUnica", "Liquidaciones"], sources: [dt, chileAtiende] },
+  { slug: "solicitar-certificado-antiguedad-laboral", title: "Certificado de antiguedad laboral", category: "Trabajo", summary: "Prepara respaldo de relacion laboral para banco, arriendo o postulaciones.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "Empleador o DT segun caso", documents: ["Contrato", "Datos empleador", "Cedula"], sources: [dt] },
+  { slug: "pedir-permiso-administrativo", title: "Solicitar permiso administrativo", category: "Trabajo", summary: "Revisa si corresponde permiso, respaldo y condiciones antes de ausentarte.", cost: "$0 directo.", duration: "Horas a dias.", channel: "Empleador", documents: ["Solicitud", "Respaldo", "Contrato o reglamento"], sources: [dt] },
+  { slug: "denunciar-acoso-laboral", title: "Preparar denuncia por acoso laboral", category: "Trabajo", summary: "Ordena hechos, pruebas y canales antes de denunciar una situacion laboral sensible.", cost: "$0 a asesoria variable.", duration: "Dias a meses.", channel: "Empleador, DT o tribunal", documents: ["Relato cronologico", "Pruebas", "Comunicaciones"], sources: [dt] },
+  { slug: "solicitar-reduccion-jornada", title: "Solicitar ajuste o reduccion de jornada", category: "Trabajo", summary: "Prepara contrato, motivo y propuesta antes de pedir cambio de jornada.", cost: "$0 directo.", duration: "Dias a semanas.", channel: "Empleador", documents: ["Contrato", "Solicitud", "Respaldo si aplica"], sources: [dt] },
+  { slug: "revisar-anexo-contrato", title: "Revisar anexo de contrato", category: "Trabajo", summary: "Verifica cambios de sueldo, cargo, jornada o lugar antes de firmar un anexo.", cost: "$0 a asesoria variable.", duration: "15 a 60 minutos.", channel: "Empleador o DT", documents: ["Contrato original", "Anexo", "Liquidaciones"], sources: [dt] },
+  { slug: "solicitar-fuero-maternal", title: "Revisar fuero maternal", category: "Trabajo", summary: "Ordena antecedentes de embarazo, contrato y comunicaciones antes de revisar proteccion laboral.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "Empleador, DT o tribunal", documents: ["Certificado medico", "Contrato", "Comunicaciones"], sources: [dt, chileAtiende] },
+  { slug: "cobrar-asignacion-familiar-trabajador", title: "Cobrar asignacion familiar como trabajador", category: "Trabajo", summary: "Prepara cargas, empleador y acreditacion para revisar pago de asignacion familiar.", cost: "$0", duration: "Dias a semanas.", channel: "Empleador, caja o IPS", documents: ["Certificados de carga", "Contrato", "Cedula"], sources: [chileAtiende] },
+  { slug: "reclamar-accidente-trabajo", title: "Preparar reclamo por accidente del trabajo", category: "Trabajo", summary: "Ordena atencion, denuncia, testigos y documentos cuando ocurre un accidente laboral.", cost: "$0 directo.", duration: "Urgente a semanas.", channel: "Mutualidad, empleador o SUSESO", documents: ["DIAT si aplica", "Atencion medica", "Relato y testigos"], sources: [chileAtiende, dt] },
+
+  // Impuestos
+  { slug: "emitir-boleta-honorarios", title: "Emitir boleta de honorarios", category: "Impuestos", summary: "Prepara datos del receptor, monto y retencion antes de emitir boleta.", cost: "$0 directo; retencion segun normativa.", duration: "5 a 15 minutos.", channel: "SII", documents: ["Clave SII", "Datos receptor", "Monto"], sources: [sii] },
+  { slug: "anular-boleta-honorarios", title: "Anular boleta de honorarios", category: "Impuestos", summary: "Revisa plazo, motivo y aceptacion antes de anular o corregir una boleta.", cost: "$0 directo.", duration: "Minutos a dias segun caso.", channel: "SII", documents: ["Folio boleta", "Motivo", "Datos receptor"], sources: [sii] },
+  { slug: "emitir-factura-electronica", title: "Emitir factura electronica", category: "Impuestos", summary: "Prepara folios, receptor, giro y detalle antes de emitir una factura.", cost: "$0 a software variable.", duration: "5 a 20 minutos.", channel: "SII o software autorizado", documents: ["Clave SII", "Datos cliente", "Detalle venta"], sources: [sii] },
+  { slug: "declarar-formulario-29", title: "Declarar Formulario 29", category: "Impuestos", summary: "Ordena ventas, compras, IVA y retenciones antes de declarar mensualmente.", cost: "Impuesto variable segun actividad.", duration: "20 minutos a varias horas.", channel: "SII", documents: ["Ventas", "Compras", "Creditos y debitos"], sources: [sii] },
+  { slug: "rectificar-formulario-29", title: "Rectificar Formulario 29", category: "Impuestos", summary: "Prepara diferencias y respaldos antes de corregir una declaracion mensual.", cost: "Variable; puede generar diferencias, multas o intereses.", duration: "Horas a dias.", channel: "SII", documents: ["Folio declaracion", "Respaldos", "Detalle diferencias"], sources: [sii] },
+  { slug: "solicitar-devolucion-impuestos", title: "Revisar devolucion de impuestos", category: "Impuestos", summary: "Confirma estado, cuenta bancaria y observaciones antes de esperar una devolucion.", cost: "$0 directo.", duration: "Segun calendario y revision SII/Tesoreria.", channel: "SII o Tesoreria", documents: ["Declaracion", "Cuenta bancaria", "Clave SII"], sources: [sii, chileAtiende] },
+  { slug: "actualizar-domicilio-tributario", title: "Actualizar domicilio tributario", category: "Impuestos", summary: "Prepara respaldo de domicilio y actividad antes de cambiar datos tributarios.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "SII", documents: ["Clave SII", "Respaldo domicilio", "Datos actividad"], sources: [sii] },
+  { slug: "agregar-giro-sii", title: "Agregar o modificar giro en SII", category: "Impuestos", summary: "Revisa actividad real, IVA y permisos antes de modificar el giro tributario.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "SII", documents: ["Clave SII", "Descripcion actividad", "Domicilio"], sources: [sii] },
+  { slug: "obtener-carpeta-tributaria", title: "Obtener carpeta tributaria", category: "Impuestos", summary: "Prepara carpeta para banco, arriendo, licitacion o proveedor que pida antecedentes tributarios.", cost: "$0 directo.", duration: "Minutos online.", channel: "SII", documents: ["Clave SII", "Finalidad", "Correo si aplica"], sources: [sii] },
+  { slug: "revisar-observaciones-renta", title: "Revisar observaciones de renta", category: "Impuestos", summary: "Ordena respaldos cuando la declaracion de renta queda observada o pendiente.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "SII", documents: ["Declaracion", "Observacion", "Respaldos"], sources: [sii] },
+
+  // Viajes
+  { slug: "pedir-visa-turismo", title: "Preparar solicitud de visa de turismo", category: "Viajes", summary: "Ordena documentos del destino antes de solicitar visa o permiso de entrada.", cost: "Variable segun pais.", duration: "Dias a meses.", channel: "Consulado o plataforma del pais destino", documents: ["Pasaporte", "Reserva o itinerario", "Solvencia"], sources: [chileAtiende] },
+  { slug: "apostillar-documento-viaje", title: "Apostillar documento para viaje", category: "Viajes", summary: "Prepara certificado, finalidad y pais destino antes de apostillar.", cost: "$0 a costos documentales variables.", duration: "Minutos a dias.", channel: "Entidad emisora o apostilla", documents: ["Documento original", "Pais destino", "Cedula"], sources: [chileAtiende] },
+  { slug: "viajar-con-mascota", title: "Preparar viaje con mascota", category: "Viajes", summary: "Ordena vacunas, certificado sanitario y requisitos del pais antes de viajar.", cost: "$20.000 a $300.000+ aprox.", duration: "Semanas a meses.", channel: "SAG, veterinario y aerolinea", documents: ["Carnet vacunas", "Certificado veterinario", "Datos mascota"], sources: [chileAtiende] },
+  { slug: "renovar-pasaporte-urgente", title: "Preparar renovacion urgente de pasaporte", category: "Viajes", summary: "Revisa agenda, documentos y alternativas cuando tienes viaje cercano.", cost: "$70.000 a $100.000+ aprox.", duration: "Dias segun disponibilidad.", channel: "Registro Civil", documents: ["Cedula", "Pasaporte anterior", "Comprobante viaje si aplica"], sources: [registroCivil, chileAtiende] },
+  { slug: "certificado-viaje-menor", title: "Documentos para viajar con menores", category: "Viajes", summary: "Prepara autorizaciones, certificados y datos del viaje para salida de menores.", cost: "$5.000 a $40.000+ aprox.", duration: "Horas a dias.", channel: "Notaria, tribunal o PDI", documents: ["Certificado nacimiento", "Autorizacion", "Itinerario"], sources: [chileAtiende] },
+  { slug: "revisar-impedimento-salida", title: "Revisar impedimentos de salida del pais", category: "Viajes", summary: "Ordena antecedentes si temes restricciones, deudas o medidas que impidan viajar.", cost: "$0 a asesoria variable.", duration: "Dias a semanas.", channel: "Institucion competente", documents: ["Cedula", "Antecedentes del caso", "Resoluciones si existen"], sources: [chileAtiende] },
+  { slug: "preparar-seguro-viaje", title: "Preparar seguro de viaje", category: "Viajes", summary: "Compara cobertura, deducible, salud y requisitos del destino antes de contratar.", cost: "$10.000 a $200.000+ aprox.", duration: "15 a 60 minutos.", channel: "Aseguradora o asistencia de viaje", documents: ["Destino", "Fechas", "Datos pasajeros"], sources: [chileAtiende] },
+  { slug: "perder-documentos-extranjero", title: "Que preparar si pierdes documentos fuera de Chile", category: "Viajes", summary: "Ordena denuncia, consulado y copias para enfrentar perdida de documentos en viaje.", cost: "Variable segun consulado y documentos.", duration: "Dias segun pais.", channel: "Consulado de Chile y autoridades locales", documents: ["Denuncia", "Copia documento", "Itinerario"], sources: [chileAtiende] },
+  { slug: "certificado-vacunas-viaje", title: "Certificado de vacunas para viajar", category: "Viajes", summary: "Revisa vacunas, destino y formato exigido antes de salir del pais.", cost: "$0 a costos medicos variables.", duration: "Dias a semanas.", channel: "MINSAL, vacunatorio o prestador", documents: ["RUN", "Registro vacunas", "Destino"], sources: [chileAtiende] },
+  { slug: "preparar-viaje-estudios", title: "Preparar viaje por estudios", category: "Viajes", summary: "Ordena visa, certificados, apostillas, seguro y solvencia antes de estudiar fuera.", cost: "$50.000 a $500.000+ aprox.", duration: "Semanas a meses.", channel: "Institucion educativa, consulado y entidades chilenas", documents: ["Carta aceptacion", "Pasaporte", "Certificados apostillados"], sources: [chileAtiende] },
+
+  // Documentos
+  { slug: "certificado-matrimonio", title: "Certificado de matrimonio", category: "Documentos", summary: "Prepara certificado para banco, beneficios, viajes, herencias o tramites familiares.", cost: "$0 a $1.500 aprox.", duration: "Inmediato online si esta disponible.", channel: "Registro Civil", documents: ["RUN", "ClaveUnica si aplica", "Finalidad"], sources: [registroCivil, chileAtiende] },
+  { slug: "certificado-defuncion", title: "Certificado de defuncion", category: "Documentos", summary: "Obtiene respaldo para herencias, seguros, beneficios o gestiones familiares.", cost: "$0 a $1.500 aprox.", duration: "Inmediato online si esta disponible.", channel: "Registro Civil", documents: ["RUN fallecido", "Finalidad", "ClaveUnica si aplica"], sources: [registroCivil, chileAtiende] },
+  { slug: "certificado-no-matrimonio", title: "Certificado de solteria o no matrimonio", category: "Documentos", summary: "Revisa que certificado corresponde cuando te piden acreditar estado civil.", cost: "$0 a $3.000 aprox.", duration: "Minutos a dias.", channel: "Registro Civil", documents: ["RUN", "Cedula", "Finalidad"], sources: [registroCivil] },
+  { slug: "certificado-afp", title: "Certificado de afiliacion AFP", category: "Documentos", summary: "Prepara certificado de AFP para trabajo, credito, beneficios o revision previsional.", cost: "$0", duration: "Minutos online.", channel: "AFP o entidad previsional", documents: ["RUT", "Clave AFP", "Correo"], sources: [chileAtiende] },
+  { slug: "certificado-fonasa", title: "Certificado de afiliacion Fonasa", category: "Documentos", summary: "Obtiene respaldo de tramo o afiliacion para salud, trabajo o cargas.", cost: "$0", duration: "Minutos online.", channel: "Fonasa o ChileAtiende", documents: ["RUN", "ClaveUnica", "Datos carga si aplica"], sources: [chileAtiende] },
+  { slug: "certificado-alumno-regular", title: "Certificado de alumno regular", category: "Documentos", summary: "Prepara solicitud para beneficios, cargas, rebajas o postulaciones.", cost: "$0 a $5.000 aprox.", duration: "Minutos a dias.", channel: "Institucion educacional", documents: ["RUN estudiante", "Matricula", "Periodo"], sources: [chileAtiende] },
+  { slug: "certificado-deuda-alimentos", title: "Certificado de deuda de alimentos", category: "Documentos", summary: "Revisa si existe deuda registrada para gestiones familiares, financieras o legales.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "Registro Civil o Poder Judicial segun caso", documents: ["RUN", "ClaveUnica", "Finalidad"], sources: [registroCivil, chileAtiende] },
+  { slug: "certificado-no-quiebra", title: "Certificado concursal o de insolvencia", category: "Documentos", summary: "Prepara antecedentes cuando una entidad pide revisar situacion concursal.", cost: "$0 a costos documentales variables.", duration: "Minutos a dias.", channel: "Superintendencia o entidad competente", documents: ["RUN o RUT", "Finalidad", "Correo"], sources: [chileAtiende] },
+  { slug: "legalizar-firma-notarial", title: "Legalizar firma ante notario", category: "Documentos", summary: "Organiza cedula, documento y firmantes antes de autenticar una firma.", cost: "$3.000 a $25.000 aprox.", duration: "15 minutos a 2 horas.", channel: "Notaria", documents: ["Cedula", "Documento", "Firmantes"], sources: [chileAtiende] },
+  { slug: "solicitar-copia-cedula-digital", title: "Preparar copia o respaldo de cedula", category: "Documentos", summary: "Revisa cuando una institucion acepta copia, certificado o validacion de identidad.", cost: "$0 a $2.000 aprox.", duration: "Minutos.", channel: "Institucion solicitante o Registro Civil", documents: ["Cedula", "Finalidad", "Formato requerido"], sources: [registroCivil, chileAtiende] },
+
+  // Salud
+  { slug: "tramitar-licencia-medica-independiente", title: "Licencia medica para independiente", category: "Salud", summary: "Prepara cotizaciones, emision y antecedentes cuando trabajas independiente.", cost: "$0 directo; pago depende de cobertura.", duration: "Dias a semanas.", channel: "COMPIN, Isapre o entidad pagadora", documents: ["Licencia", "Cotizaciones", "Cedula"], sources: [chileAtiende] },
+  { slug: "apelar-licencia-medica", title: "Apelar licencia medica rechazada", category: "Salud", summary: "Ordena resolucion, informes y plazos antes de apelar un rechazo o reduccion.", cost: "$0 a costos medicos variables.", duration: "Dias a semanas.", channel: "COMPIN, SUSESO o Isapre segun caso", documents: ["Resolucion", "Informes medicos", "Licencia"], sources: [chileAtiende] },
+  { slug: "solicitar-afiliacion-isapre", title: "Afiliarse a Isapre", category: "Salud", summary: "Revisa plan, preexistencias, cargas y contrato antes de firmar afiliacion.", cost: "Plan mensual variable.", duration: "Dias a semanas.", channel: "Isapre", documents: ["Cedula", "Declaracion salud", "Datos cargas"], sources: [chileAtiende] },
+  { slug: "cambiar-tramo-fonasa", title: "Actualizar tramo Fonasa", category: "Salud", summary: "Prepara ingresos y cargas para revisar o corregir tramo de Fonasa.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "Fonasa o ChileAtiende", documents: ["Cedula", "Ingresos", "Cargas"], sources: [chileAtiende] },
+  { slug: "solicitar-certificado-medico", title: "Solicitar certificado medico", category: "Salud", summary: "Prepara finalidad y antecedentes antes de pedir certificado para trabajo, estudio o deporte.", cost: "$0 a $50.000+ aprox.", duration: "Horas a dias.", channel: "Prestador de salud", documents: ["Cedula", "Antecedentes medicos", "Finalidad"], sources: [chileAtiende] },
+  { slug: "pedir-copia-ficha-clinica", title: "Pedir copia de ficha clinica", category: "Salud", summary: "Ordena identidad, autorizacion y prestador para solicitar antecedentes medicos.", cost: "$0 a costos de copia variables.", duration: "Dias a semanas.", channel: "Prestador de salud", documents: ["Cedula", "Solicitud", "Poder si representa"], sources: [chileAtiende] },
+  { slug: "reclamar-lista-espera", title: "Reclamar o consultar lista de espera", category: "Salud", summary: "Prepara derivacion, diagnostico y comprobantes para revisar una espera de atencion.", cost: "$0 directo.", duration: "Dias a semanas.", channel: "Servicio de salud o prestador", documents: ["Interconsulta", "Diagnostico", "Comprobantes"], sources: [chileAtiende] },
+  { slug: "solicitar-ley-urgencia", title: "Revisar cobertura Ley de Urgencia", category: "Salud", summary: "Ordena antecedentes de atencion urgente para entender cobertura y cobros.", cost: "Copago o deuda variable segun cobertura.", duration: "Dias a semanas.", channel: "Prestador, Fonasa, Isapre o Superintendencia", documents: ["Epicrisis", "Boletas", "Datos cobertura"], sources: [chileAtiende] },
+  { slug: "incorporar-carga-fonasa", title: "Incorporar carga en Fonasa", category: "Salud", summary: "Prepara certificados y antecedentes para agregar una carga familiar en salud.", cost: "$0 directo.", duration: "Dias a semanas.", channel: "Fonasa o ChileAtiende", documents: ["Certificado carga", "Cedula", "Acreditacion"], sources: [chileAtiende] },
+  { slug: "solicitar-dispositivos-medicos", title: "Preparar solicitud de ayudas tecnicas", category: "Salud", summary: "Ordena indicacion medica y antecedentes sociales antes de pedir ayudas tecnicas.", cost: "$0 a copago variable.", duration: "Semanas a meses.", channel: "Municipio, SENADIS o salud", documents: ["Informe medico", "RSH", "Cedula"], sources: [chileAtiende] },
+
+  // Empresas
+  { slug: "iniciar-actividades-empresa", title: "Inicio de actividades para empresa", category: "Empresas", summary: "Prepara giro, domicilio y representante antes de comenzar obligaciones tributarias.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "SII", documents: ["Clave SII", "Constitucion", "Domicilio"], sources: [sii] },
+  { slug: "termino-giro-empresa", title: "Termino de giro de empresa", category: "Empresas", summary: "Ordena declaraciones, deudas y documentos antes de cerrar actividad tributaria.", cost: "$0 a impuestos/deudas variables.", duration: "Semanas a meses.", channel: "SII", documents: ["Clave SII", "Declaraciones", "Situacion tributaria"], sources: [sii] },
+  { slug: "modificar-domicilio-empresa", title: "Modificar domicilio de empresa", category: "Empresas", summary: "Revisa domicilio tributario, municipal y contractual antes de cambiar direccion.", cost: "$0 a costos notariales/municipales variables.", duration: "Minutos a semanas.", channel: "SII, municipio o registro", documents: ["Domicilio nuevo", "Contrato o dominio", "Poderes"], sources: [sii, municipalidades] },
+  { slug: "obtener-rut-empresa", title: "Obtener RUT de empresa", category: "Empresas", summary: "Prepara constitucion y datos del representante para operar con RUT empresarial.", cost: "$0 directo.", duration: "Minutos a dias.", channel: "SII", documents: ["Constitucion", "Representante", "Clave SII"], sources: [sii] },
+  { slug: "comprar-folios-facturacion", title: "Solicitar folios de facturacion", category: "Empresas", summary: "Prepara autorizacion y sistema de emision antes de solicitar folios.", cost: "$0 directo; software variable.", duration: "Minutos a dias.", channel: "SII", documents: ["Clave SII", "Actividad iniciada", "Sistema de emision"], sources: [sii] },
+  { slug: "declarar-iva-empresa", title: "Declarar IVA mensual de empresa", category: "Empresas", summary: "Ordena ventas, compras y creditos antes de declarar impuestos mensuales.", cost: "IVA variable segun actividad.", duration: "30 minutos a varias horas.", channel: "SII", documents: ["Libro compras/ventas", "Facturas", "Clave SII"], sources: [sii] },
+  { slug: "contratar-contador", title: "Preparar contratacion de contador", category: "Empresas", summary: "Define obligaciones, volumen y acceso antes de contratar apoyo contable.", cost: "$30.000 a $300.000+ mensual aprox.", duration: "Dias.", channel: "Profesional o estudio contable", documents: ["RUT empresa", "Accesos", "Declaraciones previas"], sources: [sii] },
+  { slug: "obtener-permiso-alimentos", title: "Permiso para negocio de alimentos", category: "Empresas", summary: "Prepara local, manipulacion, resolucion sanitaria y patente antes de vender alimentos.", cost: "$50.000 a $800.000+ aprox.", duration: "Semanas a meses.", channel: "SEREMI de Salud y municipalidad", documents: ["Plano/local", "Inicio actividades", "Antecedentes sanitarios"], sources: [municipalidades, chileAtiende] },
+  { slug: "inscribir-trabajador-previred", title: "Inscribir trabajador para cotizaciones", category: "Empresas", summary: "Ordena contrato, datos previsionales y remuneracion antes de pagar cotizaciones.", cost: "Cotizaciones segun sueldo.", duration: "1 a 3 dias.", channel: "Previred, empleador y entidades previsionales", documents: ["Contrato", "Datos trabajador", "Remuneracion"], sources: [dt, chileAtiende] },
+  { slug: "postular-fondos-sercotec", title: "Preparar postulacion a fondos Sercotec", category: "Empresas", summary: "Ordena idea, ventas, documentos tributarios y cofinanciamiento antes de postular.", cost: "$0 a cofinanciamiento variable.", duration: "Semanas a meses.", channel: "Sercotec u organismo convocante", documents: ["RUT", "Carpeta tributaria", "Plan de negocio"], sources: [chileAtiende, sii] }
+];
+
 export const expandedProcedures: ProcedureDetail[] =
-  procedureSeeds.map(makeProcedure);
+  [...procedureSeeds, ...additionalProcedureSeeds].map(makeProcedure);
 
 export const expandedGuides: GuideDetail[] = [
   {

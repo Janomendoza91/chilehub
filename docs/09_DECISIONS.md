@@ -177,6 +177,25 @@ Las nuevas guias requieren mas criterio editorial y mantencion. Cuando una guia 
 Owner:
 Product / Content.
 
+## 2026-06-28 - Enriquecimiento referencial antes de verificacion individual
+
+Status: Accepted
+
+Context:
+ChileHub necesita cubrir muchos procesos con mas utilidad que una tarjeta generica, pero verificar manualmente cada requisito, monto y excepcion contra una pagina oficial concreta requiere un flujo editorial por lotes.
+
+Decision:
+Enriquecer todos los tramites generados con preparacion contextual por categoria, canal, documentos, costos estimados, plazos, errores frecuentes, alertas, variaciones y preguntas para la institucion. Mantener la distincion entre contenido referencial enriquecido y contenido oficialmente verificado caso a caso.
+
+Rationale:
+La experiencia gana claridad inmediata sin inventar certeza oficial. El usuario recibe una mejor preparacion, pero sigue viendo fuentes, fechas de revision, costos referenciales y advertencias de variacion.
+
+Consequences:
+La cobertura amplia queda util para exploracion y preparacion, pero los tramites de mayor uso deben pasar por verificacion oficial individual antes de considerarse contenido validado.
+
+Owner:
+Product / Content.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.
