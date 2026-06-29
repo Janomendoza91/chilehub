@@ -80,6 +80,8 @@
 - [ ] Crear rutina editorial mensual para revisar montos, plazos y fuentes.
 - [x] Crear data local de procesos.
 - [x] Ampliar cobertura inicial con 10 tramites adicionales por categoria principal.
+- [x] Agregar una nueva tanda de 10 tramites por categoria principal.
+- [x] Agregar 10 guias rapidas enriquecidas por categoria principal.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
 - [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.
@@ -92,6 +94,7 @@
 - [x] Crear espacio personal local para guardados, historial, checklist, recordatorios y alertas.
 - [x] Convertir mockup de venta de auto en flujo real dentro de la ficha del tramite.
 - [x] Aplicar paso a paso interactivo a fichas de tramite generales.
+- [x] Compactar contenido denso de fichas con pestañas para mobile.
 - [x] Crear vista de oficinas.
 - [x] Conectar oficinas cercanas referenciales desde venta de auto y mockups mobile.
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.

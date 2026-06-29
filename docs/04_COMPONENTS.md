@@ -242,6 +242,22 @@ Responsive:
 - Dos columnas en desktop.
 - Composicion apilada en mobile sin ocultar pasos ni documentos.
 
+## ProcedureInsightTabs
+
+Descripcion: modulo compacto para contenido denso de una ficha de tramite.
+
+Responsabilidad:
+
+- Agrupar antes de empezar, alertas, preguntas, variaciones y errores en pestañas.
+- Reducir scroll mobile sin eliminar informacion critica.
+- Permitir que el usuario revise una dimension a la vez.
+- Mantener lenguaje referencial y orientado a accion.
+
+Responsive:
+
+- Tabs horizontales con scroll en mobile.
+- Panel de contexto y lista en dos columnas cuando hay espacio.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

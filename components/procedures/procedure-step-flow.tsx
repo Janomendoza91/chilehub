@@ -36,6 +36,8 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
     "Confirma requisitos y canal vigente antes de avanzar.";
   const currentDocument =
     procedure.documents[currentStep % Math.max(1, procedure.documents.length)];
+  const stepContext = buildStepContext(procedure, currentStep);
+  const readyDocuments = completedDocuments.length;
 
   function toggleDocument(title: string) {
     setCompletedDocuments((current) =>
@@ -53,7 +55,7 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
               Preparacion guiada
             </p>
-            <h2 className="mt-1 text-[24px] font-extrabold tracking-[-0.05em] text-[#081642] sm:text-[30px]">
+            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.05em] text-[#081642] sm:text-[30px]">
               {procedure.title} paso a paso
             </h2>
             <p className="mt-2 max-w-[760px] text-[13px] font-semibold leading-6 text-[#66718f]">
@@ -71,14 +73,21 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
           </div>
         </div>
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-4 grid gap-2 md:grid-cols-4">
+          <MiniPlanItem label="1" text="Confirma canal y requisitos vigentes." />
+          <MiniPlanItem label="2" text="Prepara documentos requeridos." />
+          <MiniPlanItem label="3" text="Revisa costo, plazo y posibles bloqueos." />
+          <MiniPlanItem label="4" text="Continua solo por el canal externo." />
+        </div>
+
+        <div className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-[20px] border border-[#e3e9f4] bg-[#fbfcff] p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
                   Paso actual
                 </p>
-                <h3 className="mt-1 text-[20px] font-extrabold tracking-[-0.04em] text-[#081642]">
+                <h3 className="mt-1 text-[18px] font-extrabold tracking-[-0.04em] text-[#081642] sm:text-[20px]">
                   {currentInstruction}
                 </h3>
               </div>
@@ -93,7 +102,13 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
               />
             </div>
 
-            <div className="mt-5 rounded-[16px] bg-white p-4">
+            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+              <StepMicroCard label="Por que importa" value={stepContext.why} />
+              <StepMicroCard label="Resultado" value={stepContext.result} />
+              <StepMicroCard label="Bloqueo" value={stepContext.blocker} />
+            </div>
+
+            <div className="mt-4 rounded-[16px] bg-white p-4">
               <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[12px] bg-[#eef2ff] text-primary">
                   <FileText className="h-5 w-5" />
@@ -117,6 +132,10 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
               <h4 className="text-[14px] font-extrabold text-[#081642]">
                 Documentos por preparar
               </h4>
+              <p className="mt-1 text-[11px] font-bold text-[#8a94ad]">
+                {readyDocuments} de {procedure.documents.length} marcados en
+                esta pantalla.
+              </p>
               <div className="mt-3 grid gap-2">
                 {procedure.documents.map((document) => {
                   const checked = completedDocuments.includes(document.title);
@@ -137,7 +156,7 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
                         <CheckCircle2 className="h-3.5 w-3.5" />
                       </span>
                       <span className="min-w-0">
-                        <span className="block text-[13px] font-bold text-[#283451]">
+                        <span className="block text-[12.5px] font-bold text-[#283451] sm:text-[13px]">
                           {document.title}
                         </span>
                         <span className="mt-0.5 block text-[11px] font-bold text-[#8a94ad]">
@@ -182,8 +201,7 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
                   {currentInstruction}
                 </h3>
                 <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f]">
-                  Si este paso depende de comuna, institucion o perfil, confirma
-                  la condicion antes de pagar, firmar o reservar hora.
+                  {stepContext.detail}
                 </p>
               </div>
             </div>
@@ -273,4 +291,51 @@ function FlowStat({ label, value }: { label: string; value: string }) {
       </p>
     </div>
   );
+}
+
+function MiniPlanItem({ label, text }: { label: string; text: string }) {
+  return (
+    <div className="flex items-center gap-2 rounded-[14px] bg-[#f7f9ff] px-3 py-2.5">
+      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[11px] font-extrabold text-primary">
+        {label}
+      </span>
+      <p className="text-[11px] font-bold leading-4 text-[#66718f]">{text}</p>
+    </div>
+  );
+}
+
+function StepMicroCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[14px] bg-white px-3 py-3">
+      <p className="text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#8a94ad]">
+        {label}
+      </p>
+      <p className="mt-1 text-[11px] font-bold leading-4 text-[#52607f]">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function buildStepContext(procedure: ProcedureDetail, index: number) {
+  const document = procedure.documents[index % Math.max(1, procedure.documents.length)];
+  const risk = procedure.redFlags[index % Math.max(1, procedure.redFlags.length)];
+  const question =
+    procedure.keyQuestions[index % Math.max(1, procedure.keyQuestions.length)];
+
+  return {
+    why:
+      question ??
+      "Este punto define si puedes avanzar sin repetir visitas o corregir datos.",
+    result:
+      document?.title ??
+      "Canal, documento o comprobante listo para continuar.",
+    blocker:
+      risk ??
+      "Documento vencido, dato inconsistente, costo no confirmado o canal incorrecto.",
+    detail:
+      risk
+        ? `Antes de pasar al siguiente paso, revisa este riesgo: ${risk}`
+        : "Si este paso depende de comuna, institucion o perfil, confirma la condicion antes de pagar, firmar o reservar hora."
+  };
 }

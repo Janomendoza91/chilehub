@@ -1,19 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
 import {
-  AlertTriangle,
   ArrowUpRight,
-  CheckCircle2,
   Clock,
-  CircleHelp,
   MapPin,
-  ShieldAlert,
   WalletCards
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
 import { ProcedurePersonalPanel } from "@/components/account/procedure-personal-panel";
+import { ProcedureInsightTabs } from "@/components/procedures/procedure-insight-tabs";
 import { ProcedureStepFlow } from "@/components/procedures/procedure-step-flow";
 import { SellCarPreparationFlow } from "@/components/procedures/sell-car-preparation-flow";
 import { getProcedure, procedures } from "@/data/content";
@@ -149,50 +145,7 @@ export default async function ProcedureDetailPage({
         </div>
       </section>
 
-      <section className="grid gap-3 pb-5 lg:grid-cols-3">
-        <CompactList
-          title="Antes de empezar"
-          icon={CheckCircle2}
-          items={procedure.beforeYouStart}
-          tone="blue"
-          limit={3}
-        />
-        <CompactList
-          title="Preguntas clave"
-          icon={CircleHelp}
-          items={procedure.keyQuestions}
-          tone="neutral"
-          limit={3}
-        />
-        <CompactList
-          title="Alertas"
-          icon={ShieldAlert}
-          items={procedure.redFlags}
-          tone="warning"
-          limit={3}
-        />
-      </section>
-
-      <section className="grid gap-3 py-5 lg:grid-cols-3">
-        <CompactList
-          title="Errores frecuentes"
-          icon={AlertTriangle}
-          items={procedure.commonMistakes}
-          tone="warning"
-        />
-        <CompactList
-          title="Puede cambiar"
-          icon={MapPin}
-          items={procedure.variations}
-          tone="neutral"
-        />
-        <CompactList
-          title="Que preguntar"
-          icon={CircleHelp}
-          items={procedure.whatToAsk}
-          tone="neutral"
-        />
-      </section>
+      <ProcedureInsightTabs procedure={procedure} />
 
       <section className="pb-10">
         <div className="rounded-[22px] border border-[#e3e9f4] bg-white p-5">
@@ -245,68 +198,6 @@ function SummaryStat({
       >
         {value}
       </p>
-    </div>
-  );
-}
-
-function ListItem({
-  children,
-  tone
-}: {
-  children: ReactNode;
-  tone: "blue" | "neutral" | "warning";
-}) {
-  const toneClass = {
-    blue: "bg-[#f1f5ff] text-[#36476f]",
-    neutral: "bg-[#f7f9ff] text-[#56617f]",
-    warning: "bg-[#fff7ed] text-[#8a4b12]"
-  };
-
-  return (
-    <li className={`rounded-[12px] px-3 py-2.5 text-[12px] font-semibold leading-5 ${toneClass[tone]}`}>
-      {children}
-    </li>
-  );
-}
-
-function CompactList({
-  title,
-  icon: Icon,
-  items,
-  tone,
-  limit
-}: {
-  title: string;
-  icon: LucideIcon;
-  items: string[];
-  tone: "blue" | "neutral" | "warning";
-  limit?: number;
-}) {
-  const visibleItems = typeof limit === "number" ? items.slice(0, limit) : items;
-
-  return (
-    <div className="rounded-[20px] border border-[#e3e9f4] bg-white p-4 shadow-[0_12px_28px_rgba(35,49,86,0.035)]">
-      <div className="mb-3 flex items-center gap-2.5">
-        <span className="grid h-8 w-8 place-items-center rounded-[10px] bg-[#eef2ff] text-primary">
-          <Icon className="h-4 w-4" />
-        </span>
-        <h2 className="text-[15px] font-extrabold tracking-[-0.02em] text-[#081642]">
-          {title}
-        </h2>
-      </div>
-      <ul className="space-y-2">
-        {visibleItems.map((item) => (
-          <ListItem key={item} tone={tone}>
-            {item}
-          </ListItem>
-        ))}
-      </ul>
-      {items.length > visibleItems.length ? (
-        <p className="mt-2 text-[11px] font-bold text-[#7b86a0]">
-          +{items.length - visibleItems.length} punto adicional en fuentes y
-          revision.
-        </p>
-      ) : null}
     </div>
   );
 }

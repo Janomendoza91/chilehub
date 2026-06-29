@@ -291,6 +291,44 @@ Cada tramite publicado debe tener pasos y documentos utiles. Si una ficha tiene 
 Owner:
 Product / Engineering.
 
+## 2026-06-29 - Informacion por capas en mobile
+
+Status: Accepted
+
+Context:
+Las fichas de tramite acumulan costos, pasos, documentos, alertas, preguntas, variaciones, errores y fuentes. En mobile, mostrar todo como cards consecutivas genera una experiencia larga y pesada.
+
+Decision:
+Usar informacion por capas: primero plan de 5 minutos y paso actual; luego pestañas compactas para revisar antes de empezar, alertas, preguntas, cambios y errores. No se elimina informacion critica, se reorganiza para lectura progresiva.
+
+Rationale:
+ChileHub debe sentirse como app de preparacion, no como documento largo. El usuario necesita saber que mirar ahora, no leer todo al mismo tiempo.
+
+Consequences:
+Los modulos de contenido denso deben preferir tabs, segmentacion o estados compactos en mobile. Si una ficha necesita mucho texto, debe estar justificado por una decision de preparacion concreta.
+
+Owner:
+Product / UX / Engineering.
+
+## 2026-06-29 - Expansion masiva enriquecida de tramites y guias
+
+Status: Accepted
+
+Context:
+ChileHub necesita suficiente cobertura para que la busqueda y las categorias se sientan utiles. Agregar solo unas pocas fichas por categoria deja el producto con apariencia de demo.
+
+Decision:
+Agregar 10 tramites nuevos por categoria principal y generar 10 guias rapidas relacionadas por categoria desde esos nuevos procesos. El contenido se mantiene como enriquecimiento referencial: costos, plazos, documentos, pasos, errores y fuentes orientativas, sin declararse verificado oficialmente caso a caso.
+
+Rationale:
+La cobertura amplia mejora exploracion, busqueda y percepcion de utilidad. Generar guias desde procesos concretos evita guias genericas desconectadas de acciones reales.
+
+Consequences:
+El catalogo crece de forma importante y requiere priorizar verificacion oficial individual para los procesos de mayor demanda antes de lanzamiento publico fuerte.
+
+Owner:
+Product / Content / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.
