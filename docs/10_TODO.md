@@ -82,6 +82,7 @@
 - [x] Ampliar cobertura inicial con 10 tramites adicionales por categoria principal.
 - [x] Agregar una nueva tanda de 10 tramites por categoria principal.
 - [x] Agregar 10 guias rapidas enriquecidas por categoria principal.
+- [x] Agregar 15 tramites cotidianos adicionales por categoria principal y sus guias rapidas generadas.
 - [x] Agregar capa editorial de confirmacion en tramites y guias.
 - [x] Agregar SEO tecnico base: sitemap, robots, canonical, metadata social, schema y noindex local.
 - [x] Agregar hardening tecnico base: headers de seguridad, CSP, limites de persistencia local y auditoria de dependencias.

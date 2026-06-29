@@ -29,9 +29,6 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <Link href="/ingresar" className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] sm:h-10 sm:px-4 sm:text-[13px]">
-              Mi espacio
-            </Link>
             <Link href="/registrarte" className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
               Activar gratis
               <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />

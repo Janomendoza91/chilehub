@@ -131,7 +131,7 @@ export const legacyCalculators: CalculatorCard[] = [
 export const sidebarItems = [
   { label: "Inicio", icon: Home, active: true, href: "/" },
   { label: "Buscar", icon: Search, href: "/buscar" },
-  { label: "Categorias", icon: UsersRound, href: "/tramites" },
+  { label: "Tramites", icon: UsersRound, href: "/tramites" },
   { label: "Mis tramites", icon: ShieldCheck, href: "/mis-tramites" },
   { label: "Guardados", icon: HeartPulse, href: "/guardados" },
   { label: "Calculadoras", icon: Calculator, href: "/calculadoras" },
@@ -140,14 +140,14 @@ export const sidebarItems = [
 ];
 
 export const heroCategories = [
-  { label: "Autos", count: "12 tramites", icon: Car, tone: "cyan" },
-  { label: "Vivienda", count: "18 tramites", icon: Home, tone: "orange" },
-  { label: "Familia", count: "15 tramites", icon: UsersRound, tone: "rose" },
-  { label: "Trabajo", count: "20 tramites", icon: BriefcaseBusiness, tone: "indigo" },
-  { label: "Empresas", count: "12 tramites", icon: BriefcaseBusiness, tone: "emerald" },
-  { label: "Impuestos", count: "15 tramites", icon: FileBadge, tone: "emerald" },
-  { label: "Viajes", count: "12 tramites", icon: Plane, tone: "blue" },
-  { label: "Documentos", count: "14 tramites", icon: FileText, tone: "indigo" },
-  { label: "Salud", count: "9 tramites", icon: HeartPulse, tone: "rose" },
+  { label: "Autos", count: "45+ tramites", icon: Car, tone: "cyan" },
+  { label: "Vivienda", count: "55+ tramites", icon: Home, tone: "orange" },
+  { label: "Familia", count: "45+ tramites", icon: UsersRound, tone: "rose" },
+  { label: "Trabajo", count: "45+ tramites", icon: BriefcaseBusiness, tone: "indigo" },
+  { label: "Empresas", count: "45+ tramites", icon: BriefcaseBusiness, tone: "emerald" },
+  { label: "Impuestos", count: "45+ tramites", icon: FileBadge, tone: "emerald" },
+  { label: "Viajes", count: "45+ tramites", icon: Plane, tone: "blue" },
+  { label: "Documentos", count: "45+ tramites", icon: FileText, tone: "indigo" },
+  { label: "Salud", count: "40+ tramites", icon: HeartPulse, tone: "rose" },
   { label: "Mas", count: "Ver todo", icon: CircleEllipsis, tone: "slate" }
 ];

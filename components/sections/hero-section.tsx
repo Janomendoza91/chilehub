@@ -1,15 +1,15 @@
 import {
-  ArrowRight,
   Building2,
   Car,
   FileText,
   Info,
   Plane,
-  Search,
   ShieldCheck
 } from "lucide-react";
 import Link from "next/link";
 import { SectionReveal } from "@/components/layout/section-reveal";
+import { HeroPredictiveSearch } from "@/components/search/hero-predictive-search";
+import { guidesContent, procedures } from "@/data/content";
 
 const quickActions = [
   { label: "Vender auto", icon: Car },
@@ -23,6 +23,23 @@ const trustItems = [
   "Costos estimados",
   "Errores frecuentes",
   "Donde continuar"
+];
+
+const heroSuggestions = [
+  ...procedures.map((item) => ({
+    type: "Tramite" as const,
+    title: item.title,
+    description: item.summary,
+    category: item.category,
+    href: `/tramites/${item.slug}`
+  })),
+  ...guidesContent.map((item) => ({
+    type: "Guia" as const,
+    title: item.title,
+    description: item.summary,
+    category: item.category,
+    href: `/guias/${item.slug}`
+  }))
 ];
 
 export function HeroSection() {
@@ -47,16 +64,7 @@ export function HeroSection() {
           className="mx-auto mt-5 max-w-[850px] rounded-[20px] border border-[#dfe5f0] bg-white p-2.5 shadow-[0_24px_70px_rgba(35,49,86,0.08)] sm:mt-7 sm:rounded-[28px] sm:p-4"
           delay={0.12}
         >
-          <div className="flex items-center gap-2 rounded-[16px] bg-[#f7f9ff] p-2">
-            <Search className="ml-1.5 h-4 w-4 shrink-0 text-[#7a86a6] sm:ml-2 sm:h-5 sm:w-5" />
-            <span className="min-w-0 flex-1 truncate text-left text-[13px] font-medium text-[#7b86a0] sm:text-[15px]">
-              Que proceso necesitas preparar?
-            </span>
-            <Link href="/buscar" className="flex h-10 shrink-0 items-center gap-1.5 rounded-[12px] bg-primary px-3 text-[12px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-11 sm:gap-2 sm:px-5 sm:text-[13px]">
-              Buscar
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+          <HeroPredictiveSearch suggestions={heroSuggestions} />
 
           <div className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-3 sm:grid-cols-4">
             {quickActions.map((action) => {

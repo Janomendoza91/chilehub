@@ -137,15 +137,10 @@ export default async function ProcedureDetailPage({
             Montos estimados. Confirma antes de pagar; ChileHub no cobra ni
             realiza el tramite.
           </div>
-          <a
-            href={procedure.externalAction.url}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-[13px] font-bold text-white shadow-[0_14px_28px_rgba(42,81,232,0.24)]"
-          >
-            {procedure.externalAction.label}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <div className="mt-5 rounded-[16px] border border-[#e3e9f4] bg-[#fbfcff] px-4 py-3 text-[12px] font-bold leading-5 text-[#52607f]">
+            Primero revisa la preparacion completa. El enlace oficial para
+            continuar esta al final de esta ficha.
+          </div>
         </aside>
       </section>
 
@@ -252,6 +247,15 @@ export default async function ProcedureDetailPage({
               </a>
             ))}
           </div>
+          <a
+            href={procedure.externalAction.url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-[13px] font-bold text-white shadow-[0_14px_28px_rgba(42,81,232,0.24)] sm:w-auto"
+          >
+            {procedure.externalAction.label}
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </section>
     </ProductShell>

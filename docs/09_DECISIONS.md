@@ -405,6 +405,25 @@ Antes de produccion se debe configurar el Measurement ID en Vercel. Cualquier ev
 Owner:
 Product / Engineering / Security.
 
+## 2026-06-29 - Expansion cotidiana por categoria
+
+Status: Accepted
+
+Context:
+El catalogo necesitaba cubrir procesos que un chileno comun buscaria en situaciones reales: zona franca, importaciones, exportaciones, propiedades, trabajo, salud, documentos, impuestos y operacion de empresas. El contenido anterior ya era amplio, pero todavia dejaba fuera intenciones frecuentes.
+
+Decision:
+Agregar 15 nuevos tramites por cada categoria principal mediante una tanda separada de seeds en `data/everyday-procedure-seeds.ts`. Cada tramite nuevo genera automaticamente una guia rapida relacionada usando el generador existente. El contenido se mantiene como preparacion referencial, con costos/plazos estimados y fuentes institucionales a confirmar.
+
+Rationale:
+ChileHub debe sentirse util para busquedas comunes, no solo para procesos obvios. Separar esta tanda mantiene mantenibilidad y evita seguir inflando el archivo principal de enriquecimiento.
+
+Consequences:
+El catalogo pasa a una escala mayor y requiere priorizar revision editorial mensual por demanda, especialmente en tramites con impuestos, aduana, salud, vivienda, trabajo y empresas.
+
+Owner:
+Product / Content / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

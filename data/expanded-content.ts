@@ -1,4 +1,5 @@
 import type { ContentSource, GuideDetail, ProcedureDetail } from "@/types/chilehub";
+import { everydayProcedureSeeds } from "@/data/everyday-procedure-seeds";
 
 type ProcedureSeed = {
   slug: string;
@@ -534,6 +535,16 @@ const moreProcedureSeeds: ProcedureSeed[] = [
   { slug: "pedir-certificado-no-expropiacion", title: "Certificado de no expropiacion", category: "Vivienda", summary: "Prepara rol y direccion para revisar afectaciones antes de comprar o regularizar.", cost: "$0 a $20.000 aprox.", duration: "Dias segun entidad.", channel: "Municipalidad o organismo competente", documents: ["Rol", "Direccion", "Datos propietario"], sources: [municipalidades, chileAtiende] },
   { slug: "revisar-recepcion-final", title: "Revisar recepcion final de vivienda", category: "Vivienda", summary: "Confirma si una propiedad cuenta con recepcion final antes de comprar, ampliar o vender.", cost: "$0 a costos municipales variables.", duration: "Dias a semanas.", channel: "Direccion de Obras Municipales", documents: ["Rol", "Permisos", "Planos si aplica"], sources: [municipalidades] },
   { slug: "postular-arriendo-subsidiado", title: "Postular a subsidio de arriendo", category: "Vivienda", summary: "Ordena RSH, ahorro, ingresos y llamado vigente antes de postular a apoyo de arriendo.", cost: "Ahorro minimo o copago segun programa.", duration: "Postulacion en minutos; resultados por calendario.", channel: "MINVU", documents: ["ClaveUnica", "RSH", "Ahorro o ingresos"], sources: [minvu, chileAtiende] },
+  { slug: "vender-casa", title: "Vender una casa", category: "Vivienda", summary: "Ordena precio, certificados, deuda, promesa, escritura y entrega antes de vender una propiedad.", cost: "Comision, certificados, notaria, CBR e impuestos variables.", duration: "Semanas a meses segun comprador, banco y CBR.", channel: "Vendedor, comprador, notaria, Conservador y banco si aplica", documents: ["Dominio vigente", "Certificado hipotecas y gravamenes", "Escritura"], sources: [chileAtiende, sii] },
+  { slug: "vender-departamento", title: "Vender un departamento", category: "Vivienda", summary: "Prepara dominio, gastos comunes, reglamento, deuda y promesa antes de publicar o aceptar una oferta.", cost: "Comision, certificados, gastos comunes, notaria y CBR variables.", duration: "Semanas a meses segun financiamiento y administracion.", channel: "Vendedor, administracion, notaria, CBR y banco si aplica", documents: ["Dominio vigente", "Certificado de gastos comunes", "Promesa de compraventa"], sources: [chileAtiende] },
+  { slug: "preparar-promesa-compraventa-inmueble", title: "Preparar promesa de compraventa de inmueble", category: "Vivienda", summary: "Revisa precio, pie, plazos, multas, financiamiento y condiciones antes de firmar promesa.", cost: "$0 a asesoria/notaria variable.", duration: "Dias a semanas segun negociacion.", channel: "Partes, corredor, abogado o notaria", documents: ["Borrador de promesa", "Cedulas de las partes", "Antecedentes de la propiedad"], sources: [chileAtiende] },
+  { slug: "preparar-escritura-compraventa-inmueble", title: "Preparar escritura de compraventa de propiedad", category: "Vivienda", summary: "Ordena antecedentes notariales, bancarios y registrales antes de firmar escritura definitiva.", cost: "$50.000 a $500.000+ aprox. segun operacion.", duration: "Dias a semanas.", channel: "Notaria, banco, comprador, vendedor y CBR", documents: ["Promesa", "Certificados CBR", "Antecedentes bancarios"], sources: [chileAtiende] },
+  { slug: "alzar-hipoteca-para-vender", title: "Alzar hipoteca antes de vender propiedad", category: "Vivienda", summary: "Prepara deuda, carta de resguardo y documentos bancarios si la propiedad aun tiene hipoteca.", cost: "Saldo deuda + gastos notariales/CBR variables.", duration: "Semanas a meses segun banco y CBR.", channel: "Banco, notaria y Conservador de Bienes Raices", documents: ["Saldo deuda", "Escritura de alzamiento", "Certificado de gravamenes"], sources: [chileAtiende] },
+  { slug: "calcular-gastos-venta-propiedad", title: "Calcular gastos al vender una propiedad", category: "Vivienda", summary: "Estima comision, certificados, notaria, alzamientos, contribuciones e impuestos antes de fijar precio.", cost: "Variable por precio, deuda, corredor e impuestos.", duration: "1 a 3 horas de preparacion; validacion puede tomar dias.", channel: "SII, corredor, banco, notaria y CBR", documents: ["Precio estimado", "Rol de propiedad", "Antecedentes de compra"], sources: [sii, chileAtiende] },
+  { slug: "revisar-impuesto-mayor-valor-inmueble", title: "Revisar impuesto por mayor valor al vender inmueble", category: "Vivienda", summary: "Ordena fecha de compra, precio, mejoras y antecedentes tributarios antes de cerrar la venta.", cost: "Impuesto variable segun mayor valor y reglas aplicables.", duration: "Horas a dias con apoyo tributario si aplica.", channel: "SII o asesor tributario", documents: ["Escritura de compra", "Precio de venta", "Respaldos de mejoras"], sources: [sii] },
+  { slug: "preparar-entrega-propiedad-vendida", title: "Preparar entrega de propiedad vendida", category: "Vivienda", summary: "Ordena llaves, inventario, servicios, gastos comunes y acta antes de entregar la propiedad.", cost: "Variable por deudas, reparaciones o servicios pendientes.", duration: "1 dia a varias semanas segun acuerdos.", channel: "Comprador, vendedor, administracion y empresas de servicios", documents: ["Acta de entrega", "Comprobantes de servicios", "Inventario"], sources: [chileAtiende] },
+  { slug: "regularizar-deudas-antes-vender-propiedad", title: "Regularizar deudas antes de vender propiedad", category: "Vivienda", summary: "Revisa contribuciones, gastos comunes, servicios y gravamenes para no bloquear una venta.", cost: "Deuda + intereses o gastos de regularizacion.", duration: "Dias a semanas segun deuda.", channel: "Tesoreria, administracion, empresas de servicios, banco o CBR", documents: ["Rol", "Liquidacion de gastos comunes", "Certificados de deuda"], sources: [sii, chileAtiende] },
+  { slug: "vender-propiedad-heredada", title: "Vender una propiedad heredada", category: "Vivienda", summary: "Prepara posesion efectiva, inscripciones, acuerdo de herederos y antecedentes antes de vender.", cost: "$0 a asesoria, impuestos y CBR variables.", duration: "Meses segun herederos, posesion e inscripciones.", channel: "Registro Civil, SII, CBR, notaria y herederos", documents: ["Posesion efectiva", "Inscripcion especial de herencia", "Acuerdo de herederos"], sources: [registroCivil, sii, chileAtiende] },
 
   // Familia
   { slug: "demandar-pension-alimentos", title: "Preparar demanda de pension de alimentos", category: "Familia", summary: "Ordena gastos, ingresos, certificados y mediacion antes de solicitar pension.", cost: "$0 a asesoria variable.", duration: "Semanas a meses.", channel: "Mediacion y tribunal de familia", documents: ["Certificado nacimiento", "Gastos menor", "Ingresos"], sources: [chileAtiende] },
@@ -723,7 +734,9 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
   };
 }
 
-const generatedGuides: GuideDetail[] = moreProcedureSeeds.map((procedure) =>
+const generatedGuideSeeds = [...moreProcedureSeeds, ...everydayProcedureSeeds];
+
+const generatedGuides: GuideDetail[] = generatedGuideSeeds.map((procedure) =>
   makeGuideFromProcedureSeed({
     procedure,
     angle: `Preparacion referencial para ${procedure.title.toLowerCase()}.`
@@ -731,7 +744,7 @@ const generatedGuides: GuideDetail[] = moreProcedureSeeds.map((procedure) =>
 );
 
 export const expandedProcedures: ProcedureDetail[] =
-  [...procedureSeeds, ...additionalProcedureSeeds, ...moreProcedureSeeds].map(makeProcedure);
+  [...procedureSeeds, ...additionalProcedureSeeds, ...moreProcedureSeeds, ...everydayProcedureSeeds].map(makeProcedure);
 
 export const expandedGuides: GuideDetail[] = [
   ...generatedGuides,

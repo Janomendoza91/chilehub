@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import {
   ArrowRight,
-  ArrowUpRight,
   CheckCircle2,
   FileText,
   MapPin
@@ -242,15 +241,10 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
                 El tramite no se realiza en ChileHub. Cuando termines esta
                 preparacion, continua en el canal externo correspondiente.
               </p>
-              <a
-                href={procedure.externalAction.url}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-[13px] font-extrabold text-primary"
-              >
-                {procedure.externalAction.label}
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
+              <p className="mt-4 rounded-[14px] bg-white px-3 py-2 text-[12px] font-bold leading-5 text-[#52607f]">
+                El enlace oficial para continuar esta al final de la ficha,
+                despues de costos, alertas, checklist y fuentes.
+              </p>
             </div>
           </div>
         </div>
