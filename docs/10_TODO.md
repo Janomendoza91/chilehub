@@ -92,6 +92,7 @@
 - [x] Crear espacio personal local para guardados, historial, checklist, recordatorios y alertas.
 - [x] Convertir mockup de venta de auto en flujo real dentro de la ficha del tramite.
 - [x] Crear vista de oficinas.
+- [x] Conectar oficinas cercanas referenciales desde venta de auto y mockups mobile.
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
 
 ## Etapa 5 - Personalizacion V3

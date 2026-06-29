@@ -8,6 +8,7 @@ import {
   FileText,
   MapPin
 } from "lucide-react";
+import { nearbyRegistroCivilOffices } from "@/data/offices";
 
 const documents = [
   "Permiso circulacion",
@@ -43,12 +44,6 @@ const steps = [
     detail: "Revisa que la transferencia quede reflejada correctamente."
   }
 ];
-
-const offices = [
-  ["Registro Civil Providencia", "2.1 km"],
-  ["Registro Civil Nunoa", "3.6 km"],
-  ["Registro Civil Santiago", "5.4 km"]
-] as const;
 
 export function SellCarPreparationFlow() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -233,7 +228,7 @@ export function SellCarPreparationFlow() {
                   Continua en Registro Civil para transferir el vehiculo.
                 </p>
                 <Link
-                  href="/oficinas"
+                  href="/oficinas#oficinas-cercanas"
                   className="mt-3 inline-flex items-center gap-2 text-[13px] font-bold text-primary"
                 >
                   Ver oficinas cercanas
@@ -242,26 +237,59 @@ export function SellCarPreparationFlow() {
               </div>
             </div>
 
-            <div className="rounded-[20px] border border-[#e3e9f4] bg-white p-5">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-primary" />
-                <h3 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
-                  Oficinas cercanas
-                </h3>
+            <div className="overflow-hidden rounded-[20px] border border-[#e3e9f4] bg-white">
+              <div className="flex items-center justify-between gap-3 p-5 pb-3">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <h3 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                    Oficinas cercanas
+                  </h3>
+                </div>
+                <span className="rounded-full bg-[#eef2ff] px-3 py-1 text-[11px] font-extrabold text-primary">
+                  Mas cercana
+                </span>
               </div>
-              <div className="mt-4 grid gap-2">
-                {offices.map(([office, distance]) => (
+
+              <div className="relative h-[150px] overflow-hidden bg-[#edf2f8]">
+                <div className="absolute inset-0 opacity-75 [background-image:linear-gradient(90deg,#dce3ee_1px,transparent_1px),linear-gradient(#dce3ee_1px,transparent_1px)] [background-size:28px_28px]" />
+                <span className="absolute left-[22%] top-[48%] text-primary">
+                  <MapPin className="h-8 w-8 fill-current drop-shadow-sm" />
+                </span>
+                <span className="absolute left-[56%] top-[28%] text-success">
+                  <MapPin className="h-7 w-7 fill-current drop-shadow-sm" />
+                </span>
+                <span className="absolute right-[15%] top-[58%] text-success">
+                  <MapPin className="h-7 w-7 fill-current drop-shadow-sm" />
+                </span>
+                <div className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-extrabold text-[#52607f] shadow-[0_10px_24px_rgba(35,49,86,0.08)]">
+                  Ubicacion referencial
+                </div>
+              </div>
+
+              <div className="-mt-4 grid gap-2 p-4 pt-0">
+                {nearbyRegistroCivilOffices.map((office) => (
                   <Link
-                    key={office}
-                    href="/oficinas"
-                    className="flex items-center justify-between rounded-[14px] bg-[#f7f9ff] p-3"
+                    key={office.id}
+                    href={`/oficinas#${office.id}`}
+                    className={
+                      office.badge === "Mas cercana"
+                        ? "relative flex items-center justify-between rounded-[16px] border border-[#dce8ff] bg-white p-3 shadow-[0_14px_30px_rgba(35,49,86,0.08)]"
+                        : "relative flex items-center justify-between rounded-[14px] border border-[#edf1f7] bg-[#f7f9ff] p-3"
+                    }
                   >
                     <span>
-                      <span className="block text-[13px] font-extrabold text-[#081642]">
-                        {office}
+                      <span className="flex items-center gap-2">
+                        <span className="block text-[13px] font-extrabold text-[#081642]">
+                          {office.name}
+                        </span>
+                        {office.badge === "Mas cercana" ? (
+                          <span className="rounded-full bg-[#e5f8ec] px-2 py-0.5 text-[9px] font-extrabold text-[#20a660]">
+                            Recomendada
+                          </span>
+                        ) : null}
                       </span>
                       <span className="mt-1 block text-[11px] font-bold text-[#f07b22]">
-                        {distance}
+                        {office.distance}
                       </span>
                     </span>
                     <span className="text-[12px] font-bold text-primary">

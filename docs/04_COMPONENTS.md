@@ -500,6 +500,9 @@ Descripcion: item de oficina o punto de atencion.
 Responsabilidad:
 
 - Mostrar lugar donde continuar un proceso.
+- Mostrar distancia referencial cuando la experiencia lo requiera.
+- Permitir destacar una opcion recomendada o mas cercana.
+- Linkear a la fuente externa donde el usuario debe confirmar direccion, agenda y disponibilidad.
 
 Props futuras:
 
@@ -508,12 +511,30 @@ Props futuras:
 - `distance`
 - `hours`
 - `availability`
+- `badge`
+- `sourceUrl`
 
 Estados:
 
 - Open.
 - Closed.
 - Recommended.
+- Referential.
+
+## NearbyOfficesSection
+
+Descripcion: seccion de oficinas cercanas referenciales para continuar fuera de ChileHub.
+
+Responsabilidad:
+
+- Convertir los mockups de oficinas en una experiencia navegable real.
+- Mostrar mapa visual referencial, lista de oficinas, distancia estimada y opcion recomendada.
+- Reforzar que ChileHub no agenda, no ejecuta tramites y no reemplaza la confirmacion oficial.
+
+Responsive:
+
+- Mapa y lista lado a lado en desktop.
+- Composicion apilada en mobile sin ocultar contenido.
 
 ## EmptyState
 

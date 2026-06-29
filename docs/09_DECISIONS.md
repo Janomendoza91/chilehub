@@ -253,6 +253,25 @@ El flujo queda acotado a venta de auto. La pauta es referencial, no oficial ni d
 Owner:
 Product / Engineering.
 
+## 2026-06-29 - Oficinas cercanas referenciales
+
+Status: Accepted
+
+Context:
+El flujo real de venta de auto y los mockups de landing muestran oficinas cercanas como parte del cierre del proceso, pero la pagina `/oficinas` solo mostraba canales externos generales.
+
+Decision:
+Crear una experiencia de oficinas cercanas referenciales para Registro Civil, conectada desde el flujo de venta de auto y desde los mockups mobile. La vista destaca una opcion mas cercana, muestra distancias referenciales y envia al sitio oficial para confirmar direccion, horario y disponibilidad.
+
+Rationale:
+La promesa visual debe sentirse real dentro del producto. Al mismo tiempo, ChileHub no debe fingir geolocalizacion, agenda oficial ni disponibilidad en vivo.
+
+Consequences:
+La pagina `/oficinas` combina una experiencia contextual para venta de auto con cuatro canales externos generales. Las distancias y ubicaciones se presentan como referenciales hasta integrar datos oficiales o geolocalizacion validada.
+
+Owner:
+Product / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

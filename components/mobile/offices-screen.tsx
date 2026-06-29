@@ -1,11 +1,6 @@
 import { ArrowLeft, MapPin } from "lucide-react";
 import { PhoneShell } from "@/components/mobile/phone-shell";
-
-const offices = [
-  ["Registro Civil Providencia", "2.1 km"],
-  ["Registro Civil Nunoa", "3.6 km"],
-  ["Registro Civil Santiago", "5.4 km"]
-] as const;
+import { nearbyRegistroCivilOffices } from "@/data/offices";
 
 export function OfficesScreen() {
   return (
@@ -38,17 +33,17 @@ export function OfficesScreen() {
           ))}
         </div>
         <div className="-mt-3 space-y-2 px-3 sm:-mt-4 sm:space-y-3 sm:px-5">
-          {offices.map(([name, distance]) => (
+          {nearbyRegistroCivilOffices.map((office) => (
             <div
-              key={name}
+              key={office.id}
               className="relative rounded-[10px] border border-[#e4e9f2] bg-white p-2.5 shadow-[0_10px_26px_rgba(35,49,86,0.06)] sm:rounded-[11px] sm:p-4"
             >
               <h4 className="truncate text-[9.5px] font-extrabold text-[#081642] sm:text-[11px]">
-                {name}
+                {office.name}
               </h4>
               <div className="mt-1.5 flex items-center justify-between sm:mt-2">
                 <span className="text-[8.5px] font-bold text-[#f07b22] sm:text-[9px]">
-                  {distance}
+                  {office.distance}
                 </span>
                 <span className="text-[8.5px] font-bold text-primary sm:text-[9px]">
                   Ver detalles
