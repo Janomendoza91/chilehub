@@ -4,6 +4,7 @@ import { sidebarItems } from "@/data/home";
 import { Logo } from "@/components/navigation/logo";
 
 const headerItems = sidebarItems.filter((item) => item.label !== "Buscar");
+const mainNavItems = headerItems.filter((item) => item.label !== "Mis tramites");
 
 export function Header() {
   return (
@@ -13,7 +14,7 @@ export function Header() {
           <Logo compact />
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 px-3 xl:flex">
-            {headerItems.map((item) => (
+            {mainNavItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -29,6 +30,9 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
+            <Link href="/mis-tramites" className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] sm:h-10 sm:px-4 sm:text-[13px]">
+              Mis tramites
+            </Link>
             <Link href="/registrarte" className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
               Activar gratis
               <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
@@ -43,7 +47,7 @@ export function Header() {
             </div>
           </div>
           <nav className="flex gap-1.5 overflow-x-auto rounded-full border border-[#e8edf6] bg-white/90 p-1 pr-20 shadow-[0_12px_30px_rgba(35,49,86,0.045)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {headerItems.map((item) => {
+            {mainNavItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
