@@ -108,6 +108,40 @@ export default async function ProcedureDetailPage({
         <ProcedureStepFlow procedure={procedure} />
       )}
 
+      {procedure.preparationBrief ? (
+        <section className="pb-5">
+          <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[22px] border border-[#f2dfc7] bg-[#fffaf3] p-4 shadow-[0_14px_34px_rgba(35,49,86,0.035)] sm:p-5">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#b46b14]">
+                Punto critico
+              </p>
+              <h2 className="mt-2 text-[20px] font-extrabold tracking-[-0.04em] text-[#081642]">
+                {procedure.preparationBrief.primaryRisk}
+              </h2>
+              <p className="mt-3 text-[13px] font-semibold leading-6 text-[#8a4b12]">
+                {procedure.preparationBrief.confirmBeforePaying}
+              </p>
+            </div>
+
+            <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.035)] sm:p-5">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+                Checklist de confirmacion
+              </p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {(procedure.confirmationChecklist ?? []).map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-[14px] bg-[#f7f9ff] px-3 py-3 text-[12px] font-semibold leading-5 text-[#56617f]"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="pb-5 pt-1">
         <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_18px_46px_rgba(35,49,86,0.05)] sm:p-5">
           <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">

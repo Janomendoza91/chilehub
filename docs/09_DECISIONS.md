@@ -329,6 +329,25 @@ El catalogo crece de forma importante y requiere priorizar verificacion oficial 
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-29 - Capa editorial de confirmacion
+
+Status: Accepted
+
+Context:
+Aunque los tramites y guias tenian costos, plazos, documentos y pasos, seguian pudiendo sentirse como informacion general. La utilidad aumenta cuando el usuario sabe que confirmar antes de pagar, firmar, reservar hora o continuar fuera de ChileHub.
+
+Decision:
+Agregar una capa editorial transversal con punto critico, checklist de confirmacion, escenarios practicos y preguntas para la fuente. Esta capa se genera desde datos existentes y se presenta como preparacion referencial, no como verificacion oficial definitiva.
+
+Rationale:
+ChileHub debe ayudar a evitar errores concretos. El usuario necesita saber que dato podria bloquear su caso y que pregunta hacer en la fuente oficial.
+
+Consequences:
+Cada ficha y guia queda mas accionable. La verificacion oficial individual sigue siendo necesaria para transformar contenido referencial en contenido validado.
+
+Owner:
+Product / Content / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

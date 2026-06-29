@@ -657,6 +657,29 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
         detail: "ChileHub ordena la preparacion; la accion formal continua en la fuente o institucion correspondiente."
       }
     ],
+    sourceQuestions: [
+      `El requisito para ${procedure.title.toLowerCase()} cambia por comuna, institucion, fecha o perfil?`,
+      `El costo vigente coincide con este rango referencial: ${procedure.cost}?`,
+      `Que documento se rechaza con mas frecuencia en ${procedure.channel}?`,
+      "Donde reviso estado, observaciones o correcciones despues de iniciar?"
+    ],
+    practicalScenarios: [
+      {
+        title: "Si todo esta normal",
+        detail: `Prepara ${procedure.documents.slice(0, 2).join(" y ")} y confirma el canal ${procedure.channel}.`
+      },
+      {
+        title: "Si aparece una excepcion",
+        detail:
+          procedure.warning ??
+          "Detente si hay deuda, rechazo, datos que no coinciden, documento vencido o plazo corto."
+      },
+      {
+        title: "Si vas a pagar o firmar",
+        detail:
+          "Confirma el valor vigente y guarda comprobante antes de cerrar cualquier decision fuera de ChileHub."
+      }
+    ],
     fiveMinutePlan: [
       `Define si realmente necesitas ${procedure.title.toLowerCase()} o una ruta relacionada.`,
       `Prepara ${procedure.documents.slice(0, 3).join(", ")}.`,

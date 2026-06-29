@@ -51,6 +51,12 @@ export type ProcedureDetail = {
     amount: string;
     detail: string;
   }>;
+  preparationBrief?: {
+    primaryRisk: string;
+    confirmBeforePaying: string;
+    expectedOutcome: string;
+  };
+  confirmationChecklist?: string[];
   steps: string[];
   commonMistakes: string[];
   redFlags: string[];
@@ -74,6 +80,11 @@ export type GuideDetail = {
   decisionCards?: Array<{
     label: string;
     value: string;
+    detail: string;
+  }>;
+  sourceQuestions?: string[];
+  practicalScenarios?: Array<{
+    title: string;
     detail: string;
   }>;
   fiveMinutePlan?: string[];

@@ -82,6 +82,7 @@
 - [x] Ampliar cobertura inicial con 10 tramites adicionales por categoria principal.
 - [x] Agregar una nueva tanda de 10 tramites por categoria principal.
 - [x] Agregar 10 guias rapidas enriquecidas por categoria principal.
+- [x] Agregar capa editorial de confirmacion en tramites y guias.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
 - [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.

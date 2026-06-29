@@ -1800,9 +1800,28 @@ function procedureCategoryContext(category: string) {
 
 function enrichProcedure(procedure: ProcedureDetail): ProcedureDetail {
   const context = procedureCategoryContext(procedure.category);
+  const firstSource = procedure.sources[0]?.label ?? "la fuente correspondiente";
+  const mainDocument = procedure.documents[0]?.title ?? "documento principal";
 
   return {
     ...procedure,
+    preparationBrief: {
+      primaryRisk:
+        procedure.redFlags[0] ??
+        context.mistakes[0] ??
+        "Avanzar con informacion incompleta o antigua.",
+      confirmBeforePaying:
+        `Antes de pagar, firmar o reservar hora, confirma en ${firstSource} que ${mainDocument} sirve para tu caso y que el costo/plazo sigue vigente.`,
+      expectedOutcome:
+        `Salir con documentos claros, pregunta critica anotada y canal externo identificado: ${procedure.channel}.`
+    },
+    confirmationChecklist: uniqueList([
+      `Fuente abierta: ${firstSource}.`,
+      `Documento critico revisado: ${mainDocument}.`,
+      `Costo referencial contrastado: ${procedure.cost}.`,
+      `Plazo referencial contrastado: ${procedure.duration}.`,
+      "Folio, comprobante o respaldo definido para guardar al continuar."
+    ]),
     beforeYouStart: uniqueList([
       ...context.before,
       ...procedure.beforeYouStart,
@@ -1859,6 +1878,9 @@ function guideCategoryContext(category: string) {
 function enrichGuide(guide: GuideDetail): GuideDetail {
   const context = guideCategoryContext(guide.category);
   const sourceNames = guide.sources.map((source) => source.label).join(", ");
+  const related = guide.relatedProcedureSlug
+    ? `Esta guia esta conectada al tramite ${guide.relatedProcedureSlug}.`
+    : "Esta guia ordena una decision antes de continuar fuera de ChileHub.";
 
   return {
     ...guide,
@@ -1885,12 +1907,39 @@ function enrichGuide(guide: GuideDetail): GuideDetail {
         detail: context.mistakes[0] ?? "La mayoria de errores aparece por informacion incompleta o antigua."
       }
     ],
+    sourceQuestions: uniqueList([
+      ...(guide.sourceQuestions ?? []),
+      context.questions[0] ?? "Que requisito cambia mi caso?",
+      "Que documento se rechaza con mas frecuencia y por que?",
+      "El costo o plazo publicado sigue vigente este mes?",
+      "Que comprobante debo guardar si continuo fuera de ChileHub?"
+    ]).slice(0, 5),
+    practicalScenarios: guide.practicalScenarios ?? [
+      {
+        title: "Caso simple",
+        detail:
+          "Tienes documentos vigentes, datos coinciden y no hay deuda, rechazo, conflicto ni plazo vencido."
+      },
+      {
+        title: "Caso con cuidado",
+        detail:
+          context.variations[0] ??
+          "Hay una condicion por comuna, institucion, canal o perfil que debes confirmar."
+      },
+      {
+        title: "Caso para pedir ayuda",
+        detail:
+          context.mistakes[0] ??
+          "Hay dinero relevante, firma, rechazo, deuda, conflicto o efecto legal/tributario."
+      }
+    ],
     fiveMinutePlan: uniqueList([
       ...(guide.fiveMinutePlan ?? []),
       "Define el objetivo exacto y anota que resultado necesitas obtener.",
       "Revisa documentos, costo, plazo y canal antes de salir de ChileHub.",
       "Marca la pregunta que debes confirmar en la fuente oficial o institucion.",
-      "Guarda enlaces, folios o comprobantes cuando continues fuera del sitio."
+      "Guarda enlaces, folios o comprobantes cuando continues fuera del sitio.",
+      related
     ]).slice(0, 5),
     commonMistakes: uniqueList([
       ...(guide.commonMistakes ?? []),

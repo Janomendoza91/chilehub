@@ -258,6 +258,27 @@ Responsive:
 - Tabs horizontales con scroll en mobile.
 - Panel de contexto y lista en dos columnas cuando hay espacio.
 
+## PreparationBrief
+
+Descripcion: resumen editorial critico dentro de una ficha de tramite.
+
+Responsabilidad:
+
+- Mostrar el riesgo principal del proceso.
+- Indicar que confirmar antes de pagar, firmar o reservar hora.
+- Mostrar checklist de confirmacion contra fuente, documento, costo, plazo y respaldo.
+- Reforzar que los datos son referenciales y deben confirmarse fuera de ChileHub.
+
+## GuideScenarioBlocks
+
+Descripcion: bloques de contexto practico dentro de guias rapidas.
+
+Responsabilidad:
+
+- Separar caso simple, caso con cuidado y caso donde conviene pedir ayuda.
+- Mostrar preguntas concretas para confirmar en fuentes oficiales o instituciones.
+- Convertir guias editoriales en preparacion accionable.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

@@ -107,6 +107,52 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           </section>
         ) : null}
 
+        {(guide.practicalScenarios?.length || guide.sourceQuestions?.length) ? (
+          <section className="mt-5 grid gap-3 lg:grid-cols-[0.95fr_1.05fr]">
+            {guide.practicalScenarios?.length ? (
+              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+                  Segun tu caso
+                </p>
+                <div className="mt-4 grid gap-2">
+                  {guide.practicalScenarios.map((scenario) => (
+                    <div
+                      key={scenario.title}
+                      className="rounded-[16px] bg-[#f7f9ff] p-3"
+                    >
+                      <h2 className="text-[14px] font-extrabold text-[#081642]">
+                        {scenario.title}
+                      </h2>
+                      <p className="mt-1.5 text-[12.5px] font-semibold leading-5 text-[#66718f]">
+                        {scenario.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {guide.sourceQuestions?.length ? (
+              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+                  Preguntas para confirmar
+                </p>
+                <div className="mt-4 grid gap-2">
+                  {guide.sourceQuestions.map((question) => (
+                    <div
+                      key={question}
+                      className="flex gap-3 rounded-[14px] bg-[#fbfcff] px-3 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                    >
+                      <HelpCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      {question}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </section>
+        ) : null}
+
         <div className="mt-5 grid gap-3">
           {guide.sections.map((section) => (
             <section
