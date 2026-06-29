@@ -213,6 +213,19 @@ Responsabilidad:
 - Crear recordatorios locales.
 - Aclarar que los datos viven en este navegador.
 
+## SellCarPreparationFlow
+
+Descripcion: flujo guiado real para preparar la venta de un auto.
+
+Responsabilidad:
+
+- Convertir el mockup mobile de landing en una experiencia usable.
+- Mostrar progreso paso a paso.
+- Permitir marcar documentos necesarios.
+- Mostrar pauta referencial dentro de la pantalla.
+- Mostrar cierre de preparacion y oficinas donde continuar.
+- Mantener claro que ChileHub prepara, pero no ejecuta la transferencia.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

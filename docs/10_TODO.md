@@ -90,6 +90,7 @@
 - [x] Crear estados de preparacion simulados.
 - [x] Crear checklist de documentos.
 - [x] Crear espacio personal local para guardados, historial, checklist, recordatorios y alertas.
+- [x] Convertir mockup de venta de auto en flujo real dentro de la ficha del tramite.
 - [x] Crear vista de oficinas.
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
 

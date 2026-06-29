@@ -234,6 +234,25 @@ Requiere configurar `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
 Owner:
 Product / Engineering.
 
+## 2026-06-28 - Mockup de venta de auto como flujo real
+
+Status: Accepted
+
+Context:
+La landing mostraba una experiencia mobile para vender un auto con progreso, documentos, contrato, finalizacion y oficinas cercanas, pero esa experiencia no existia como producto real.
+
+Decision:
+Agregar un flujo guiado real en la ficha `vender-un-auto` que replica esa promesa: paso a paso, documentos marcables, pauta referencial visible, siguiente accion y oficinas donde continuar fuera de ChileHub.
+
+Rationale:
+Los mockups de la landing deben representar capacidades reales o claramente futuras. Convertir este caso en flujo usable mejora confianza y muestra el valor central de ChileHub.
+
+Consequences:
+El flujo queda acotado a venta de auto. La pauta es referencial, no oficial ni descargable. Otros tramites podran adoptar el mismo patron cuando exista contenido especifico suficiente.
+
+Owner:
+Product / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

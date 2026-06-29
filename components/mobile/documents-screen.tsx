@@ -1,4 +1,4 @@
-import { ArrowDownToLine, ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText } from "lucide-react";
 import { PhoneShell } from "@/components/mobile/phone-shell";
 
 export function DocumentsScreen() {
@@ -53,8 +53,7 @@ export function DocumentsScreen() {
             </div>
           </div>
           <button className="mt-3 flex h-8 w-full items-center justify-center gap-1 rounded-[7px] bg-[#f4f6ff] text-[9.5px] font-bold text-primary sm:mt-4 sm:h-10 sm:gap-2 sm:text-[11px]">
-            Descargar PDF
-            <ArrowDownToLine className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            Revisar datos
           </button>
         </div>
         <div className="mt-4 sm:mt-8">
