@@ -13,6 +13,13 @@ import { ProcedureInsightTabs } from "@/components/procedures/procedure-insight-
 import { ProcedureStepFlow } from "@/components/procedures/procedure-step-flow";
 import { SellCarPreparationFlow } from "@/components/procedures/sell-car-preparation-flow";
 import { getProcedure, procedures } from "@/data/content";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  jsonLd,
+  pageMetadata,
+  siteConfig
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return procedures.map((procedure) => ({ slug: procedure.slug }));
@@ -27,8 +34,18 @@ export async function generateMetadata({ params }: ProcedurePageProps) {
   const procedure = getProcedure(slug);
 
   return {
-    title: procedure ? `${procedure.title} | ChileHub` : "Tramite | ChileHub",
-    description: procedure?.summary
+    ...(procedure
+      ? pageMetadata({
+          title: `${procedure.title} en Chile`,
+          description: procedure.summary,
+          path: `/tramites/${procedure.slug}`,
+          type: "article"
+        })
+      : pageMetadata({
+          title: "Tramite",
+          description: "Ficha referencial de tramite en ChileHub.",
+          path: "/tramites"
+        }))
   };
 }
 
@@ -44,6 +61,38 @@ export default async function ProcedureDetailPage({
 
   return (
     <ProductShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: `${procedure.title} en Chile`,
+          description: procedure.summary,
+          mainEntityOfPage: absoluteUrl(`/tramites/${procedure.slug}`),
+          dateModified: procedure.updatedAt,
+          author: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url
+          },
+          publisher: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url
+          },
+          about: procedure.category
+        })}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          breadcrumbJsonLd([
+            { name: "Inicio", path: "/" },
+            { name: "Tramites", path: "/tramites" },
+            { name: procedure.title, path: `/tramites/${procedure.slug}` }
+          ])
+        )}
+      />
       <section className="grid gap-5 pb-5 pt-3 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
         <div className="flex min-h-full flex-col">
           <Link href="/tramites" className="text-[13px] font-bold text-primary">

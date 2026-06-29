@@ -1,11 +1,14 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { PersonalDashboard } from "@/components/account/personal-dashboard";
 import { procedures } from "@/data/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Guardados | ChileHub",
-  description: "Procesos guardados en ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Guardados",
+  description: "Procesos guardados localmente en ChileHub.",
+  path: "/guardados",
+  noIndex: true
+});
 
 export default function GuardadosPage() {
   return (

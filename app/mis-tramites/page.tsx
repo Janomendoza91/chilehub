@@ -1,11 +1,14 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { PersonalDashboard } from "@/components/account/personal-dashboard";
 import { procedures } from "@/data/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Mis tramites | ChileHub",
-  description: "Preparacion local de procesos en ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Mis tramites",
+  description: "Preparacion local de procesos en ChileHub.",
+  path: "/mis-tramites",
+  noIndex: true
+});
 
 export default function MisTramitesPage() {
   return (

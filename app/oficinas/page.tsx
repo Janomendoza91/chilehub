@@ -6,11 +6,14 @@ import {
 } from "@/components/layout/product-shell";
 import { officeChannels } from "@/data/content";
 import { nearbyRegistroCivilOffices } from "@/data/offices";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Oficinas y canales | ChileHub",
-  description: "Canales externos donde continuar procesos fuera de ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Oficinas y canales externos para tramites",
+  description:
+    "Canales externos referenciales donde confirmar requisitos, horarios, disponibilidad y continuar procesos fuera de ChileHub.",
+  path: "/oficinas"
+});
 
 export default function OficinasPage() {
   return (

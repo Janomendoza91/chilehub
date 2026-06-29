@@ -71,6 +71,31 @@ El usuario debe poder borrar sus datos locales desde la interfaz.
 - No exponer secretos al cliente.
 - Documentar integraciones de terceros antes de conectarlas.
 
+## Hardening tecnico base
+
+ChileHub debe servir todas las rutas con headers defensivos desde Next.js:
+
+- `Content-Security-Policy` para limitar origenes de scripts, frames, conexiones, imagenes y recursos.
+- `Strict-Transport-Security` en produccion.
+- `X-Frame-Options: DENY` y `frame-ancestors 'none'` para evitar clickjacking.
+- `X-Content-Type-Options: nosniff`.
+- `Referrer-Policy: strict-origin-when-cross-origin`.
+- `Permissions-Policy` bloqueando camara, microfono, geolocalizacion, pagos, USB y sensores.
+- `Cross-Origin-Opener-Policy` y `Cross-Origin-Resource-Policy` para aislamiento basico.
+
+La CSP permite Supabase y Google solo porque el acceso con Google esta preparado por feature flag. Si se agregan analytics, mapas, embeds, pagos, chat o scripts externos, deben agregarse explicitamente a la CSP y documentarse en `09_DECISIONS.md`.
+
+## Persistencia local segura
+
+El almacenamiento local solo puede guardar preferencias y preparacion no sensible. Los campos escritos por el usuario deben limpiarse, limitar longitud y evitar datos personales sensibles.
+
+Reglas obligatorias:
+
+- No guardar RUT, direccion, documentos, certificados, datos bancarios, datos medicos ni contrasenas en `localStorage`.
+- Limitar recordatorios locales a textos cortos y fechas validas.
+- Mantener una accion visible para borrar datos locales.
+- No presentar datos locales como sincronizados o respaldados.
+
 ## Seguridad de contenido
 
 ChileHub no debe:

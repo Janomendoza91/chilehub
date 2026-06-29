@@ -1,9 +1,12 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contacto | ChileHub",
-  description: "Contacto y contexto de ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Contacto y reportes",
+  description:
+    "Contacta a ChileHub para reportar informacion, sugerir procesos o pedir revision de contenido referencial.",
+  path: "/contacto"
+});
 
 export default function ContactoPage() {
   return (

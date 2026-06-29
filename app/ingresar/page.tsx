@@ -1,10 +1,13 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { AccountAccessPanel } from "@/components/account/account-access-panel";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Ingresar | ChileHub",
-  description: "Acceso local gratuito a ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Ingresar",
+  description: "Acceso local gratuito a ChileHub.",
+  path: "/ingresar",
+  noIndex: true
+});
 
 export default function IngresarPage() {
   return (

@@ -1,11 +1,14 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { procedures } from "@/data/content";
 import { ProcedureBrowser } from "@/components/procedures/procedure-browser";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Tramites | ChileHub",
-  description: "Biblioteca referencial de procesos para prepararte mejor."
-};
+export const metadata = pageMetadata({
+  title: "Tramites para preparar en Chile",
+  description:
+    "Biblioteca referencial de tramites en Chile con documentos, costos estimados, plazos, errores comunes y donde continuar.",
+  path: "/tramites"
+});
 
 export default function TramitesPage() {
   return (

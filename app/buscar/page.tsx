@@ -1,11 +1,14 @@
 import { Suspense } from "react";
 import { SearchPageContent } from "@/components/search/search-page-content";
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Buscar | ChileHub",
-  description: "Busca tramites y guias referenciales en ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Buscar tramites y guias",
+  description: "Busca tramites y guias referenciales dentro de ChileHub.",
+  path: "/buscar",
+  noIndex: true
+});
 
 export default function BuscarPage() {
   return (

@@ -83,6 +83,8 @@
 - [x] Agregar una nueva tanda de 10 tramites por categoria principal.
 - [x] Agregar 10 guias rapidas enriquecidas por categoria principal.
 - [x] Agregar capa editorial de confirmacion en tramites y guias.
+- [x] Agregar SEO tecnico base: sitemap, robots, canonical, metadata social, schema y noindex local.
+- [x] Agregar hardening tecnico base: headers de seguridad, CSP, limites de persistencia local y auditoria de dependencias.
 - [x] Crear pagina de detalle de proceso.
 - [x] Crear pagina de guia.
 - [x] Enriquecer guias rapidas con plan accionable, errores frecuentes y criterios de ayuda externa.
@@ -104,7 +106,8 @@
 
 - [ ] Definir autenticacion.
 - [ ] Definir base de datos.
-- [ ] Completar revision de privacidad y seguridad.
+- [x] Completar revision base de privacidad y seguridad para superficie publica actual.
+- [ ] Completar revision de privacidad y seguridad antes de activar auth/datos remotos.
 - [ ] Guardar preparacion.
 - [ ] Guardar procesos.
 - [ ] Guardar documentos por preparar.

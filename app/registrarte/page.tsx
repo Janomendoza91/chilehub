@@ -1,10 +1,13 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { AccountAccessPanel } from "@/components/account/account-access-panel";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Registrarte | ChileHub",
-  description: "Registro local gratuito en ChileHub."
-};
+export const metadata = pageMetadata({
+  title: "Registrarte",
+  description: "Registro local gratuito en ChileHub.",
+  path: "/registrarte",
+  noIndex: true
+});
 
 export default function RegistrartePage() {
   return (

@@ -348,6 +348,44 @@ Cada ficha y guia queda mas accionable. La verificacion oficial individual sigue
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-29 - SEO tecnico base
+
+Status: Accepted
+
+Context:
+ChileHub ya tiene muchas paginas indexables de tramites y guias, pero faltaban senales tecnicas basicas para buscadores: sitemap, robots, canonical, metadata social, noindex para paginas locales y datos estructurados.
+
+Decision:
+Centralizar configuracion SEO, agregar `robots.txt`, `sitemap.xml`, canonical, Open Graph, Twitter metadata, schema JSON-LD para home/tramites/guias y `noindex` para paginas privadas o de estado local. El dominio canonico se toma desde `NEXT_PUBLIC_SITE_URL` y cae a `https://chilehub.cl`.
+
+Rationale:
+El potencial SEO de ChileHub depende de que Google descubra e interprete correctamente cientos de paginas long-tail sin indexar superficies de cuenta, busqueda interna o estado local.
+
+Consequences:
+Al publicar en Vercel se debe configurar `NEXT_PUBLIC_SITE_URL` con el dominio final. Las paginas referenciales quedan listas para indexacion, pero la verificacion editorial individual sigue siendo necesaria para competir en consultas sensibles.
+
+Owner:
+Product / Engineering.
+
+## 2026-06-29 - Hardening tecnico de seguridad
+
+Status: Accepted
+
+Context:
+ChileHub empieza a comportarse como app web con espacio personal local y Supabase Auth preparado, aunque todavia no tiene backend propio, pagos, uploads ni APIs. Antes de activar dominio, Google o persistencia remota, la superficie publica debe tener defensas base.
+
+Decision:
+Agregar headers de seguridad desde `next.config.ts`, desactivar `X-Powered-By`, limitar permisos del navegador, bloquear framing, definir CSP con origenes permitidos para el producto actual, aplicar HSTS en produccion, limpiar y limitar texto guardado localmente, y agregar un script de auditoria de dependencias productivas.
+
+Rationale:
+El producto vende confianza. Aunque la superficie tecnica actual es pequena, una postura defensiva temprana evita que futuras integraciones externas, auth o datos personales se agreguen sin limites claros.
+
+Consequences:
+Toda integracion externa futura debe revisar CSP, privacidad y origenes permitidos. La persistencia local sigue siendo solo para datos no sensibles; datos personales sincronizados requieren backend seguro, RLS, politicas de retencion y revision explicita.
+
+Owner:
+Engineering / Security / Product.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

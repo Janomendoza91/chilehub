@@ -11,6 +11,13 @@ import {
 } from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
 import { getGuide, guidesContent } from "@/data/content";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  jsonLd,
+  pageMetadata,
+  siteConfig
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return guidesContent.map((guide) => ({ slug: guide.slug }));
@@ -25,8 +32,18 @@ export async function generateMetadata({ params }: GuidePageProps) {
   const guide = getGuide(slug);
 
   return {
-    title: guide ? `${guide.title} | ChileHub` : "Guia | ChileHub",
-    description: guide?.summary
+    ...(guide
+      ? pageMetadata({
+          title: guide.title,
+          description: guide.summary,
+          path: `/guias/${guide.slug}`,
+          type: "article"
+        })
+      : pageMetadata({
+          title: "Guia",
+          description: "Guia referencial de ChileHub.",
+          path: "/guias"
+        }))
   };
 }
 
@@ -40,6 +57,38 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
 
   return (
     <ProductShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: guide.title,
+          description: guide.summary,
+          mainEntityOfPage: absoluteUrl(`/guias/${guide.slug}`),
+          dateModified: guide.updatedAt,
+          author: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url
+          },
+          publisher: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url
+          },
+          about: guide.category
+        })}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          breadcrumbJsonLd([
+            { name: "Inicio", path: "/" },
+            { name: "Guias", path: "/guias" },
+            { name: guide.title, path: `/guias/${guide.slug}` }
+          ])
+        )}
+      />
       <article className="mx-auto max-w-[980px] pb-10 pt-3">
         <Link href="/guias" className="text-[13px] font-bold text-primary">
           Volver a guias

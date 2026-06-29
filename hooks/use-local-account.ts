@@ -18,6 +18,9 @@ export type LocalAccountState = {
 };
 
 const STORAGE_KEY = "chilehub.localAccount.v1";
+const MAX_NAME_LENGTH = 80;
+const MAX_NOTE_LENGTH = 140;
+const MAX_REMINDERS = 30;
 
 const defaultState: LocalAccountState = {
   active: false,
@@ -45,6 +48,18 @@ function writeState(state: LocalAccountState) {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
+function sanitizePlainText(value: string, maxLength: number) {
+  return value
+    .replace(/[\u0000-\u001f\u007f]/g, "")
+    .replace(/[<>]/g, "")
+    .trim()
+    .slice(0, maxLength);
+}
+
+function isIsoDate(value: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value);
+}
+
 export function useLocalAccount() {
   const [state, setState] = useState<LocalAccountState>(defaultState);
   const [ready, setReady] = useState(false);
@@ -64,7 +79,8 @@ export function useLocalAccount() {
 
   const api = useMemo(() => ({
     activate(name: string) {
-      update((current) => ({ ...current, active: true, name: name.trim() || "Mi espacio" }));
+      const safeName = sanitizePlainText(name, MAX_NAME_LENGTH) || "Mi espacio";
+      update((current) => ({ ...current, active: true, name: safeName }));
     },
     clear() {
       update(defaultState);
@@ -103,7 +119,9 @@ export function useLocalAccount() {
       });
     },
     addReminder(procedureSlug: string, note: string, date: string) {
-      if (!note.trim() || !date) {
+      const safeNote = sanitizePlainText(note, MAX_NOTE_LENGTH);
+
+      if (!safeNote || !isIsoDate(date)) {
         return;
       }
 
@@ -113,12 +131,12 @@ export function useLocalAccount() {
           {
             id: `${procedureSlug}-${Date.now()}`,
             procedureSlug,
-            note: note.trim(),
+            note: safeNote,
             date,
             done: false
           },
           ...current.reminders
-        ]
+        ].slice(0, MAX_REMINDERS)
       }));
     },
     toggleReminder(id: string) {

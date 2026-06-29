@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -9,9 +10,33 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ChileHub",
-  description:
-    "Claridad visual para preparar procesos importantes en Chile antes de avanzar."
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
+  title: {
+    default: "ChileHub | Prepara tramites y procesos importantes en Chile",
+    template: "%s | ChileHub"
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: absoluteUrl("/")
+  },
+  openGraph: {
+    title: "ChileHub | Prepara tramites y procesos importantes en Chile",
+    description: siteConfig.description,
+    url: absoluteUrl("/"),
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ChileHub | Prepara tramites y procesos importantes en Chile",
+    description: siteConfig.description
+  },
+  robots: {
+    index: true,
+    follow: true
+  }
 };
 
 export default function RootLayout({
