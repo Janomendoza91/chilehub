@@ -272,6 +272,25 @@ La pagina `/oficinas` combina una experiencia contextual para venta de auto con 
 Owner:
 Product / Engineering.
 
+## 2026-06-29 - Paso a paso interactivo para tramites
+
+Status: Accepted
+
+Context:
+Las fichas de tramite mostraban documentos y pasos como listas estaticas. El flujo de venta de auto demostraba una experiencia mas clara: progreso, paso actual, documentos marcables y siguiente accion.
+
+Decision:
+Aplicar un flujo guiado reutilizable a las fichas de tramite generales usando los datos `steps` y `documents` existentes. `vender-un-auto` mantiene su flujo especifico porque incluye pauta contextual y oficinas cercanas.
+
+Rationale:
+ChileHub debe sentirse como una app de preparacion, no como una wiki. El paso a paso reduce texto visible, ordena la accion y hace que el usuario entienda que revisar ahora y que viene despues.
+
+Consequences:
+Cada tramite publicado debe tener pasos y documentos utiles. Si una ficha tiene contenido pobre, el flujo lo hara mas evidente y debera enriquecerse editorialmente.
+
+Owner:
+Product / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

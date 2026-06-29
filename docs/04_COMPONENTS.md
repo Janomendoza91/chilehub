@@ -226,6 +226,22 @@ Responsabilidad:
 - Mostrar cierre de preparacion y oficinas donde continuar.
 - Mantener claro que ChileHub prepara, pero no ejecuta la transferencia.
 
+## ProcedureStepFlow
+
+Descripcion: flujo guiado reutilizable para preparar cualquier tramite.
+
+Responsabilidad:
+
+- Convertir los pasos informativos de cada tramite en una experiencia navegable.
+- Mostrar progreso, paso actual, documentos por preparar y siguiente accion.
+- Mantener el aviso de que ChileHub no ejecuta el tramite.
+- Reemplazar listas largas cuando el objetivo sea preparar al usuario de forma compacta.
+
+Responsive:
+
+- Dos columnas en desktop.
+- Composicion apilada en mobile sin ocultar pasos ni documentos.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

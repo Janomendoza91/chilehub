@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   Clock,
   CircleHelp,
-  FileText,
   MapPin,
   ShieldAlert,
   WalletCards
@@ -15,6 +14,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
 import { ProcedurePersonalPanel } from "@/components/account/procedure-personal-panel";
+import { ProcedureStepFlow } from "@/components/procedures/procedure-step-flow";
 import { SellCarPreparationFlow } from "@/components/procedures/sell-car-preparation-flow";
 import { getProcedure, procedures } from "@/data/content";
 
@@ -106,7 +106,11 @@ export default async function ProcedureDetailPage({
 
       <ProcedurePersonalPanel procedure={procedure} />
 
-      {procedure.slug === "vender-un-auto" ? <SellCarPreparationFlow /> : null}
+      {procedure.slug === "vender-un-auto" ? (
+        <SellCarPreparationFlow />
+      ) : (
+        <ProcedureStepFlow procedure={procedure} />
+      )}
 
       <section className="pb-5 pt-1">
         <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_18px_46px_rgba(35,49,86,0.05)] sm:p-5">
@@ -167,47 +171,6 @@ export default async function ProcedureDetailPage({
           tone="warning"
           limit={3}
         />
-      </section>
-
-      <section className="grid gap-4 py-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <ContentBlock title="Documentos que debes revisar" icon={FileText}>
-          <div className="space-y-2.5">
-            {procedure.documents.map((document) => (
-              <div
-                key={document.title}
-                className="rounded-[14px] border border-[#e7edf6] bg-[#fbfcff] p-3.5"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-[14px] font-extrabold text-[#081642]">
-                    {document.title}
-                  </h2>
-                  <span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#66718f]">
-                    {document.required ? "Requerido" : "Puede aplicar"}
-                  </span>
-                </div>
-                <p className="mt-1.5 text-[12px] font-medium leading-5 text-[#66718f]">
-                  {document.detail}
-                </p>
-              </div>
-            ))}
-          </div>
-        </ContentBlock>
-
-        <ContentBlock title="Paso a paso" icon={CheckCircle2}>
-          <ol className="grid gap-2.5 sm:grid-cols-2">
-            {procedure.steps.map((step, index) => (
-              <li key={step} className="flex gap-3 rounded-[14px] bg-[#f7f9ff] p-3">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#eef2ff] text-[12px] font-extrabold text-primary">
-                  {index + 1}
-                </span>
-                <p className="pt-1 text-[12px] font-semibold leading-5 text-[#56617f]">
-                  {step}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </ContentBlock>
-
       </section>
 
       <section className="grid gap-3 py-5 lg:grid-cols-3">
@@ -368,30 +331,6 @@ function InfoRow({
           {value}
         </dd>
       </div>
-    </div>
-  );
-}
-
-function ContentBlock({
-  title,
-  icon: Icon,
-  children
-}: {
-  title: string;
-  icon: LucideIcon;
-  children: ReactNode;
-}) {
-  return (
-    <div className="rounded-[22px] border border-[#e3e9f4] bg-white p-4 shadow-[0_12px_28px_rgba(35,49,86,0.035)] sm:p-5">
-      <div className="mb-3 flex items-center gap-3">
-        <span className="grid h-9 w-9 place-items-center rounded-[11px] bg-[#eef2ff] text-primary">
-          <Icon className="h-4 w-4" />
-        </span>
-        <h2 className="text-[17px] font-extrabold tracking-[-0.03em] text-[#081642]">
-          {title}
-        </h2>
-      </div>
-      {children}
     </div>
   );
 }
