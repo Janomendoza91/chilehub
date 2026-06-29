@@ -85,6 +85,8 @@ ChileHub debe servir todas las rutas con headers defensivos desde Next.js:
 
 La CSP permite Supabase y Google solo porque el acceso con Google esta preparado por feature flag. Si se agregan analytics, mapas, embeds, pagos, chat o scripts externos, deben agregarse explicitamente a la CSP y documentarse en `09_DECISIONS.md`.
 
+Google Analytics puede cargarse solo si existe `NEXT_PUBLIC_GA_MEASUREMENT_ID`. La medicion debe limitarse a trafico y uso general de paginas; no se deben enviar RUT, documentos, recordatorios, nombres, correos, direcciones ni contenido escrito por usuarios como eventos o parametros.
+
 ## Persistencia local segura
 
 El almacenamiento local solo puede guardar preferencias y preparacion no sensible. Los campos escritos por el usuario deben limpiarse, limitar longitud y evitar datos personales sensibles.

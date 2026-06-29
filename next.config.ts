@@ -8,9 +8,9 @@ const contentSecurityPolicy = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "object-src 'none'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://vercel.live`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://vercel.live https://www.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
+  "img-src 'self' data: blob: https: https://www.google-analytics.com https://stats.g.doubleclick.net",
   "font-src 'self' data:",
   [
     "connect-src 'self'",
@@ -19,6 +19,11 @@ const contentSecurityPolicy = [
     "https://accounts.google.com",
     "https://www.googleapis.com",
     "https://vercel.live",
+    "https://www.googletagmanager.com",
+    "https://www.google-analytics.com",
+    "https://analytics.google.com",
+    "https://region1.google-analytics.com",
+    "https://stats.g.doubleclick.net",
     isDev ? "ws:" : ""
   ].filter(Boolean).join(" "),
   "frame-src https://accounts.google.com https://*.supabase.co",

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { sidebarItems } from "@/data/home";
 import { Logo } from "@/components/navigation/logo";
 
+const headerItems = sidebarItems.filter((item) => item.label !== "Buscar");
+
 export function Header() {
   return (
     <header className="absolute left-0 right-0 top-5 z-20 sm:top-8">
@@ -11,7 +13,7 @@ export function Header() {
           <Logo compact />
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 px-3 xl:flex">
-            {sidebarItems.map((item) => (
+            {headerItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -44,7 +46,7 @@ export function Header() {
             </div>
           </div>
           <nav className="flex gap-1.5 overflow-x-auto rounded-full border border-[#e8edf6] bg-white/90 p-1 pr-20 shadow-[0_12px_30px_rgba(35,49,86,0.045)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {sidebarItems.map((item) => {
+            {headerItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Link

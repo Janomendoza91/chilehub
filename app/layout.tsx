@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { absoluteUrl, siteConfig } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -46,7 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GoogleAnalytics />
+      </body>
     </html>
   );
 }

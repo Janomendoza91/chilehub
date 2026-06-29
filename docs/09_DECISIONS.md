@@ -386,6 +386,25 @@ Toda integracion externa futura debe revisar CSP, privacidad y origenes permitid
 Owner:
 Engineering / Security / Product.
 
+## 2026-06-29 - Google Analytics controlado por entorno
+
+Status: Accepted
+
+Context:
+ChileHub necesita medir trafico y uso basico cuando se conecte el dominio final en Vercel, pero no debe convertir analitica en recoleccion de datos personales ni romper la CSP de seguridad.
+
+Decision:
+Agregar Google Analytics mediante `NEXT_PUBLIC_GA_MEASUREMENT_ID`, sin dependencia nueva y sin cargar scripts cuando la variable no existe. Se actualiza CSP para permitir los origenes minimos de GA4 y Google Tag Manager.
+
+Rationale:
+La medicion ayuda a priorizar contenido y UX, pero debe estar separada de datos sensibles y de la preparacion personal local.
+
+Consequences:
+Antes de produccion se debe configurar el Measurement ID en Vercel. Cualquier evento personalizado futuro debe revisarse para no enviar datos personales, recordatorios, documentos, RUT, correos ni texto ingresado por usuarios.
+
+Owner:
+Product / Engineering / Security.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.
