@@ -89,6 +89,7 @@
 - [x] Crear filtros.
 - [x] Crear estados de preparacion simulados.
 - [x] Crear checklist de documentos.
+- [x] Crear espacio personal local para guardados, historial, checklist, recordatorios y alertas.
 - [x] Crear vista de oficinas.
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
 

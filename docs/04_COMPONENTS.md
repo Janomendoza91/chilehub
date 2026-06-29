@@ -178,6 +178,41 @@ Responsabilidad:
 - Separar claramente resultado referencial de valores oficiales.
 - Mantener la interaccion client-side sin backend.
 
+## AccountAccessPanel
+
+Descripcion: panel para entrar con Google y revisar el espacio personal.
+
+Responsabilidad:
+
+- Explicar que ChileHub es gratuito.
+- Iniciar sesion con Google mediante Supabase Auth.
+- Permitir borrar datos locales.
+- Evitar prometer sincronizacion de preparacion mientras siga guardada localmente.
+
+## PersonalDashboard
+
+Descripcion: vista personal local para mis tramites y guardados.
+
+Responsabilidad:
+
+- Mostrar tramites guardados.
+- Mostrar historial local.
+- Mostrar documentos pendientes.
+- Mostrar recordatorios y alertas de revision mensual.
+- Permitir borrar datos locales.
+
+## ProcedurePersonalPanel
+
+Descripcion: modulo de preparacion personal dentro de una ficha de tramite.
+
+Responsabilidad:
+
+- Guardar o quitar un tramite.
+- Registrar historial local cuando el espacio esta activo.
+- Marcar documentos preparados.
+- Crear recordatorios locales.
+- Aclarar que los datos viven en este navegador.
+
 ## PrimaryButton
 
 Descripcion: boton para accion principal.

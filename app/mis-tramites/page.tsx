@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
+import { PersonalDashboard } from "@/components/account/personal-dashboard";
+import { procedures } from "@/data/content";
 
 export const metadata = {
   title: "Mis tramites | ChileHub",
@@ -11,15 +12,11 @@ export default function MisTramitesPage() {
     <ProductShell>
       <PageIntro
         eyebrow="Mis tramites"
-        title="Tu preparacion empieza al elegir un proceso."
-        description="En esta version puedes revisar fichas y checklists. Guardado personal y cuentas vendran cuando exista persistencia."
+        title="Tu preparacion en un solo lugar."
+        description="Historial, documentos pendientes, recordatorios y alertas referenciales guardadas localmente en este navegador."
       />
       <ReferenceNotice />
-      <div className="pb-10 pt-6">
-        <Link href="/tramites" className="inline-flex rounded-full bg-primary px-5 py-3 text-[13px] font-bold text-white">
-          Ver tramites disponibles
-        </Link>
-      </div>
+      <PersonalDashboard procedures={procedures} view="dashboard" />
     </ProductShell>
   );
 }

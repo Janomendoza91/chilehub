@@ -27,6 +27,7 @@ La arquitectura de ChileHub debe permitir crecer durante anos sin perder clarida
 - shadcn/ui.
 - Framer Motion.
 - Lucide React.
+- Supabase Auth para acceso con Google.
 - App Router.
 - ESLint.
 - Prettier.

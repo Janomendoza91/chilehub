@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
+import { ProcedurePersonalPanel } from "@/components/account/procedure-personal-panel";
 import { getProcedure, procedures } from "@/data/content";
 
 export function generateStaticParams() {
@@ -101,6 +102,8 @@ export default async function ProcedureDetailPage({
           </a>
         </aside>
       </section>
+
+      <ProcedurePersonalPanel procedure={procedure} />
 
       <section className="pb-5 pt-1">
         <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_18px_46px_rgba(35,49,86,0.05)] sm:p-5">

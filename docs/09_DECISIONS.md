@@ -215,6 +215,25 @@ Los datos base siguen siendo la fuente del contenido especifico, pero toda ficha
 Owner:
 Product / Content.
 
+## 2026-06-28 - Espacio personal con Google y persistencia local
+
+Status: Accepted
+
+Context:
+Los accesos "Ingresar" y "Registrarte" no tenian finalidad clara mientras ChileHub fuera gratuito y sin backend. El usuario necesita valor concreto si existe un espacio personal.
+
+Decision:
+Preparar acceso con Google mediante Supabase Auth para que el producto se comporte como una app web normal. Google queda controlado por `NEXT_PUBLIC_ENABLE_GOOGLE_AUTH` y se activara cuando ChileHub este publicado en Vercel con dominio final autorizado. En esta etapa, guardar tramites, checklist de documentos, historial, recordatorios, documentos pendientes, alertas de revision y seguimiento mensual sigue persistiendo localmente en el navegador. No se suben documentos, no se cobra y no se sincroniza preparacion entre dispositivos todavia.
+
+Rationale:
+Esto da sentido inmediato al acceso personal sin inventar contrasenas ni una cuenta falsa. Permite validar valor de personalizacion con identidad real antes de guardar datos sensibles o sincronizar estado en backend.
+
+Consequences:
+Requiere configurar `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_ENABLE_GOOGLE_AUTH=true`, Google como provider en Supabase Auth y el redirect URI del dominio definitivo en Google Cloud. Los datos de preparacion pueden perderse si el usuario borra almacenamiento del navegador o cambia de dispositivo. Cualquier sincronizacion futura requerira revision de privacidad, seguridad y arquitectura.
+
+Owner:
+Product / Engineering.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

@@ -37,6 +37,30 @@ Cualquier feature que toque estas categorias requiere revision explicita de prod
 - Separar analitica de datos sensibles.
 - Usar defaults seguros para autenticacion y sesiones.
 
+## Acceso Google y persistencia local V2
+
+El espacio personal de ChileHub tiene Google preparado mediante Supabase Auth para identificar al usuario. Google debe permanecer desactivado por feature flag hasta publicar en Vercel y autorizar el dominio final en Google Cloud. En esta etapa, la preparacion personal se guarda solo en el navegador del usuario mediante almacenamiento local.
+
+Permitido en esta etapa:
+
+- Identidad basica devuelta por Google/Supabase para mostrar sesion iniciada.
+- Nombre de visualizacion no sensible.
+- Slugs de tramites guardados.
+- Historial local de tramites visitados.
+- Estado de checklist de documentos por titulo.
+- Recordatorios escritos por el usuario.
+- Alertas de revision mensual derivadas de contenido publicado.
+
+No permitido en esta etapa:
+
+- Subir documentos.
+- Guardar imagenes, PDFs o certificados.
+- Guardar RUT, direccion, datos bancarios, datos medicos o contrasenas.
+- Presentar el estado local como sincronizado entre dispositivos.
+- Crear login por email/contrasena sin politica de seguridad definida.
+
+El usuario debe poder borrar sus datos locales desde la interfaz.
+
 ## Requisitos de seguridad para versiones futuras
 
 - Validacion server-side para operaciones sensibles.
