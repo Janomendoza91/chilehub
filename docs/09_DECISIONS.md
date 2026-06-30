@@ -614,6 +614,25 @@ El contenido nuevo se publica como preparacion referencial con fuente primaria v
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-30 - Biblioteca de tramites por categorias
+
+Status: Accepted
+
+Context:
+La pagina de tramites tenia buscador local, texto de filtro y botones de categoria. En una biblioteca grande, esa mezcla hacia que la pantalla se sintiera mas como buscador generico que como exploracion guiada.
+
+Decision:
+Quitar el buscador/filtro textual de `/tramites` y dejar solo botones de categoria con paginacion. La busqueda por nombre, duda o texto libre queda concentrada en `/buscar` y en el asistente flotante.
+
+Rationale:
+La arquitectura de informacion indica que ChileHub debe permitir buscar, pero no parecer un buscador. En la biblioteca de tramites, las categorias ayudan a explorar por tema y reducen ruido visual.
+
+Consequences:
+Los usuarios que sepan exactamente que escribir deben usar la busqueda global o el asistente. La pagina `/tramites` queda optimizada para exploracion por categoria.
+
+Owner:
+Product / UX / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

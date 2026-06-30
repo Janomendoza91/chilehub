@@ -2,12 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Search } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import type { ProcedureDetail } from "@/types/chilehub";
 
 export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[] }) {
   const [category, setCategory] = useState("Todos");
-  const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isDesktop, setIsDesktop] = useState(false);
   const categories = ["Todos", ...Array.from(new Set(procedures.map((item) => item.category)))];
@@ -24,19 +23,12 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
   }, []);
 
   const filtered = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
+    if (category === "Todos") {
+      return procedures;
+    }
 
-    return procedures.filter((procedure) => {
-      const matchesCategory = category === "Todos" || procedure.category === category;
-      const matchesQuery =
-        !normalized ||
-        `${procedure.title} ${procedure.category} ${procedure.summary}`
-          .toLowerCase()
-          .includes(normalized);
-
-      return matchesCategory && matchesQuery;
-    });
-  }, [category, procedures, query]);
+    return procedures.filter((procedure) => procedure.category === category);
+  }, [category, procedures]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const currentPage = Math.min(page, totalPages);
@@ -52,22 +44,13 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
 
   return (
     <>
-      <div className="mt-4 grid gap-2.5 rounded-[20px] border border-[#dfe6f4] bg-white p-2.5 shadow-[0_16px_38px_rgba(35,49,86,0.045)] sm:grid-cols-[1fr_auto] sm:p-3">
-        <div className="flex items-center gap-2 rounded-[14px] bg-[#f7f9ff] px-3">
-          <Search className="h-4 w-4 shrink-0 text-[#7a86a6]" />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Filtrar por nombre, categoria o duda..."
-            className="h-10 min-w-0 flex-1 bg-transparent text-[12px] font-semibold text-[#081642] outline-none placeholder:text-[#8a94ad] sm:h-12 sm:text-[14px]"
-            aria-label="Filtrar tramites"
-          />
-        </div>
+      <div className="mt-4 rounded-[20px] border border-[#dfe6f4] bg-white p-2.5 shadow-[0_16px_38px_rgba(35,49,86,0.045)] sm:p-3">
         <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {categories.map((item) => (
             <button
               key={item}
               onClick={() => updateCategory(item)}
+              type="button"
               className={
                 category === item
                   ? "shrink-0 rounded-full bg-primary px-3 py-2 text-[11px] font-bold text-white sm:px-4 sm:text-[12px]"
