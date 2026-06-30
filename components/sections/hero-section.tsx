@@ -152,7 +152,7 @@ export function HeroSection() {
           </h1>
           <p className="mx-auto mt-3 max-w-[650px] text-[14px] font-medium leading-[1.5] text-[#4d5b7f] transition-colors dark:text-[#aeb9d4] sm:mt-4 sm:text-[18px]">
             {isDarkMode
-              ? "Modo oscuro ordena temas digitales, adultos y sensibles dentro de la legalidad: privacidad, plataformas, cobros, riesgos y donde confirmar antes de actuar."
+              ? "Claridad privada para revisar riesgos, cobros y proximos pasos antes de actuar."
               : "ChileHub ordena documentos, costos, tiempos, errores frecuentes y el siguiente paso para que llegues preparado."}
           </p>
         </SectionReveal>
@@ -182,6 +182,7 @@ export function HeroSection() {
                 <Link
                   key={action.label}
                   href={href}
+                  prefetch={false}
                   className="flex items-center gap-2 rounded-[14px] border border-[#e5ebf5] bg-white px-3 py-3 text-left text-[12px] font-bold text-[#283451] transition hover:border-[#cfd9ec] hover:bg-[#fbfcff] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#f2f6ff] dark:hover:border-[#3a4a70] dark:hover:bg-[#17213d]"
                 >
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#eef2ff] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">

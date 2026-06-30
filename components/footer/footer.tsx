@@ -82,6 +82,7 @@ export function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={false}
                   className="transition hover:text-primary dark:hover:text-[#ff9b4f]"
                 >
                   {item.label}

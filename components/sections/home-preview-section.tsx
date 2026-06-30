@@ -46,7 +46,7 @@ export function HomePreviewSection() {
                   <h3 className="text-[13px] font-extrabold tracking-[-0.02em] text-[#081642] dark:text-white sm:text-[17px]">
                     {isDarkMode ? "Temas sensibles mas buscados" : "Tramites mas buscados"}
                   </h3>
-                  <Link href="/tramites" className="text-[12px] font-bold text-primary">
+                  <Link href="/tramites" prefetch={false} className="text-[12px] font-bold text-primary">
                     Ver todos
                   </Link>
                 </div>
@@ -74,7 +74,7 @@ export function HomePreviewSection() {
                       <h3 className="text-[13px] font-extrabold tracking-[-0.02em] text-[#081642] dark:text-white sm:text-[17px]">
                         {isDarkMode ? "Riesgos y dinero online" : "Mas guias utiles"}
                       </h3>
-                      <Link href="/guias" className="flex items-center gap-1 text-[11px] font-bold text-primary sm:text-[12px]">
+                      <Link href="/guias" prefetch={false} className="flex items-center gap-1 text-[11px] font-bold text-primary sm:text-[12px]">
                         Ver todas
                         <ChevronRight className="h-3.5 w-3.5" />
                       </Link>

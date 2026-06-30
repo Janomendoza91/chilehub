@@ -36,7 +36,7 @@ export function ProcedureCard({ item }: { item: ProcedureCardType }) {
 
   return item.href ? (
     <Card asChild className={className}>
-      <Link href={item.href}>{content}</Link>
+      <Link href={item.href} prefetch={false}>{content}</Link>
     </Card>
   ) : (
     <Card className={className}>{content}</Card>

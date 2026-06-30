@@ -72,6 +72,7 @@ export function HeroPredictiveSearch({
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className="group flex items-start gap-3 rounded-[14px] px-3 py-3 transition hover:bg-[#f7f9ff] dark:hover:bg-[#17213d]"
             >
               <span className="mt-0.5 rounded-full bg-[#eef2ff] px-2 py-1 text-[9px] font-extrabold uppercase tracking-[0.1em] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">

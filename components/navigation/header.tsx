@@ -43,6 +43,7 @@ export function Header() {
               <Link
                 key={item.label}
                 href={item.href}
+                prefetch={false}
                 className={
                   item.active
                     ? "rounded-full bg-[#eef2ff] px-3 py-2 text-[12px] font-bold text-primary dark:bg-white/10 dark:text-[#dce6ff]"
@@ -56,10 +57,10 @@ export function Header() {
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             <ModeToggle />
-            <Link href={isDarkMode ? "/guardados" : "/mis-tramites"} className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] dark:text-[#c8d3ee] dark:hover:bg-white/[0.08] sm:h-10 sm:px-4 sm:text-[13px]">
+            <Link href={isDarkMode ? "/guardados" : "/mis-tramites"} prefetch={false} className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] dark:text-[#c8d3ee] dark:hover:bg-white/[0.08] sm:h-10 sm:px-4 sm:text-[13px]">
               {isDarkMode ? "Mis guias" : "Mis tramites"}
             </Link>
-            <Link href="/registrarte" className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
+            <Link href="/registrarte" prefetch={false} className="inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-3 text-[11px] font-bold text-white shadow-[0_12px_24px_rgba(42,81,232,0.22)] sm:h-10 sm:gap-2 sm:px-4 sm:text-[13px]">
               Activar gratis
               <ArrowRight className="hidden h-3.5 w-3.5 sm:block" />
             </Link>
@@ -79,6 +80,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  prefetch={false}
                   className={
                     item.active
                       ? "flex shrink-0 items-center gap-1.5 rounded-full bg-[#eef2ff] px-2.5 py-1.5 text-[10.5px] font-bold text-primary dark:bg-white/10 dark:text-[#dce6ff] sm:px-3 sm:py-2 sm:text-[11px]"

@@ -145,6 +145,7 @@
 - [x] Agregar presupuesto automatizado de performance para CSS y JS compartido.
 - [x] Remover Framer Motion de la landing para reducir JavaScript inicial.
 - [x] Evitar cargar el catalogo completo de contenido en la portada.
+- [x] Mejorar Lighthouse mobile de la portada reduciendo trabajo temprano de analytics, prefetch y fuente.
 - [ ] Revisar accesibilidad.
 - [ ] Revisar performance.
 - [ ] Revisar SEO cuando aplique.
