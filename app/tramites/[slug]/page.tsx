@@ -119,7 +119,7 @@ export default async function ProcedureDetailPage({
           <p className="mt-4 max-w-[720px] text-[15px] font-medium leading-7 text-[#56617f] dark:text-[#aeb9d4] sm:text-[18px]">
             {procedure.summary}
           </p>
-          <div className="mt-5 lg:mt-auto lg:pt-5">
+          <div className="mt-5">
             <ReferenceNotice />
           </div>
         </div>
