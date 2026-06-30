@@ -660,13 +660,13 @@ Context:
 Al escalar el catalogo a 1000+ tramites, las categorias de `/tramites` y `/guias` crecieron lo suficiente como para que los chips horizontales se cortaran o quedaran ocultos en pantallas pequenas. La primera correccion con grilla resolvia el corte, pero ocupaba demasiado alto en mobile y no se sentia como un control de app premium.
 
 Decision:
-Usar un selector compacto reutilizable para categorias: chips pequenos clickeables en el mismo lugar, con altura colapsada y accion "Mas" para desplegar el resto cuando hay muchas categorias. En guias se mantiene el buscador local; en tramites el selector queda acompanado por un resumen discreto en desktop.
+Usar un selector compacto reutilizable para categorias: chips pequenos clickeables en el mismo lugar, mostrando primero categorias principales y una accion "Mas/Menos" persistente para desplegar o contraer el resto. En guias se mantiene el buscador local.
 
 Rationale:
 Las categorias son navegacion principal de exploracion, pero no deben dominar la pantalla. Un selector compacto preserva jerarquia, evita overflow horizontal y reduce altura en mobile.
 
 Consequences:
-Las categorias principales vuelven a ser pinchables directamente sin ocupar una grilla gigante en mobile. Si a futuro se requiere exploracion visual por categoria, debe ser una seccion dedicada con cards, no una barra de filtros pesada.
+Las categorias principales vuelven a ser pinchables directamente sin ocupar una grilla gigante en mobile. El control debe poder volver a contraerse despues de abrirse. Si a futuro se requiere exploracion visual por categoria, debe ser una seccion dedicada con cards, no una barra de filtros pesada.
 
 Owner:
 Product / UX / Engineering.
@@ -708,6 +708,25 @@ El indice local crece junto al catalogo y debe vigilarse con build y performance
 
 Owner:
 Product / Engineering.
+
+## 2026-06-30 - Guias dark con temas especificos por dominio
+
+Status: Accepted
+
+Context:
+La expansion inicial de 1000 guias dark usaba una matriz de 20 dominios por 50 escenarios transversales. Eso mantenia cobertura, pero generaba combinaciones debiles como apps de citas con recuperacion de cuenta cuando la pagina no desarrollaba ese tema de forma suficiente.
+
+Decision:
+Reemplazar la matriz transversal por un generador de temas propios por dominio: cada dominio sensible define 10 temas concretos y 5 momentos editoriales. Las guias resultantes conservan escala 1000+, pero el titulo, resumen, foco y riesgo se construyen desde objetos del mismo dominio. En `/guias`, dark mode usa el mismo sistema de categorias que light mode: "Todas" mas categorias reales, sin grupos ocultos como filtro principal.
+
+Rationale:
+ChileHub debe sentirse claro y confiable incluso cuando el catalogo se escala. La cantidad no puede degradar relevancia semantica ni hacer que una ficha prometa resolver un problema que el contenido no aborda.
+
+Consequences:
+Las URLs generadas de la tanda dark cambian para reflejar temas especificos. Las guias siguen siendo referenciales y requieren revision individual contra fuentes primarias antes de considerarse verificadas.
+
+Owner:
+Product / Content / UX / Engineering.
 
 ## 2026-06-30 - Escalar dark mode a 1000+ guias
 

@@ -23,11 +23,10 @@ export function CategoryPicker({
   const [open, setOpen] = useState(false);
   const isDark = tone === "dark";
   const orderedCategories = orderCategories(categories);
-  const visibleCategories = open
-    ? orderedCategories
-    : getCollapsedCategories(orderedCategories, value);
-  const hiddenCount = Math.max(0, orderedCategories.length - visibleCategories.length);
-  const hasManyCategories = hiddenCount > 0;
+  const collapsedCategories = getCollapsedCategories(orderedCategories, value);
+  const visibleCategories = open ? orderedCategories : collapsedCategories;
+  const hiddenCount = Math.max(0, orderedCategories.length - collapsedCategories.length);
+  const hasManyCategories = orderedCategories.length > collapsedCategories.length;
 
   function selectCategory(category: string) {
     onChange(category);
@@ -37,29 +36,41 @@ export function CategoryPicker({
     <div
       className={
         isDark
-          ? "rounded-[18px] border border-[#2a3654] bg-[#0f172a] p-2 shadow-[0_14px_30px_rgba(0,0,0,0.12)]"
-          : "rounded-[18px] border border-[#dfe6f4] bg-white p-2 shadow-[0_14px_30px_rgba(35,49,86,0.045)]"
+          ? "rounded-[18px] border border-[#26324f] bg-[#0f172a] p-2.5 shadow-[0_14px_30px_rgba(0,0,0,0.12)]"
+          : "rounded-[18px] border border-[#dfe6f4] bg-white p-2.5 shadow-[0_14px_30px_rgba(35,49,86,0.045)]"
       }
     >
       <div className="mb-1.5 flex items-center justify-between gap-2 px-1">
-        <p
-          className={
-            isDark
-              ? "text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#ff9b4f]"
-              : "text-[10px] font-extrabold uppercase tracking-[0.14em] text-primary"
-          }
-        >
-          {label}
-        </p>
+        <div className="min-w-0">
+          <p
+            className={
+              isDark
+                ? "text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#ff9b4f]"
+                : "text-[10px] font-extrabold uppercase tracking-[0.14em] text-primary"
+            }
+          >
+            {label}
+          </p>
+          <p
+            className={
+              isDark
+                ? "mt-0.5 text-[11px] font-bold text-[#9aa8c7]"
+                : "mt-0.5 text-[11px] font-bold text-[#8a94ad]"
+            }
+          >
+            {open ? "Todas las categorias" : "Principales"}
+          </p>
+        </div>
         {hasManyCategories ? (
           <button
             type="button"
             onClick={() => setOpen((current) => !current)}
             aria-expanded={open}
+            aria-label={open ? "Mostrar menos categorias" : "Mostrar todas las categorias"}
             className={
               isDark
-                ? "inline-flex items-center gap-1 rounded-full bg-[#17213d] px-2.5 py-1 text-[10px] font-extrabold text-[#d8e2ff]"
-                : "inline-flex items-center gap-1 rounded-full bg-[#f1f5ff] px-2.5 py-1 text-[10px] font-extrabold text-[#52607f]"
+                ? "inline-flex min-h-8 items-center gap-1 rounded-full border border-[#2f3d5f] bg-[#17213d] px-3 text-[11px] font-extrabold text-[#d8e2ff] transition hover:bg-[#1d2948]"
+                : "inline-flex min-h-8 items-center gap-1 rounded-full border border-[#dde6f7] bg-[#f7f9ff] px-3 text-[11px] font-extrabold text-[#52607f] transition hover:bg-[#eef3ff]"
             }
           >
             {open ? "Menos" : `Mas ${hiddenCount}`}
@@ -78,7 +89,7 @@ export function CategoryPicker({
         className={
           open
             ? "flex max-h-[260px] flex-wrap gap-1.5 overflow-y-auto pr-1"
-            : "flex max-h-[76px] flex-wrap gap-1.5 overflow-hidden sm:max-h-[36px]"
+            : "flex max-h-[72px] flex-wrap gap-1.5 overflow-hidden sm:max-h-[34px]"
         }
         role="listbox"
         aria-label={label}
@@ -97,8 +108,8 @@ export function CategoryPicker({
               title={category}
               className={
                 selected
-                  ? "inline-flex min-h-[30px] max-w-full items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[11px] font-extrabold leading-tight text-white dark:bg-[#ff8a3d] dark:text-[#111827]"
-                  : "inline-flex min-h-[30px] max-w-full items-center gap-1.5 rounded-full border border-[#e5ebf5] bg-[#fbfcff] px-3 py-1.5 text-[11px] font-bold leading-tight text-[#52607f] transition hover:border-[#cfd9ec] hover:bg-white dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#d8e2ff] dark:hover:bg-[#17213d]"
+                  ? "inline-flex min-h-[30px] max-w-full items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[11px] font-extrabold leading-tight text-white shadow-[0_10px_22px_rgba(42,81,232,0.18)] dark:bg-[#ff8a3d] dark:text-[#111827] dark:shadow-none"
+                  : "inline-flex min-h-[30px] max-w-full items-center gap-1.5 rounded-full bg-[#f7f9ff] px-3 py-1.5 text-[11px] font-bold leading-tight text-[#52607f] transition hover:bg-[#eef3ff] dark:bg-[#121b32] dark:text-[#d8e2ff] dark:hover:bg-[#17213d]"
               }
             >
               <span className="truncate">{category}</span>

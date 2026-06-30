@@ -40,19 +40,19 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
   const categories = useMemo(
     () => {
       const uniqueCategories = Array.from(new Set(activeGuides.map((guide) => guide.category)));
-      return isDarkMode ? uniqueCategories : ["Todas", ...uniqueCategories];
+      return ["Todas", ...uniqueCategories];
     },
-    [activeGuides, isDarkMode]
+    [activeGuides]
   );
   const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = isDarkMode ? {} : { Todas: activeGuides.length };
+    const counts: Record<string, number> = { Todas: activeGuides.length };
 
     activeGuides.forEach((guide) => {
       counts[guide.category] = (counts[guide.category] ?? 0) + 1;
     });
 
     return counts;
-  }, [activeGuides, isDarkMode]);
+  }, [activeGuides]);
   const pageSize = isDesktop ? 8 : 6;
 
   useEffect(() => {
@@ -70,12 +70,16 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
     const nextCategory = searchParams.get("categoria");
     const nextQuery = searchParams.get("q") ?? "";
 
-    if (isDarkMode && topic && darkTopicMap[topic]) {
-      setCategory(topic);
+    const topicCategory = topic
+      ? darkTopicMap[topic]?.find((item) => categories.includes(item))
+      : undefined;
+
+    if (isDarkMode && topicCategory) {
+      setCategory(topicCategory);
     } else if (nextCategory && categories.includes(nextCategory)) {
       setCategory(nextCategory);
     } else {
-      setCategory(isDarkMode ? categories[0] ?? "Todas" : "Todas");
+      setCategory("Todas");
     }
 
     setQuery(nextQuery);
@@ -85,14 +89,11 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
   const filtered = useMemo(() => {
     const activePrioritySlugs = isDarkMode ? darkPrioritySlugs : prioritySlugs;
     const normalized = query.trim().toLowerCase();
-    const categoryGroup = isDarkMode ? darkTopicMap[category] : undefined;
 
     return activeGuides.filter((guide) => {
       const isFeatured = activePrioritySlugs.includes(guide.slug);
       const showingFeatured = category === "Todas" && !normalized;
-      const matchesCategory =
-        category === "Todas" ||
-        (categoryGroup ? categoryGroup.includes(guide.category) : guide.category === category);
+      const matchesCategory = category === "Todas" || guide.category === category;
       const matchesQuery =
         !normalized ||
         `${guide.title} ${guide.category} ${guide.summary} ${guide.sections

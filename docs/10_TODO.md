@@ -89,6 +89,7 @@
 - [x] Enriquecer tramites y guias con documentos, formularios y respaldos mas explicitos.
 - [x] Crear primera capa de modo oscuro como universo de contenido alternativo en landing.
 - [x] Escalar modo oscuro a 1000+ guias referenciales con fuentes primarias y limites de seguridad.
+- [x] Refinar guias dark generadas para usar temas especificos por dominio y categorias reales.
 - [ ] Revisar una por una las guias dark contra fuentes oficiales o fuentes primarias antes de considerarlas verificadas.
 - [x] Agregar capa editorial de confirmacion en tramites y guias.
 - [x] Agregar SEO tecnico base: sitemap, robots, canonical, metadata social, schema y noindex local.
