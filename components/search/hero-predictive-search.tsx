@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
+import type { SearchIndexItem } from "@/data/search-index";
 
 export type HeroSearchSuggestion = {
   type: "Tramite" | "Guia";
@@ -14,12 +15,39 @@ export type HeroSearchSuggestion = {
 
 export function HeroPredictiveSearch({
   suggestions,
-  placeholder = "Que proceso necesitas preparar?"
+  placeholder = "Que proceso necesitas preparar?",
+  mode = "light"
 }: {
   suggestions: HeroSearchSuggestion[];
   placeholder?: string;
+  mode?: "light" | "dark";
 }) {
   const [query, setQuery] = useState("");
+  const [indexItems, setIndexItems] = useState<SearchIndexItem[]>([]);
+
+  useEffect(() => {
+    const normalized = normalize(query);
+
+    if (normalized.length < 2 || indexItems.length > 0) {
+      return;
+    }
+
+    let active = true;
+
+    async function loadIndex() {
+      const { searchIndexItems } = await import("@/data/search-index");
+
+      if (active) {
+        setIndexItems(searchIndexItems);
+      }
+    }
+
+    loadIndex();
+
+    return () => {
+      active = false;
+    };
+  }, [indexItems.length, query]);
 
   const matches = useMemo(() => {
     const normalized = normalize(query);
@@ -28,16 +56,35 @@ export function HeroPredictiveSearch({
       return [];
     }
 
-    return suggestions
+    const sourceItems =
+      indexItems.length > 0
+        ? indexItems
+            .filter((item) => item.mode === mode)
+            .map((item) => ({
+              type: item.type,
+              title: item.title,
+              description: item.description,
+              category: item.category,
+              href: item.href,
+              keywords: item.keywords
+            }))
+        : suggestions.map((item) => ({
+            ...item,
+            keywords: normalize(
+              `${item.title} ${item.category} ${item.description}`
+            )
+          }));
+
+    return sourceItems
       .map((item) => ({
         item,
         score: getScore(item, normalized)
       }))
       .filter((result) => result.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 3)
+      .slice(0, 5)
       .map((result) => result.item);
-  }, [query, suggestions]);
+  }, [indexItems, mode, query, suggestions]);
 
   return (
     <div className="relative">
@@ -103,7 +150,7 @@ function normalize(value: string) {
     .trim();
 }
 
-function getScore(item: HeroSearchSuggestion, query: string) {
+function getScore(item: HeroSearchSuggestion & { keywords?: string }, query: string) {
   const title = normalize(item.title);
   const category = normalize(item.category);
   const description = normalize(item.description);
@@ -122,6 +169,10 @@ function getScore(item: HeroSearchSuggestion, query: string) {
 
   if (description.includes(query)) {
     return 35;
+  }
+
+  if (item.keywords?.includes(query)) {
+    return 20;
   }
 
   return 0;

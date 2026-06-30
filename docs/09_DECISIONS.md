@@ -660,13 +660,13 @@ Context:
 Al escalar el catalogo a 1000+ tramites, las categorias de `/tramites` y `/guias` crecieron lo suficiente como para que los chips horizontales se cortaran o quedaran ocultos en pantallas pequenas. La primera correccion con grilla resolvia el corte, pero ocupaba demasiado alto en mobile y no se sentia como un control de app premium.
 
 Decision:
-Usar un selector compacto reutilizable para categorias: boton con categoria activa, contador y panel desplegable con opciones en chips pequenos. En guias se mantiene el buscador local; en tramites el selector queda acompanado por un resumen discreto en desktop.
+Usar un selector compacto reutilizable para categorias: chips pequenos clickeables en el mismo lugar, con altura colapsada y accion "Mas" para desplegar el resto cuando hay muchas categorias. En guias se mantiene el buscador local; en tramites el selector queda acompanado por un resumen discreto en desktop.
 
 Rationale:
 Las categorias son navegacion principal de exploracion, pero no deben dominar la pantalla. Un selector compacto preserva jerarquia, evita overflow horizontal y reduce altura en mobile.
 
 Consequences:
-Las categorias quedan accesibles desde un control claro y profesional. Si a futuro se requiere exploracion visual por categoria, debe ser una seccion dedicada con cards, no una barra de filtros gigante.
+Las categorias principales vuelven a ser pinchables directamente sin ocupar una grilla gigante en mobile. Si a futuro se requiere exploracion visual por categoria, debe ser una seccion dedicada con cards, no una barra de filtros pesada.
 
 Owner:
 Product / UX / Engineering.
@@ -689,6 +689,25 @@ Las listas son mas largas y mas utiles. Siguen siendo referenciales: el nombre e
 
 Owner:
 Product / Content / UX / Engineering.
+
+## 2026-06-30 - Indice unico para busqueda local
+
+Status: Accepted
+
+Context:
+Despues de escalar el catalogo a 1000+ tramites y cientos de guias, el buscador del hero seguia usando sugerencias curadas antiguas y el asistente flotante usaba su propio indice literal. Eso hacia que entradas nuevas no aparecieran de forma consistente.
+
+Decision:
+Crear `data/search-index.ts` como indice local compartido para tramites, guias claras y guias dark. El hero mantiene sugerencias curadas como fallback inicial, pero carga el indice completo de forma diferida cuando el usuario escribe. `/buscar` y el asistente flotante usan el mismo scoring normalizado con soporte para acentos.
+
+Rationale:
+Un solo indice reduce deriva entre superficies de busqueda y permite que nuevas tandas de contenido aparezcan automaticamente. La carga diferida evita inflar la landing antes de que el usuario use la busqueda predictiva.
+
+Consequences:
+El indice local crece junto al catalogo y debe vigilarse con build y performance budget. Si el catalogo sigue creciendo, convendra generar un indice mas pequeno en build o mover busqueda a una ruta/API dedicada.
+
+Owner:
+Product / Engineering.
 
 ## 2026-06-29 - Expansion cotidiana por categoria
 

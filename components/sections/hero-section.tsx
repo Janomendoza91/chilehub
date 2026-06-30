@@ -163,6 +163,7 @@ export function HeroSection() {
         >
           <HeroPredictiveSearch
             suggestions={activeSuggestions}
+            mode={isDarkMode ? "dark" : "light"}
             placeholder={
               isDarkMode
                 ? "Que tema digital o adulto necesitas entender?"

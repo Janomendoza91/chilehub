@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
-import { guidesContent, procedures } from "@/data/content";
-import { darkGuidesContent } from "@/data/dark-guides";
+import { getSearchResults, searchIndexItems } from "@/data/search-index";
 import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
 
 export function SearchResults({ initialQuery = "" }: { initialQuery?: string }) {
@@ -12,39 +11,11 @@ export function SearchResults({ initialQuery = "" }: { initialQuery?: string }) 
   const [query, setQuery] = useState(initialQuery);
 
   const results = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    const items = isDarkMode
-      ? [
-          ...darkGuidesContent.map((item) => ({
-            type: "Guia",
-            title: item.title,
-            description: item.summary,
-            href: `/guias/${item.slug}`,
-            keywords: `${item.title} ${item.category} ${item.summary} ${item.sections.map((section) => section.body).join(" ")}`.toLowerCase()
-          }))
-        ]
-      : [
-          ...procedures.map((item) => ({
-            type: "Tramite",
-            title: item.title,
-            description: item.summary,
-            href: `/tramites/${item.slug}`,
-            keywords: `${item.title} ${item.category} ${item.summary}`.toLowerCase()
-          })),
-          ...guidesContent.map((item) => ({
-            type: "Guia",
-            title: item.title,
-            description: item.summary,
-            href: `/guias/${item.slug}`,
-            keywords: `${item.title} ${item.category} ${item.summary}`.toLowerCase()
-          }))
-        ];
-
-    if (!normalized) {
-      return items;
-    }
-
-    return items.filter((item) => item.keywords.includes(normalized));
+    return getSearchResults(
+      searchIndexItems,
+      query,
+      isDarkMode ? "dark" : "light"
+    );
   }, [isDarkMode, query]);
 
   return (

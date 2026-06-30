@@ -10,24 +10,16 @@ import {
   X
 } from "lucide-react";
 import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
+import type { SearchIndexItem } from "@/data/search-index";
 
 const lightPrompts = ["licencia", "pasaporte", "vender auto", "empresa"];
 const darkPrompts = ["privacidad", "cuenta hackeada", "cobros", "plataformas"];
-
-type HelpItem = {
-  type: "Tramite" | "Guia";
-  mode: "light" | "dark";
-  title: string;
-  description: string;
-  href: string;
-  keywords: string;
-};
 
 export function FloatingHelpAssistant() {
   const { isDarkMode } = useChilehubMode();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [items, setItems] = useState<HelpItem[]>([]);
+  const [items, setItems] = useState<SearchIndexItem[]>([]);
   const prompts = isDarkMode ? darkPrompts : lightPrompts;
 
   useEffect(() => {
@@ -38,43 +30,13 @@ export function FloatingHelpAssistant() {
     let active = true;
 
     async function loadItems() {
-      const [{ guidesContent, procedures }, { darkGuidesContent }] = await Promise.all([
-        import("@/data/content"),
-        import("@/data/dark-guides")
-      ]);
+      const { searchIndexItems } = await import("@/data/search-index");
 
       if (!active) {
         return;
       }
 
-      setItems([
-        ...procedures.map((item) => ({
-          type: "Tramite" as const,
-          mode: "light" as const,
-          title: item.title,
-          description: item.summary,
-          href: `/tramites/${item.slug}`,
-          keywords: `${item.title} ${item.category} ${item.summary} ${item.steps.join(" ")}`.toLowerCase()
-        })),
-        ...guidesContent.map((item) => ({
-          type: "Guia" as const,
-          mode: "light" as const,
-          title: item.title,
-          description: item.summary,
-          href: `/guias/${item.slug}`,
-          keywords: `${item.title} ${item.category} ${item.summary} ${item.checklist.join(" ")}`.toLowerCase()
-        })),
-        ...darkGuidesContent.map((item) => ({
-          type: "Guia" as const,
-          mode: "dark" as const,
-          title: item.title,
-          description: item.summary,
-          href: `/guias/${item.slug}`,
-          keywords: `${item.title} ${item.category} ${item.summary} ${item.sections
-            .map((section) => section.body)
-            .join(" ")}`.toLowerCase()
-        }))
-      ]);
+      setItems(searchIndexItems);
     }
 
     loadItems();
@@ -85,16 +47,24 @@ export function FloatingHelpAssistant() {
   }, [items.length, open]);
 
   const results = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    const activeItems = isDarkMode
-      ? items.filter((item) => item.mode === "dark")
-      : items.filter((item) => item.mode === "light");
+    const normalized = normalizeSearchText(query);
+    const activeItems = items.filter((item) =>
+      isDarkMode ? item.mode === "dark" : item.mode === "light"
+    );
 
     if (!normalized) {
       return activeItems.slice(0, 4);
     }
 
-    return activeItems.filter((item) => item.keywords.includes(normalized)).slice(0, 5);
+    return activeItems
+      .map((item) => ({
+        item,
+        score: getHelpScore(item, normalized)
+      }))
+      .filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6)
+      .map((result) => result.item);
   }, [isDarkMode, items, query]);
 
   return (
@@ -200,4 +170,40 @@ export function FloatingHelpAssistant() {
       </button>
     </div>
   );
+}
+
+function normalizeSearchText(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function getHelpScore(item: SearchIndexItem, query: string) {
+  const title = normalizeSearchText(item.title);
+  const category = normalizeSearchText(item.category);
+  const description = normalizeSearchText(item.description);
+
+  if (title.startsWith(query)) {
+    return 120;
+  }
+
+  if (title.includes(query)) {
+    return 100;
+  }
+
+  if (category.includes(query)) {
+    return 70;
+  }
+
+  if (description.includes(query)) {
+    return 50;
+  }
+
+  if (item.keywords.includes(query)) {
+    return 25;
+  }
+
+  return 0;
 }
