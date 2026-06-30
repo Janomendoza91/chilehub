@@ -71,7 +71,10 @@ export default function RootLayout({
             name: siteConfig.name,
             url: siteConfig.url,
             logo: absoluteUrl("/icon"),
-            sameAs: ["https://github.com/Janomendoza91/chilehub"],
+            sameAs: [
+              "https://github.com/Janomendoza91/chilehub",
+              "https://www.instagram.com/janolabs_"
+            ],
             contactPoint: {
               "@type": "ContactPoint",
               contactType: "security and content reports",

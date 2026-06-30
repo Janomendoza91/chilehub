@@ -19,6 +19,7 @@ Responsabilidad:
 
 - Mostrar logo.
 - Mostrar navegacion principal.
+- Mantener un acceso global a busqueda para usuarios que necesitan encontrar un tramite o guia.
 - Mostrar acciones de acceso e inicio.
 
 Props futuras:
@@ -31,6 +32,7 @@ Props futuras:
 Estados:
 
 - Default.
+- Authenticated: el CTA principal cambia de "Activar gratis" a "Mi perfil" y navega al espacio personal.
 - Sticky/scrolled.
 - Mobile collapsed.
 
@@ -656,6 +658,7 @@ Responsabilidad:
 
 - Reforzar confianza.
 - Organizar bloques de informacion.
+- Mostrar el credito de desarrollo externo de forma discreta y clickeable.
 
 Props futuras:
 

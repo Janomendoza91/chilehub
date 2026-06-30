@@ -76,7 +76,20 @@ export function Footer() {
             })}
           </div>
           <div className="mt-7 flex flex-col gap-3 border-t border-[#edf1f7] pt-5 text-[12px] font-bold text-[#6f7a96] dark:border-white/10 dark:text-[#aeb9d4] sm:flex-row sm:items-center sm:justify-between">
-            <p>ChileHub entrega informacion referencial y gratuita.</p>
+            <div className="flex flex-col gap-1">
+              <p>ChileHub entrega informacion referencial y gratuita.</p>
+              <p>
+                Desarrollado por{" "}
+                <a
+                  href="https://www.instagram.com/janolabs_"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary transition hover:text-[#1737ad] dark:text-[#ff9b4f] dark:hover:text-[#ffc09a]"
+                >
+                  Janolabs_
+                </a>
+              </p>
+            </div>
             <nav className="flex flex-wrap gap-4" aria-label="Legal">
               {legalLinks.map((item) => (
                 <Link
