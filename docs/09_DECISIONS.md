@@ -652,6 +652,25 @@ El contenido nuevo sigue siendo preparacion referencial, no informacion oficial 
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-30 - Categorias responsivas en bibliotecas grandes
+
+Status: Accepted
+
+Context:
+Al escalar el catalogo a 1000+ tramites, las categorias de `/tramites` y `/guias` crecieron lo suficiente como para que los chips horizontales se cortaran o quedaran ocultos en pantallas pequenas.
+
+Decision:
+Reemplazar los carruseles horizontales de categorias por grillas responsivas de chips con alto estable y texto multilínea. En guias se mantiene el buscador local, pero las categorias ya no viven en una columna `auto` ni dependen de scroll horizontal oculto.
+
+Rationale:
+Las categorias son navegacion principal de exploracion. Deben ser visibles, legibles y accionables sin exigir desplazamiento lateral poco evidente, especialmente en mobile.
+
+Consequences:
+Las bibliotecas usan mas alto vertical cuando hay muchas categorias, pero evitan texto cortado, overflow horizontal y acciones invisibles.
+
+Owner:
+Product / UX / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted
