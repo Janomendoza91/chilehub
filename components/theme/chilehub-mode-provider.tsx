@@ -18,20 +18,28 @@ type ChilehubModeContextValue = {
 
 const ChilehubModeContext = createContext<ChilehubModeContextValue | null>(null);
 
+function getInitialMode(): ChilehubMode {
+  if (typeof window === "undefined") {
+    return "light";
+  }
+
+  const domMode = document.documentElement.dataset.chilehubMode;
+
+  if (domMode === "dark" || domMode === "light") {
+    return domMode;
+  }
+
+  const storedMode = window.localStorage.getItem("chilehub-mode");
+
+  return storedMode === "dark" ? "dark" : "light";
+}
+
 export function ChilehubModeProvider({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const [mode, setMode] = useState<ChilehubMode>("light");
-
-  useEffect(() => {
-    const storedMode = window.localStorage.getItem("chilehub-mode");
-
-    if (storedMode === "dark" || storedMode === "light") {
-      setMode(storedMode);
-    }
-  }, []);
+  const [mode, setMode] = useState<ChilehubMode>(getInitialMode);
 
   useEffect(() => {
     const root = document.documentElement;

@@ -12,6 +12,17 @@ const inter = Inter({
   preload: false
 });
 
+const modeInitScript = `
+try {
+  var mode = window.localStorage.getItem("chilehub-mode");
+  if (mode !== "dark" && mode !== "light") mode = "light";
+  document.documentElement.classList.toggle("dark", mode === "dark");
+  document.documentElement.dataset.chilehubMode = mode;
+} catch (_) {
+  document.documentElement.dataset.chilehubMode = "light";
+}
+`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
@@ -61,8 +72,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={inter.variable} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: modeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLd({
