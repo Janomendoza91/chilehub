@@ -14,7 +14,6 @@ export function Logo({
     <Link
       href="/"
       className={cn("flex min-w-0 items-center gap-2.5", className)}
-      aria-label="ChileHub"
     >
       <span
         className={cn(

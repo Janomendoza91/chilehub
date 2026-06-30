@@ -29,7 +29,7 @@ export function ProgressScreen() {
             <h3 className="truncate text-[15px] font-extrabold tracking-[-0.02em] text-[#081642] dark:text-white sm:text-[17px]">
               Vender un auto
             </h3>
-            <p className="mt-0.5 truncate text-[8.5px] font-medium text-[#6f7a96] dark:text-[#9aa8c7] sm:text-[10px]">
+            <p className="mt-0.5 truncate text-[8.5px] font-semibold text-[#5d6883] dark:text-[#9aa8c7] sm:text-[10px]">
               Preparacion segura
             </p>
           </div>
@@ -38,7 +38,7 @@ export function ProgressScreen() {
         <div className="mt-3 rounded-[12px] bg-[#f7f9ff] p-2.5 dark:bg-[#111a31] sm:mt-4 sm:p-3">
           <div className="flex items-center justify-between text-[9.5px] sm:text-[10.5px]">
             <span className="font-bold text-[#52607f] dark:text-[#c8d3ee]">Paso 1 de 6</span>
-            <span className="font-bold text-[#8a94ad] dark:text-[#9aa8c7]">16%</span>
+            <span className="font-bold text-[#4d5872] dark:text-[#9aa8c7]">16%</span>
           </div>
           <div className="mt-2 h-2 rounded-full bg-[#e1e8f5] dark:bg-[#26324f]">
             <div className="h-full w-[16%] rounded-full bg-primary" />
@@ -63,8 +63,8 @@ export function ProgressScreen() {
                 key={document.label}
                 className={
                   document.hideOnMobile
-                    ? "hidden items-center gap-1.5 rounded-[8px] bg-[#f8faff] px-2 py-1 text-[8px] font-semibold text-[#6f7a96] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:flex sm:gap-2 sm:rounded-[9px] sm:px-2.5 sm:py-1.5 sm:text-[9px]"
-                    : "flex items-center gap-1.5 rounded-[8px] bg-[#f8faff] px-2 py-1 text-[8px] font-semibold text-[#6f7a96] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:gap-2 sm:rounded-[9px] sm:px-2.5 sm:py-1.5 sm:text-[9px]"
+                    ? "hidden items-center gap-1.5 rounded-[8px] bg-[#f8faff] px-2 py-1 text-[8px] font-bold text-[#5d6883] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:flex sm:gap-2 sm:rounded-[9px] sm:px-2.5 sm:py-1.5 sm:text-[9px]"
+                    : "flex items-center gap-1.5 rounded-[8px] bg-[#f8faff] px-2 py-1 text-[8px] font-bold text-[#5d6883] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:gap-2 sm:rounded-[9px] sm:px-2.5 sm:py-1.5 sm:text-[9px]"
                 }
               >
                 <span className="h-3 w-3 shrink-0 rounded-full border border-[#cfd6e5] dark:border-[#53617d]" />

@@ -71,7 +71,7 @@ export function Header() {
         </div>
         <div className="relative mt-1.5 xl:hidden">
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 flex items-center rounded-r-full bg-gradient-to-l from-white via-white/90 to-transparent pl-8 pr-2 dark:from-[#090e1b] dark:via-[#090e1b]/90">
-            <div className="flex items-center gap-0.5 rounded-full bg-[#f3f6fb] px-2 py-1 text-[9px] font-bold text-[#6b7692] shadow-[0_8px_18px_rgba(35,49,86,0.05)] dark:bg-white/10 dark:text-[#c8d3ee]">
+            <div className="flex items-center gap-0.5 rounded-full bg-[#f3f6fb] px-2 py-1 text-[9px] font-extrabold text-[#4d5872] shadow-[0_8px_18px_rgba(35,49,86,0.05)] dark:bg-white/10 dark:text-[#d8e2ff]">
               Desliza
               <ChevronRight className="h-3 w-3" />
             </div>

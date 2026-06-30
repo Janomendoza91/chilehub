@@ -5,7 +5,7 @@ import { PhoneShell } from "@/components/mobile/phone-shell";
 
 const toneClass = {
   cyan: "bg-[#e9f9ff] text-[#2294b6]",
-  orange: "bg-[#fff1df] text-[#f07b22]",
+  orange: "bg-[#fff1df] text-[#a94b00]",
   rose: "bg-[#ffe9ef] text-[#e3425d]",
   indigo: "bg-[#eef0ff] text-primary",
   emerald: "bg-[#e9f8ef] text-[#22a863]",
@@ -79,7 +79,7 @@ export function HeroPhone() {
           {["Inicio", "Mis trámites", "Guardados", "Perfil"].map((item, index) => (
             <div
               key={item}
-              className={index === 0 ? "text-primary" : "text-[#8791aa]"}
+              className={index === 0 ? "text-primary" : "text-[#5d6883]"}
             >
               <div className="mx-auto mb-1 h-4 w-4 rounded-[5px] bg-current opacity-90" />
               {item}

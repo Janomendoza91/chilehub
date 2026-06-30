@@ -42,7 +42,7 @@ export function OfficesScreen() {
                 {office.name}
               </h4>
               <div className="mt-1.5 flex items-center justify-between sm:mt-2">
-                <span className="text-[8.5px] font-bold text-[#f07b22] sm:text-[9px]">
+                <span className="text-[8.5px] font-extrabold text-[#a94b00] sm:text-[9px]">
                   {office.distance}
                 </span>
                 <span className="text-[8.5px] font-bold text-primary dark:text-[#9fb1ff] sm:text-[9px]">
@@ -52,7 +52,7 @@ export function OfficesScreen() {
             </div>
           ))}
         </div>
-        <div className="mt-auto grid h-10 grid-cols-4 border-t border-[#e9edf6] px-2 pt-1.5 text-center text-[7px] font-semibold text-[#8791aa] dark:border-white/10 dark:text-[#8e9ab8] sm:h-[48px] sm:px-4 sm:pt-2 sm:text-[8px]">
+        <div className="mt-auto grid h-10 grid-cols-4 border-t border-[#e9edf6] px-2 pt-1.5 text-center text-[7px] font-bold text-[#5d6883] dark:border-white/10 dark:text-[#aeb9d4] sm:h-[48px] sm:px-4 sm:pt-2 sm:text-[8px]">
           {["Inicio", "Tramites", "Guardados", "Perfil"].map((item, index) => (
             <div key={item} className={index === 0 ? "text-primary" : ""}>
               <div className="mx-auto mb-1 h-2.5 w-2.5 rounded-[4px] bg-current sm:h-3 sm:w-3" />

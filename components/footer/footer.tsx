@@ -67,7 +67,7 @@ export function Footer() {
                     <h3 className="text-[14px] font-extrabold tracking-[-0.01em] text-[#081642] dark:text-white">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-[12px] font-medium leading-5 text-[#6f7a96] dark:text-[#aeb9d4]">
+                    <p className="mt-2 text-[12px] font-medium leading-5 text-[#5d6883] dark:text-[#aeb9d4]">
                       {item.text}
                     </p>
                   </div>
@@ -75,7 +75,7 @@ export function Footer() {
               );
             })}
           </div>
-          <div className="mt-7 flex flex-col gap-3 border-t border-[#edf1f7] pt-5 text-[12px] font-bold text-[#6f7a96] dark:border-white/10 dark:text-[#aeb9d4] sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-7 flex flex-col gap-3 border-t border-[#edf1f7] pt-5 text-[12px] font-bold text-[#5d6883] dark:border-white/10 dark:text-[#aeb9d4] sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
               <p>ChileHub entrega informacion referencial y gratuita.</p>
               <p>
@@ -84,7 +84,7 @@ export function Footer() {
                   href="https://www.instagram.com/janolabs_"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-primary transition hover:text-[#1737ad] dark:text-[#ff9b4f] dark:hover:text-[#ffc09a]"
+                  className="text-primary underline decoration-2 underline-offset-2 transition hover:text-[#1737ad] dark:text-[#ff9b4f] dark:hover:text-[#ffc09a]"
                 >
                   Janolabs_
                 </a>

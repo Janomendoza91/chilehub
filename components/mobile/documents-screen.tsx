@@ -35,7 +35,7 @@ export function DocumentsScreen() {
         <h3 className="mt-2 text-[15px] font-extrabold tracking-[-0.02em] text-[#081642] dark:text-white sm:mt-3 sm:text-[18px]">
           Firma del contrato
         </h3>
-        <p className="mt-2 text-[9px] leading-3 text-[#6f7a96] dark:text-[#aeb9d4] sm:mt-4 sm:text-[11px] sm:leading-5">
+        <p className="mt-2 text-[9px] font-medium leading-3 text-[#5d6883] dark:text-[#aeb9d4] sm:mt-4 sm:text-[11px] sm:leading-5">
           Firma el contrato de compraventa con datos correctos.
         </p>
         <div className="mt-4 rounded-[11px] border border-[#e4e9f2] bg-white p-2.5 dark:border-white/10 dark:bg-white/[0.08] sm:mt-7 sm:rounded-[12px] sm:p-4">
@@ -47,7 +47,7 @@ export function DocumentsScreen() {
               <h4 className="text-[9.5px] font-extrabold text-[#081642] dark:text-white sm:text-[11px]">
                 Contrato de compraventa
               </h4>
-              <p className="mt-0.5 text-[8.5px] text-[#7a85a0] dark:text-[#9aa8c7] sm:mt-1 sm:text-[10px]">
+              <p className="mt-0.5 text-[8.5px] font-medium text-[#5d6883] dark:text-[#9aa8c7] sm:mt-1 sm:text-[10px]">
                 Formato oficial.
               </p>
             </div>
@@ -60,7 +60,7 @@ export function DocumentsScreen() {
           <h4 className="text-[10.5px] font-extrabold text-[#081642] dark:text-white sm:text-[12px]">
             Consejo util
           </h4>
-          <div className="mt-2 rounded-[10px] bg-[#f7fbff] p-2.5 text-[8.5px] leading-3 text-[#6f7a96] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:mt-4 sm:rounded-[12px] sm:p-4 sm:text-[10px] sm:leading-4">
+          <div className="mt-2 rounded-[10px] bg-[#f7fbff] p-2.5 text-[8.5px] font-medium leading-3 text-[#5d6883] dark:bg-white/[0.07] dark:text-[#aeb9d4] sm:mt-4 sm:rounded-[12px] sm:p-4 sm:text-[10px] sm:leading-4">
             Verifica los datos del comprador antes de firmar.
           </div>
         </div>

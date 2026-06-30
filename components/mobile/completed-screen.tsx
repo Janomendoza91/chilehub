@@ -24,7 +24,7 @@ export function CompletedScreen() {
         <h3 className="mt-5 text-[16px] font-extrabold tracking-[-0.02em] text-[#081642] dark:text-white sm:mt-7 sm:text-[19px]">
           Tramite completado
         </h3>
-        <p className="mx-auto mt-1.5 max-w-[135px] text-[9px] leading-3 text-[#6f7a96] dark:text-[#aeb9d4] sm:mt-2 sm:max-w-[155px] sm:text-[10.5px] sm:leading-4">
+        <p className="mx-auto mt-1.5 max-w-[135px] text-[9px] font-medium leading-3 text-[#5d6883] dark:text-[#aeb9d4] sm:mt-2 sm:max-w-[155px] sm:text-[10.5px] sm:leading-4">
           Ya tienes la preparacion lista para vender tu auto.
         </p>
 
@@ -37,7 +37,7 @@ export function CompletedScreen() {
               <h4 className="text-[10.5px] font-extrabold text-[#081642] dark:text-white sm:text-[12px]">
                 Que sigue?
               </h4>
-              <p className="mt-0.5 text-[8.5px] leading-3 text-[#7a85a0] dark:text-[#aeb9d4] sm:text-[9.5px] sm:leading-4">
+              <p className="mt-0.5 text-[8.5px] font-medium leading-3 text-[#5d6883] dark:text-[#aeb9d4] sm:text-[9.5px] sm:leading-4">
                 Continua en Registro Civil para transferir el vehiculo.
               </p>
             </div>

@@ -13,11 +13,11 @@ export function GuideCard({ item }: { item: GuideCardType }) {
         <h3 className="line-clamp-2 text-[11px] font-bold leading-tight tracking-[-0.01em] text-[#101a3f] dark:text-white sm:truncate sm:text-[13px]">
           {item.title}
         </h3>
-        <p className="mt-1 line-clamp-1 text-[9.5px] font-medium text-[#7c87a2] dark:text-[#aeb9d4] sm:truncate sm:text-[11.5px]">
+        <p className="mt-1 line-clamp-1 text-[9.5px] font-semibold text-[#5d6883] dark:text-[#aeb9d4] sm:truncate sm:text-[11.5px]">
           {item.label}
         </p>
       </div>
-      <span className={`shrink-0 rounded-full px-2 py-1 text-[9.5px] font-bold leading-none sm:px-2.5 sm:text-[10px] ${item.time === "Nuevo" ? "bg-[#ffeaf0] text-[#e43d5a] dark:bg-[#3a2330] dark:text-[#ff98b4]" : "bg-[#e5f8ec] text-[#20a660] dark:bg-[#173527] dark:text-[#81e6b0]"}`}>
+      <span className={`shrink-0 rounded-full px-2 py-1 text-[9.5px] font-extrabold leading-none sm:px-2.5 sm:text-[10px] ${item.time === "Nuevo" ? "bg-[#ffeaf0] text-[#b4233c] dark:bg-[#3a2330] dark:text-[#ff98b4]" : "bg-[#e5f8ec] text-[#137a46] dark:bg-[#173527] dark:text-[#81e6b0]"}`}>
         {item.time}
       </span>
     </>
