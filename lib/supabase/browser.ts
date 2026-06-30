@@ -1,7 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+function cleanPublicEnv(value: string | undefined) {
+  return value?.replace(/^\uFEFF/, "").trim();
+}
+
+const supabaseUrl = cleanPublicEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
+const supabaseAnonKey = cleanPublicEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const googleAuthFlag = cleanPublicEnv(process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH);
 
 function isAllowedSupabaseUrl(value: string | undefined) {
   if (!value) {
@@ -20,7 +25,7 @@ export const isSupabaseConfigured = Boolean(
   isAllowedSupabaseUrl(supabaseUrl) && supabaseAnonKey
 );
 export const isGoogleAuthEnabled =
-  process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH === "true" && isSupabaseConfigured;
+  googleAuthFlag === "true" && isSupabaseConfigured;
 
 export const supabaseBrowserClient = isSupabaseConfigured
   ? createClient(supabaseUrl as string, supabaseAnonKey as string, {
