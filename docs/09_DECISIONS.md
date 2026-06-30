@@ -462,6 +462,25 @@ Si ChileHub migra a un custom domain propio de Supabase Auth como `auth.chilehub
 Owner:
 Engineering / Security / Product.
 
+## 2026-06-30 - Paginas publicas de confianza y health check
+
+Status: Accepted
+
+Context:
+ChileHub ya tiene login con Google preparado y una postura de privacidad documentada internamente, pero el sitio publico necesitaba explicar claramente alcance, privacidad, terminos y canal de reportes antes de empujar una adopcion mas amplia.
+
+Decision:
+Agregar rutas publicas `/privacidad` y `/terminos`, enlazarlas desde el footer, incluirlas en `sitemap.xml`, publicar `/.well-known/security.txt`, crear `/api/health` como endpoint minimo para monitoreo externo y agregar un smoke test de seguridad sin dependencias nuevas.
+
+Rationale:
+Las paginas publicas de confianza reducen ambiguedad para usuarios y revisores externos. `security.txt` facilita reportes responsables sin exponer correos o sistemas internos, y el health check permite medir disponibilidad sin tocar flujos de usuario.
+
+Consequences:
+Las paginas son informativas y no reemplazan revision legal formal. Si ChileHub empieza a guardar datos remotos, cobrar, recibir documentos o crear integraciones sensibles, privacidad y terminos deben revisarse antes del lanzamiento. El smoke test valida defensas basicas, pero no reemplaza pentest, revision legal ni auditoria de seguridad completa.
+
+Owner:
+Product / Engineering / Security.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

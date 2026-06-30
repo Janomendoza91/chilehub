@@ -6,6 +6,7 @@ import {
   MonitorSmartphone,
   ShieldCheck
 } from "lucide-react";
+import Link from "next/link";
 import { darkModeFooterItems } from "@/data/dark-mode";
 import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
 
@@ -34,6 +35,12 @@ const footerItems = [
     icon: HeartHandshake,
     tone: "bg-[#ffeaf0] text-[#e43d5a]"
   }
+];
+
+const legalLinks = [
+  { label: "Privacidad", href: "/privacidad" },
+  { label: "Terminos", href: "/terminos" },
+  { label: "Contacto", href: "/contacto" }
 ];
 
 export function Footer() {
@@ -66,6 +73,20 @@ export function Footer() {
                 </div>
               );
             })}
+          </div>
+          <div className="mt-7 flex flex-col gap-3 border-t border-[#edf1f7] pt-5 text-[12px] font-bold text-[#6f7a96] dark:border-white/10 dark:text-[#aeb9d4] sm:flex-row sm:items-center sm:justify-between">
+            <p>ChileHub entrega informacion referencial y gratuita.</p>
+            <nav className="flex flex-wrap gap-4" aria-label="Legal">
+              {legalLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="transition hover:text-primary dark:hover:text-[#ff9b4f]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </div>

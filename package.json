@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "security:audit": "corepack pnpm audit --prod",
+    "security:smoke": "node scripts/security-smoke.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

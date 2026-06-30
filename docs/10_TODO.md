@@ -104,6 +104,8 @@
 - [x] Crear vista de oficinas.
 - [x] Conectar oficinas cercanas referenciales desde venta de auto y mockups mobile.
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
+- [x] Crear paginas publicas de privacidad y terminos.
+- [x] Publicar `/.well-known/security.txt` para reportes de seguridad.
 
 ## Etapa 5 - Personalizacion V3
 
@@ -111,6 +113,7 @@
 - [ ] Definir base de datos.
 - [x] Completar revision base de privacidad y seguridad para superficie publica actual.
 - [ ] Completar revision de privacidad y seguridad antes de activar auth/datos remotos.
+- [ ] Habilitar Custom Domain de Supabase para `auth.chilehub.info`.
 - [ ] Guardar preparacion.
 - [ ] Guardar procesos.
 - [ ] Guardar documentos por preparar.
@@ -133,6 +136,7 @@
 
 - [ ] Mantener documentacion actualizada.
 - [ ] Registrar decisiones en `09_DECISIONS.md`.
+- [x] Crear endpoint `/api/health` para monitoreo externo.
 - [ ] Revisar accesibilidad.
 - [ ] Revisar performance.
 - [ ] Revisar SEO cuando aplique.
