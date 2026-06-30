@@ -86,6 +86,7 @@
 - [x] Agregar 20 procesos fidedignos adicionales con fuentes primarias y guias derivadas.
 - [x] Agregar 20 guias dark adicionales con fuentes primarias.
 - [x] Escalar el catalogo a 1000+ tramites mediante dominios con fuentes primarias y categorias nuevas.
+- [x] Enriquecer tramites y guias con documentos, formularios y respaldos mas explicitos.
 - [x] Crear primera capa de modo oscuro como universo de contenido alternativo en landing.
 - [ ] Revisar una por una las guias dark contra fuentes oficiales o fuentes primarias antes de considerarlas verificadas.
 - [x] Agregar capa editorial de confirmacion en tramites y guias.

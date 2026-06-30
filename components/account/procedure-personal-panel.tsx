@@ -147,7 +147,7 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
               <div className="flex items-center gap-2">
                 <ListChecks className="h-4 w-4 text-primary dark:text-[#ff9b4f]" />
                 <p className="text-[13px] font-extrabold text-[#081642] dark:text-white">
-                  Documentos por preparar
+                  Documentos, formularios y respaldos
                 </p>
               </div>
               <span className="rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
@@ -176,8 +176,16 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
                       <span className="block text-[13px] font-bold text-[#283451] dark:text-[#d8e2ff]">
                         {document.title}
                       </span>
-                      <span className="mt-1 block text-[11px] font-semibold leading-5 text-[#7b86a3] dark:text-[#9aa8c7]">
-                        {document.required ? "Requerido" : "Puede aplicar"}
+                      <span className="mt-1 flex flex-wrap gap-1.5">
+                        <span className="rounded-full bg-[#eef2ff] px-2 py-0.5 text-[9.5px] font-extrabold uppercase tracking-[0.08em] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
+                          {documentPrepKind(document.title)}
+                        </span>
+                        <span className="rounded-full bg-[#f4f7fc] px-2 py-0.5 text-[9.5px] font-extrabold uppercase tracking-[0.08em] text-[#7b86a3] dark:bg-[#17213d] dark:text-[#aeb9d4]">
+                          {document.required ? "Requerido" : "Condicional"}
+                        </span>
+                      </span>
+                      <span className="mt-1.5 block text-[11px] font-semibold leading-5 text-[#7b86a3] dark:text-[#9aa8c7]">
+                        {document.detail}
                       </span>
                     </span>
                   </button>
@@ -229,4 +237,34 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
       </div>
     </section>
   );
+}
+
+function documentPrepKind(title: string) {
+  const lowerTitle = title.toLowerCase();
+
+  if (lowerTitle.includes("formulario") || lowerTitle.includes("solicitud")) {
+    return "Formulario";
+  }
+
+  if (lowerTitle.includes("certificado") || lowerTitle.includes("resolucion")) {
+    return "Certificado";
+  }
+
+  if (lowerTitle.includes("comprobante") || lowerTitle.includes("folio") || lowerTitle.includes("boleta") || lowerTitle.includes("pago")) {
+    return "Comprobante";
+  }
+
+  if (lowerTitle.includes("cedula") || lowerTitle.includes("rut") || lowerTitle.includes("run") || lowerTitle.includes("pasaporte")) {
+    return "Identidad";
+  }
+
+  if (lowerTitle.includes("contrato") || lowerTitle.includes("escritura") || lowerTitle.includes("poder")) {
+    return "Legal";
+  }
+
+  if (lowerTitle.includes("foto") || lowerTitle.includes("captura") || lowerTitle.includes("evidencia")) {
+    return "Evidencia";
+  }
+
+  return "Respaldo";
 }

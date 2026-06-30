@@ -26,6 +26,10 @@ const municipalidades = { label: "Municipalidades", url: "https://www.gob.cl/mun
 function getDocumentDetail(document: string, seed: ProcedureSeed, index: number) {
   const lowerDocument = document.toLowerCase();
 
+  if (lowerDocument.includes("formulario") || lowerDocument.includes("solicitud")) {
+    return `Busca el nombre exacto del formulario en ${seed.channel}. Revisa si se completa online, se descarga en PDF o se entrega presencial.`;
+  }
+
   if (lowerDocument.includes("cedula") || lowerDocument.includes("rut") || lowerDocument.includes("run")) {
     return "Verifica que el dato de identidad este vigente, legible y coincida con los demas antecedentes.";
   }
@@ -51,6 +55,67 @@ function getDocumentDetail(document: string, seed: ProcedureSeed, index: number)
   }
 
   return "Puede ser solicitado segun canal, institucion, comuna o situacion personal.";
+}
+
+function getSupplementaryDocuments(seed: ProcedureSeed) {
+  const lowerTitle = seed.title.toLowerCase();
+  const lowerChannel = seed.channel.toLowerCase();
+  const additions: string[] = [
+    "Formulario o solicitud del canal responsable",
+    "Comprobante, folio o correo de recepcion"
+  ];
+
+  const byCategory: Record<string, string[]> = {
+    Autos: ["Padron o certificado de inscripcion", "Permiso de circulacion, SOAP o revision tecnica si aplica"],
+    Vivienda: ["Rol, direccion o datos de inscripcion", "Certificado municipal, CBR o SII segun corresponda"],
+    Familia: ["Certificados de nacimiento, matrimonio o defuncion si aplican", "Antecedentes de ingresos, gastos o cuidado"],
+    Trabajo: ["Contrato, anexo, liquidaciones o finiquito", "Cotizaciones, asistencia o comunicaciones de respaldo"],
+    Impuestos: ["Clave tributaria o acceso SII", "Declaraciones, facturas, boletas o registros de respaldo"],
+    Viajes: ["Pasaporte, cedula o documento de viaje vigente", "Reserva, pasaje, seguro, autorizacion o certificado sanitario si aplica"],
+    Documentos: ["Nombre exacto del certificado solicitado", "Finalidad, vigencia maxima y formato aceptado"],
+    Salud: ["Orden medica, diagnostico, resolucion o comprobante clinico", "Boletas, bonos, licencias o respuesta de prestador"],
+    Empresas: ["RUT de empresa, representante y poderes", "Escritura, estatutos, patente, inicio de actividades o contrato"],
+    Migracion: ["Pasaporte o documento de identidad vigente", "Certificados apostillados, traducciones o comprobantes migratorios"],
+    Educacion: ["Certificado academico, matricula o concentracion de notas", "Formulario de postulacion, comprobante o calendario vigente"],
+    Telecomunicaciones: ["Contrato, boleta o numero de cliente", "Capturas, mediciones, folios o registros de falla"],
+    "Servicios basicos": ["Numero de cliente, boleta o lectura de medidor", "Fotos, reporte tecnico o comprobante de pago"],
+    Finanzas: ["Contrato, cartola, poliza o liquidacion", "Comprobante de movimiento, bloqueo o reclamo"],
+    "Propiedad intelectual": ["Datos del titular, poder o representacion", "Archivo, logo, clase, expediente o comprobante INAPI"],
+    "Agricultura y alimentos": ["Certificado sanitario, fitosanitario o zoosanitario si aplica", "Rotulado, lote, factura o antecedentes del producto"],
+    "Medio ambiente": ["Ubicacion, plano o descripcion tecnica del proyecto", "Fotos, informes, mediciones o expediente ambiental"],
+    "Beneficios sociales": ["Cartola del Registro Social de Hogares", "Antecedentes familiares, ingresos o certificado de pago"],
+    "Justicia y familia": ["Certificados civiles y resolucion o causa si existe", "Evidencia, comprobantes, gastos o comunicaciones"],
+    "Seguridad y denuncias": ["Evidencia segura: fotos, capturas, chats, boletas o ubicacion", "Copia de denuncia, folio o constancia"],
+    "Viajes y aduanas": ["Pasaporte, cedula, pasajes o reserva", "Declaracion, certificado SAG/Aduanas o boletas de compra"],
+    "Compras publicas": ["Bases, anexos y formularios de licitacion", "Oferta tecnica, oferta economica y garantias si aplican"],
+    Municipalidad: ["Formulario municipal y comprobante de domicilio o rol", "Ordenanza, permiso, patente o pago comunal si aplica"],
+    Transporte: ["Datos del vehiculo, patente o certificado tecnico", "Resolucion, permiso, revision tecnica o seguro si aplica"],
+    Consumo: ["Boleta, contrato, comprobante de pago o garantia", "Capturas, correos, folio de reclamo o respuesta de la empresa"]
+  };
+
+  additions.push(...(byCategory[seed.category] ?? []));
+
+  if (lowerTitle.includes("denunciar") || lowerTitle.includes("reclamar") || lowerTitle.includes("apelar")) {
+    additions.push("Linea de tiempo con fechas, montos, personas, folios y respuestas");
+  }
+
+  if (lowerTitle.includes("postular") || lowerTitle.includes("solicitar")) {
+    additions.push("Comprobante de postulacion o solicitud enviada");
+  }
+
+  if (lowerTitle.includes("pagar") || lowerTitle.includes("deuda") || lowerTitle.includes("cobro")) {
+    additions.push("Detalle de deuda, cobro, giro, cuota o cartola");
+  }
+
+  if (lowerTitle.includes("viaje") || lowerChannel.includes("aduana") || lowerChannel.includes("pdi")) {
+    additions.push("Autorizaciones de viaje, declaraciones o certificados del pais destino si aplican");
+  }
+
+  return additions;
+}
+
+function getProcedureDocumentNames(seed: ProcedureSeed) {
+  return Array.from(new Set([...seed.documents, ...getSupplementaryDocuments(seed)]));
 }
 
 function indirectCostFor(category: string) {
@@ -151,6 +216,7 @@ function categoryQuestions(seed: ProcedureSeed) {
 }
 
 function categorySteps(seed: ProcedureSeed, primarySource: ContentSource) {
+  const documentNames = getProcedureDocumentNames(seed);
   const firstStep: Record<string, string> = {
     Autos: "Anota patente, propietario, documentos vigentes y estado del vehiculo antes de pagar o asistir.",
     Vivienda: "Define si el proceso es compra, arriendo, subsidio, regularizacion o pago, porque cada ruta pide respaldos distintos.",
@@ -165,7 +231,7 @@ function categorySteps(seed: ProcedureSeed, primarySource: ContentSource) {
 
   return [
     firstStep[seed.category] ?? "Confirma requisitos y canal vigente.",
-    `Prepara: ${seed.documents.slice(0, 3).join(", ")}.`,
+    `Prepara: ${documentNames.slice(0, 5).join(", ")}.`,
     `Valida costo, plazo y requisitos actualizados en ${primarySource.label} o directamente en ${seed.channel}.`,
     "Inicia el proceso solo por el canal oficial o externo correspondiente y guarda folio, comprobante o correo.",
     "Revisa estado y corrige observaciones antes de asumir que el proceso quedo cerrado."
@@ -242,6 +308,7 @@ function categoryWhatToAsk(seed: ProcedureSeed) {
 
 function makeProcedure(seed: ProcedureSeed): ProcedureDetail {
   const primarySource = seed.sources[0] ?? chileAtiende;
+  const documentNames = getProcedureDocumentNames(seed);
 
   return {
     slug: seed.slug,
@@ -253,10 +320,10 @@ function makeProcedure(seed: ProcedureSeed): ProcedureDetail {
     cost: seed.cost,
     duration: seed.duration,
     channel: seed.channel,
-    documents: seed.documents.map((document, index) => ({
+    documents: documentNames.map((document, index) => ({
       title: document,
       detail: getDocumentDetail(document, seed, index),
-      required: index < 2
+      required: index < Math.min(3, seed.documents.length)
     })),
     beforeYouStart: categoryBeforeYouStart(seed, primarySource),
     keyQuestions: categoryQuestions(seed),
@@ -640,6 +707,8 @@ type GeneratedGuideSeed = {
 
 function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): GuideDetail {
   const primarySource = procedure.sources[0] ?? chileAtiende;
+  const documentNames = getProcedureDocumentNames(procedure);
+  const documentSummary = documentNames.slice(0, 6).join(", ");
 
   return {
     slug: `guia-${procedure.slug}`,
@@ -656,7 +725,7 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
     decisionCards: [
       {
         label: "Documento critico",
-        value: procedure.documents[0] ?? "Documento base",
+        value: documentNames[0] ?? "Documento base",
         detail: "Si este antecedente falta, esta vencido o no coincide, el proceso puede requerir correccion."
       },
       {
@@ -679,7 +748,7 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
     practicalScenarios: [
       {
         title: "Si todo esta normal",
-        detail: `Prepara ${procedure.documents.slice(0, 2).join(" y ")} y confirma el canal ${procedure.channel}.`
+        detail: `Prepara ${documentNames.slice(0, 3).join(", ")} y confirma el canal ${procedure.channel}.`
       },
       {
         title: "Si aparece una excepcion",
@@ -695,7 +764,7 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
     ],
     fiveMinutePlan: [
       `Define si realmente necesitas ${procedure.title.toLowerCase()} o una ruta relacionada.`,
-      `Prepara ${procedure.documents.slice(0, 3).join(", ")}.`,
+      `Prepara documentos, formularios y respaldos: ${documentSummary}.`,
       `Confirma costo, plazo y requisitos vigentes en ${primarySource.label}.`,
       "Guarda folio, comprobante o correo cuando continues fuera del sitio."
     ],
@@ -713,7 +782,11 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
     sections: [
       {
         title: "Que preparar primero",
-        body: `Parte por ${procedure.documents[0] ?? "el documento base"} y revisa que los datos coincidan con el objetivo del proceso.`
+        body: `Parte por ${documentNames[0] ?? "el documento base"} y revisa que los datos coincidan con el objetivo del proceso. Luego confirma formularios, certificados y comprobantes que exige el canal.`
+      },
+      {
+        title: "Documentos y formularios",
+        body: `Normalmente debes revisar: ${documentSummary}. La lista es referencial; el nombre exacto, formato, vigencia y canal se confirman en la fuente.`
       },
       {
         title: "Costo y plazo",
@@ -726,7 +799,7 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
     ],
     checklist: [
       "Objetivo del proceso definido.",
-      "Documentos principales revisados.",
+      `Documentos y formularios revisados: ${documentNames.slice(0, 4).join(", ")}.`,
       "Costo y plazo confirmados.",
       "Fuente vigente abierta.",
       "Pregunta critica anotada."

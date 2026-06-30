@@ -671,6 +671,25 @@ Las bibliotecas usan mas alto vertical cuando hay muchas categorias, pero evitan
 Owner:
 Product / UX / Engineering.
 
+## 2026-06-30 - Documentos, formularios y respaldos explicitos
+
+Status: Accepted
+
+Context:
+Las fichas de tramite indicaban cantidad de documentos y algunos nombres base, pero en catalogos generados seguian quedando demasiado genericas para usuarios que necesitan saber que formulario, certificado, comprobante o respaldo preparar.
+
+Decision:
+Enriquecer transversalmente los tramites generados con documentos suplementarios por categoria y por intencion: formularios o solicitudes del canal responsable, comprobantes, folios, certificados, resoluciones, poderes, evidencias, cartolas, boletas, declaraciones, bases o anexos segun el caso. Mostrar en la UI el detalle de cada item y una etiqueta de tipo como formulario, certificado, comprobante, identidad, legal, evidencia o respaldo.
+
+Rationale:
+La promesa de ChileHub no es decir solo "te pediran documentos", sino ayudar a anticipar cuales suelen bloquear el proceso y que debe confirmarse en la fuente oficial.
+
+Consequences:
+Las listas son mas largas y mas utiles. Siguen siendo referenciales: el nombre exacto, formato, vigencia y canal final deben confirmarse en la institucion responsable.
+
+Owner:
+Product / Content / UX / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

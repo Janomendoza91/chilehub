@@ -68,7 +68,7 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
               value={`${currentStep + 1}/${procedure.steps.length}`}
             />
             <FlowStat label="Avance" value={`${progress}%`} />
-            <FlowStat label="Docs" value={String(procedure.documents.length)} />
+            <FlowStat label="Items" value={String(procedure.documents.length)} />
           </div>
         </div>
 
@@ -129,7 +129,7 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
 
             <div className="mt-5">
               <h4 className="text-[14px] font-extrabold text-[#081642] dark:text-white">
-                Documentos por preparar
+                Documentos, formularios y respaldos
               </h4>
               <p className="mt-1 text-[11px] font-bold text-[#8a94ad] dark:text-[#9aa8c7]">
                 {readyDocuments} de {procedure.documents.length} marcados en
@@ -158,8 +158,16 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
                         <span className="block text-[12.5px] font-bold text-[#283451] dark:text-[#d8e2ff] sm:text-[13px]">
                           {document.title}
                         </span>
-                        <span className="mt-0.5 block text-[11px] font-bold text-[#8a94ad] dark:text-[#9aa8c7]">
-                          {document.required ? "Requerido" : "Puede aplicar"}
+                        <span className="mt-1 flex flex-wrap gap-1.5">
+                          <span className="rounded-full bg-[#eef2ff] px-2 py-0.5 text-[9.5px] font-extrabold uppercase tracking-[0.08em] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
+                            {documentPrepKind(document.title)}
+                          </span>
+                          <span className="rounded-full bg-[#f4f7fc] px-2 py-0.5 text-[9.5px] font-extrabold uppercase tracking-[0.08em] text-[#7b86a3] dark:bg-[#17213d] dark:text-[#aeb9d4]">
+                            {document.required ? "Requerido" : "Condicional"}
+                          </span>
+                        </span>
+                        <span className="mt-1.5 block text-[11px] font-semibold leading-5 text-[#7b86a3] dark:text-[#9aa8c7]">
+                          {document.detail}
                         </span>
                       </span>
                     </button>
@@ -272,6 +280,36 @@ export function ProcedureStepFlow({ procedure }: ProcedureStepFlowProps) {
       </div>
     </section>
   );
+}
+
+function documentPrepKind(title: string) {
+  const lowerTitle = title.toLowerCase();
+
+  if (lowerTitle.includes("formulario") || lowerTitle.includes("solicitud")) {
+    return "Formulario";
+  }
+
+  if (lowerTitle.includes("certificado") || lowerTitle.includes("resolucion")) {
+    return "Certificado";
+  }
+
+  if (lowerTitle.includes("comprobante") || lowerTitle.includes("folio") || lowerTitle.includes("boleta") || lowerTitle.includes("pago")) {
+    return "Comprobante";
+  }
+
+  if (lowerTitle.includes("cedula") || lowerTitle.includes("rut") || lowerTitle.includes("run") || lowerTitle.includes("pasaporte")) {
+    return "Identidad";
+  }
+
+  if (lowerTitle.includes("contrato") || lowerTitle.includes("escritura") || lowerTitle.includes("poder")) {
+    return "Legal";
+  }
+
+  if (lowerTitle.includes("foto") || lowerTitle.includes("captura") || lowerTitle.includes("evidencia")) {
+    return "Evidencia";
+  }
+
+  return "Respaldo";
 }
 
 function FlowStat({ label, value }: { label: string; value: string }) {
