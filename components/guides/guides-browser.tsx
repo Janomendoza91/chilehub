@@ -44,6 +44,15 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
     },
     [activeGuides, isDarkMode]
   );
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = isDarkMode ? {} : { Todas: activeGuides.length };
+
+    activeGuides.forEach((guide) => {
+      counts[guide.category] = (counts[guide.category] ?? 0) + 1;
+    });
+
+    return counts;
+  }, [activeGuides, isDarkMode]);
   const pageSize = isDesktop ? 8 : 6;
 
   useEffect(() => {
@@ -158,6 +167,7 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
             onChange={updateCategory}
             label="Categoria"
             tone={isDarkMode ? "dark" : "light"}
+            categoryCounts={categoryCounts}
           />
         </div>
 

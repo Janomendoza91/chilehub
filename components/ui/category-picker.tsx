@@ -9,6 +9,7 @@ type CategoryPickerProps = {
   onChange: (category: string) => void;
   label: string;
   tone?: "light" | "dark";
+  categoryCounts?: Record<string, number>;
 };
 
 export function CategoryPicker({
@@ -16,12 +17,17 @@ export function CategoryPicker({
   value,
   onChange,
   label,
-  tone = "light"
+  tone = "light",
+  categoryCounts = {}
 }: CategoryPickerProps) {
   const [open, setOpen] = useState(false);
   const isDark = tone === "dark";
   const orderedCategories = orderCategories(categories);
-  const hasManyCategories = orderedCategories.length > 6;
+  const visibleCategories = open
+    ? orderedCategories
+    : getCollapsedCategories(orderedCategories, value);
+  const hiddenCount = Math.max(0, orderedCategories.length - visibleCategories.length);
+  const hasManyCategories = hiddenCount > 0;
 
   function selectCategory(category: string) {
     onChange(category);
@@ -56,7 +62,7 @@ export function CategoryPicker({
                 : "inline-flex items-center gap-1 rounded-full bg-[#f1f5ff] px-2.5 py-1 text-[10px] font-extrabold text-[#52607f]"
             }
           >
-            {open ? "Menos" : "Mas"}
+            {open ? "Menos" : `Mas ${hiddenCount}`}
             <ChevronDown
               className={
                 open
@@ -77,8 +83,9 @@ export function CategoryPicker({
         role="listbox"
         aria-label={label}
       >
-        {orderedCategories.map((category) => {
+        {visibleCategories.map((category) => {
           const selected = category === value;
+          const count = categoryCounts[category];
 
           return (
             <button
@@ -95,25 +102,22 @@ export function CategoryPicker({
               }
             >
               <span className="truncate">{category}</span>
+              {typeof count === "number" ? (
+                <span
+                  className={
+                    selected
+                      ? "rounded-full bg-white/20 px-1.5 py-0.5 text-[9px] font-extrabold"
+                      : "rounded-full bg-white px-1.5 py-0.5 text-[9px] font-extrabold text-[#8a94ad] dark:bg-[#0f172a] dark:text-[#9aa8c7]"
+                  }
+                >
+                  {count}
+                </span>
+              ) : null}
               {selected ? <Check className="h-3.5 w-3.5 shrink-0" /> : null}
             </button>
           );
         })}
       </div>
-
-      {!open && hasManyCategories ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={
-            isDark
-              ? "mt-1.5 hidden w-full rounded-full bg-[#17213d] px-3 py-1.5 text-[10px] font-extrabold text-[#aeb9d4] sm:block"
-              : "mt-1.5 hidden w-full rounded-full bg-[#f7f9ff] px-3 py-1.5 text-[10px] font-extrabold text-[#66718f] sm:block"
-          }
-        >
-          Ver todas las categorias
-        </button>
-      ) : null}
     </div>
   );
 }
@@ -177,4 +181,15 @@ function orderCategories(categories: string[]) {
 
     return first.localeCompare(second, "es");
   });
+}
+
+function getCollapsedCategories(categories: string[], value: string) {
+  const visibleLimit = 9;
+  const visible = categories.slice(0, visibleLimit);
+
+  if (!value || visible.includes(value) || !categories.includes(value)) {
+    return visible;
+  }
+
+  return [...visible.slice(0, visibleLimit - 1), value];
 }

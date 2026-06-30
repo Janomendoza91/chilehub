@@ -11,6 +11,15 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
   const [page, setPage] = useState(1);
   const [isDesktop, setIsDesktop] = useState(false);
   const categories = ["Todos", ...Array.from(new Set(procedures.map((item) => item.category)))];
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { Todos: procedures.length };
+
+    procedures.forEach((procedure) => {
+      counts[procedure.category] = (counts[procedure.category] ?? 0) + 1;
+    });
+
+    return counts;
+  }, [procedures]);
   const pageSize = isDesktop ? 8 : 6;
 
   useEffect(() => {
@@ -51,6 +60,7 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
           value={category}
           onChange={updateCategory}
           label="Categoria"
+          categoryCounts={categoryCounts}
         />
       </div>
 
