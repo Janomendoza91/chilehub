@@ -538,6 +538,25 @@ El aviso de JavaScript antiguo puede seguir apareciendo mientras Next incluya po
 Owner:
 Engineering / Performance.
 
+## 2026-06-30 - Jerarquia clara en fichas de tramites y guias
+
+Status: Accepted
+
+Context:
+Las fichas de tramite acumulaban informacion util, pero algunas zonas densas eran dificiles de escanear en mobile. En `ProcedureInsightTabs`, la fila horizontal de tabs podia dejar opciones como "Errores" cortadas o fuera de lectura clara, y varias superficies internas no tenian dark mode completo.
+
+Decision:
+Reordenar la ficha de tramite para priorizar: resumen, orden recomendado, preparacion guiada paso a paso, espacio personal, costos, revision por tema y fuentes. Cambiar `ProcedureInsightTabs` a segmentos en grilla responsive, mostrar todos los puntos de la pestaña activa y normalizar light/dark en tramites, flujo especial de vender auto y guias. Agregar una ruta rapida al inicio de cada guia para explicar como leerla antes de entrar en bloques extensos.
+
+Rationale:
+ChileHub debe ayudar a entender y preparar, no solo listar informacion. Un orden explicito reduce carga cognitiva, evita scroll exploratorio y hace que errores, alertas, variaciones y preguntas sean encontrables sin depender de una fila horizontal comprimida.
+
+Consequences:
+Las fichas crecen levemente en altura, pero ganan claridad y eliminan truncamientos en mobile. La informacion sigue siendo referencial y no cambia el contenido editorial base.
+
+Owner:
+Product / UX / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

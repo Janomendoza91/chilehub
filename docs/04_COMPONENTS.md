@@ -255,8 +255,9 @@ Responsabilidad:
 
 Responsive:
 
-- Tabs horizontales con scroll en mobile.
+- Segmentos en grilla legible en mobile para evitar labels cortados.
 - Panel de contexto y lista en dos columnas cuando hay espacio.
+- La pestaña activa debe mostrar todos sus puntos disponibles, no solo un resumen truncado.
 
 ## PreparationBrief
 

@@ -118,6 +118,40 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           <ReferenceNotice />
         </div>
 
+        <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
+          <div className="flex items-center gap-2">
+            <span className="grid h-9 w-9 place-items-center rounded-[13px] bg-[#eef2ff] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
+              <ListChecks className="h-4 w-4" />
+            </span>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
+                Ruta rapida
+              </p>
+              <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
+                Como leer esta guia
+              </h2>
+            </div>
+          </div>
+          <ol className="mt-4 grid gap-2 sm:grid-cols-2">
+            {[
+              "Lee lo esencial y detecta que aplica a tu caso.",
+              "Ordena documentos, datos o decisiones pendientes.",
+              "Revisa errores y situaciones donde conviene pedir ayuda.",
+              "Confirma la fuente antes de pagar, firmar o avanzar."
+            ].map((item, index) => (
+              <li
+                key={item}
+                className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f] dark:bg-[#121b32] dark:text-[#d8e2ff]"
+              >
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[11px] font-extrabold text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
+                  {index + 1}
+                </span>
+                {item}
+              </li>
+            ))}
+          </ol>
+        </section>
+
         {guide.keyTakeaways?.length ? (
           <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
             <div className="flex items-center gap-2">

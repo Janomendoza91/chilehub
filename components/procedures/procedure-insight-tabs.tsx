@@ -55,7 +55,7 @@ export function ProcedureInsightTabs({
       },
       {
         key: "changes",
-        label: "Cambia",
+        label: "Variaciones",
         title: "Que puede variar",
         icon: MapPin,
         tone: "neutral",
@@ -77,38 +77,39 @@ export function ProcedureInsightTabs({
   const Icon = activeTab.icon;
 
   const toneClass = {
-    blue: "bg-[#f1f5ff] text-[#36476f]",
-    neutral: "bg-[#f7f9ff] text-[#56617f]",
-    warning: "bg-[#fff7ed] text-[#8a4b12]"
+    blue: "bg-[#f1f5ff] text-[#36476f] dark:bg-[#17213d] dark:text-[#d8e2ff]",
+    neutral: "bg-[#f7f9ff] text-[#56617f] dark:bg-[#121b32] dark:text-[#d8e2ff]",
+    warning: "bg-[#fff7ed] text-[#8a4b12] dark:bg-[#3b2814] dark:text-[#ffcf9f]"
   };
 
   return (
     <section className="pb-5">
-      <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_18px_46px_rgba(35,49,86,0.05)] sm:p-5">
+      <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_18px_46px_rgba(35,49,86,0.05)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
         <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
-              Lo importante
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
+              Revisa por tema
             </p>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642]">
-              Informacion ordenada para no perderte
+            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642] dark:text-white">
+              Lo critico sin mezclarlo todo
             </h2>
           </div>
-          <p className="max-w-[360px] text-[12px] font-semibold leading-5 text-[#66718f]">
-            Menos lectura lineal: elige que necesitas revisar ahora y vuelve a
-            lo demas cuando corresponda.
+          <p className="max-w-[420px] text-[12px] font-semibold leading-5 text-[#66718f] dark:text-[#aeb9d4]">
+            Usa estas secciones como revision final: que mirar antes, que puede
+            bloquearte y que confirmar antes de pagar, firmar o reservar hora.
           </p>
         </div>
 
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-4 grid grid-cols-2 gap-2 min-[520px]:grid-cols-5">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveKey(tab.key)}
+              type="button"
               className={
                 activeKey === tab.key
-                  ? "shrink-0 rounded-full bg-primary px-4 py-2.5 text-[12px] font-extrabold text-white"
-                  : "shrink-0 rounded-full border border-[#e3e9f4] bg-[#fbfcff] px-4 py-2.5 text-[12px] font-extrabold text-[#66718f]"
+                  ? "min-h-11 rounded-[14px] bg-primary px-3 py-2.5 text-center text-[12px] font-extrabold leading-tight text-white shadow-[0_12px_24px_rgba(42,81,232,0.18)]"
+                  : "min-h-11 rounded-[14px] border border-[#e3e9f4] bg-[#fbfcff] px-3 py-2.5 text-center text-[12px] font-extrabold leading-tight text-[#66718f] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#d8e2ff]"
               }
             >
               {tab.label}
@@ -117,16 +118,16 @@ export function ProcedureInsightTabs({
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="rounded-[18px] bg-[#f7f9ff] p-4">
+          <div className="rounded-[18px] bg-[#f7f9ff] p-4 dark:bg-[#121b32]">
             <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[13px] bg-white text-primary">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[13px] bg-white text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
                 <Icon className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-[18px] font-extrabold tracking-[-0.04em] text-[#081642]">
+                <h3 className="text-[18px] font-extrabold tracking-[-0.04em] text-[#081642] dark:text-white">
                   {activeTab.title}
                 </h3>
-                <p className="mt-2 text-[12px] font-semibold leading-5 text-[#66718f]">
+                <p className="mt-2 text-[12px] font-semibold leading-5 text-[#66718f] dark:text-[#aeb9d4]">
                   {activeTab.items[0] ??
                     "Confirma el punto critico antes de continuar."}
                 </p>
@@ -135,7 +136,7 @@ export function ProcedureInsightTabs({
           </div>
 
           <ul className="grid gap-2 md:grid-cols-2">
-            {activeTab.items.slice(0, 4).map((item) => (
+            {activeTab.items.map((item) => (
               <li
                 key={item}
                 className={`rounded-[14px] px-3 py-3 text-[12px] font-semibold leading-5 ${toneClass[activeTab.tone]}`}

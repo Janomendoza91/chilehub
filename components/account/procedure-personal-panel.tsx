@@ -56,14 +56,14 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
   if (!state.active && !auth.user) {
     return (
       <section className="pb-5">
-        <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-5 shadow-[0_14px_34px_rgba(35,49,86,0.04)]">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+        <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-5 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
             Espacio personal gratis
           </p>
-          <h2 className="mt-2 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642]">
+          <h2 className="mt-2 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642] dark:text-white">
             Guarda este tramite y prepara tus documentos
           </h2>
-          <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f]">
+          <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f] dark:text-[#aeb9d4]">
             {auth.googleEnabled
               ? "Entra con Google para activar tu espacio. No subas documentos ni datos sensibles; por ahora la preparacion queda en este navegador."
               : "Google se activara cuando publiquemos el dominio final. Por ahora puedes usar el espacio local en este navegador."}
@@ -87,23 +87,23 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
                 activate("Mi espacio local");
                 toggleSaved(procedure.slug);
               }}
-              className="ml-0 mt-2 rounded-full border border-[#e3e9f4] bg-white px-5 py-3 text-[13px] font-bold text-[#52607f] sm:ml-2"
+              className="ml-0 mt-2 rounded-full border border-[#e3e9f4] bg-white px-5 py-3 text-[13px] font-bold text-[#52607f] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#d8e2ff] sm:ml-2"
             >
               Usar espacio local
             </button>
           ) : null}
           {!auth.configured ? (
-            <p className="mt-3 rounded-[14px] bg-[#fff7ed] px-3 py-2 text-[11px] font-bold leading-5 text-[#8a4b12]">
+            <p className="mt-3 rounded-[14px] bg-[#fff7ed] px-3 py-2 text-[11px] font-bold leading-5 text-[#8a4b12] dark:bg-[#3b2814] dark:text-[#ffcf9f]">
               Falta configurar Supabase Auth para activar Google.
             </p>
           ) : !auth.googleEnabled ? (
-            <p className="mt-3 rounded-[14px] bg-[#eef2ff] px-3 py-2 text-[11px] font-bold leading-5 text-primary">
+            <p className="mt-3 rounded-[14px] bg-[#eef2ff] px-3 py-2 text-[11px] font-bold leading-5 text-primary dark:bg-[#243461] dark:text-[#d8e2ff]">
               OAuth queda preparado, pero se encendera con Vercel y el dominio
               definitivo.
             </p>
           ) : null}
           {error ? (
-            <p className="mt-3 rounded-[14px] bg-[#fff7ed] px-3 py-2 text-[11px] font-bold leading-5 text-[#8a4b12]">
+            <p className="mt-3 rounded-[14px] bg-[#fff7ed] px-3 py-2 text-[11px] font-bold leading-5 text-[#8a4b12] dark:bg-[#3b2814] dark:text-[#ffcf9f]">
               {error}
             </p>
           ) : null}
@@ -114,16 +114,16 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
 
   return (
     <section className="pb-5">
-      <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
+      <div className="rounded-[22px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
         <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
               Mi preparacion
             </p>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642]">
+            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.04em] text-[#081642] dark:text-white">
               {procedure.title}
             </h2>
-            <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f]">
+            <p className="mt-2 text-[13px] font-semibold leading-6 text-[#66718f] dark:text-[#aeb9d4]">
               Checklist local, guardado en este navegador. ChileHub no recibe
               estos datos.
             </p>
@@ -133,7 +133,7 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
             className={
               isSaved
                 ? "inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-[13px] font-bold text-white"
-                : "inline-flex items-center justify-center gap-2 rounded-full border border-[#e3e9f4] bg-white px-5 py-3 text-[13px] font-bold text-[#52607f]"
+                : "inline-flex items-center justify-center gap-2 rounded-full border border-[#e3e9f4] bg-white px-5 py-3 text-[13px] font-bold text-[#52607f] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#d8e2ff]"
             }
           >
             <Heart className="h-4 w-4" />
@@ -142,15 +142,15 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
         </div>
 
         <div className="mt-4 grid gap-3 lg:grid-cols-[1fr_0.9fr]">
-          <div className="rounded-[18px] bg-[#f7f9ff] p-3.5">
+          <div className="rounded-[18px] bg-[#f7f9ff] p-3.5 dark:bg-[#121b32]">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <ListChecks className="h-4 w-4 text-primary" />
-                <p className="text-[13px] font-extrabold text-[#081642]">
+                <ListChecks className="h-4 w-4 text-primary dark:text-[#ff9b4f]" />
+                <p className="text-[13px] font-extrabold text-[#081642] dark:text-white">
                   Documentos por preparar
                 </p>
               </div>
-              <span className="rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-primary">
+              <span className="rounded-full bg-white px-3 py-1 text-[11px] font-extrabold text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
                 {progress}%
               </span>
             </div>
@@ -161,22 +161,22 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
                   <button
                     key={document.title}
                     onClick={() => toggleDocument(procedure.slug, document.title)}
-                    className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-left"
+                    className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-left dark:bg-[#10172b]"
                   >
                     <span
                       className={
                         checked
                           ? "mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-white"
-                          : "mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#cfd9ec] bg-white text-transparent"
+                          : "mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#cfd9ec] bg-white text-transparent dark:border-[#3a4a70] dark:bg-[#10172b]"
                       }
                     >
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </span>
                     <span>
-                      <span className="block text-[13px] font-bold text-[#283451]">
+                      <span className="block text-[13px] font-bold text-[#283451] dark:text-[#d8e2ff]">
                         {document.title}
                       </span>
-                      <span className="mt-1 block text-[11px] font-semibold leading-5 text-[#7b86a3]">
+                      <span className="mt-1 block text-[11px] font-semibold leading-5 text-[#7b86a3] dark:text-[#9aa8c7]">
                         {document.required ? "Requerido" : "Puede aplicar"}
                       </span>
                     </span>
@@ -187,23 +187,23 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
           </div>
 
           <div className="grid gap-3">
-            <div className="rounded-[18px] border border-[#e3e9f4] bg-white p-3.5">
+            <div className="rounded-[18px] border border-[#e3e9f4] bg-white p-3.5 dark:border-[#2a3654] dark:bg-[#121b32]">
               <div className="flex items-center gap-2">
-                <Bell className="h-4 w-4 text-primary" />
-                <p className="text-[13px] font-extrabold text-[#081642]">
+                <Bell className="h-4 w-4 text-primary dark:text-[#ff9b4f]" />
+                <p className="text-[13px] font-extrabold text-[#081642] dark:text-white">
                   Recordatorio
                 </p>
               </div>
               <input
                 value={note}
                 onChange={(event) => setNote(event.target.value)}
-                className="mt-3 h-10 w-full rounded-[13px] border border-[#e3e9f4] bg-[#fbfcff] px-3 text-[12px] font-semibold outline-none focus:border-primary"
+                className="mt-3 h-10 w-full rounded-[13px] border border-[#e3e9f4] bg-[#fbfcff] px-3 text-[12px] font-semibold outline-none focus:border-primary dark:border-[#2a3654] dark:bg-[#10172b] dark:text-[#d8e2ff]"
               />
               <input
                 type="date"
                 value={date}
                 onChange={(event) => setDate(event.target.value)}
-                className="mt-2 h-10 w-full rounded-[13px] border border-[#e3e9f4] bg-[#fbfcff] px-3 text-[12px] font-semibold outline-none focus:border-primary"
+                className="mt-2 h-10 w-full rounded-[13px] border border-[#e3e9f4] bg-[#fbfcff] px-3 text-[12px] font-semibold outline-none focus:border-primary dark:border-[#2a3654] dark:bg-[#10172b] dark:text-[#d8e2ff]"
               />
               <button
                 onClick={() => addReminder(procedure.slug, note, date)}
@@ -212,14 +212,14 @@ export function ProcedurePersonalPanel({ procedure }: { procedure: ProcedureDeta
                 Crear recordatorio
               </button>
             </div>
-            <div className="rounded-[18px] bg-[#fff7ed] p-3.5">
+            <div className="rounded-[18px] bg-[#fff7ed] p-3.5 dark:bg-[#3b2814]">
               <div className="flex items-center gap-2">
                 <History className="h-4 w-4 text-[#b46b14]" />
-                <p className="text-[13px] font-extrabold text-[#081642]">
+                <p className="text-[13px] font-extrabold text-[#081642] dark:text-white">
                   Historial activo
                 </p>
               </div>
-              <p className="mt-2 text-[12px] font-semibold leading-5 text-[#8a4b12]">
+              <p className="mt-2 text-[12px] font-semibold leading-5 text-[#8a4b12] dark:text-[#ffcf9f]">
                 Este tramite ya quedo en tu historial local para volver desde
                 Mis tramites.
               </p>
