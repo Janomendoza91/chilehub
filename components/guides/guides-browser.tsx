@@ -88,7 +88,7 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
 
   const filtered = useMemo(() => {
     const activePrioritySlugs = isDarkMode ? darkPrioritySlugs : prioritySlugs;
-    const normalized = query.trim().toLowerCase();
+    const normalized = isDarkMode ? "" : query.trim().toLowerCase();
 
     return activeGuides.filter((guide) => {
       const isFeatured = activePrioritySlugs.includes(guide.slug);
@@ -120,6 +120,66 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
   function updateCategory(nextCategory: string) {
     setCategory(nextCategory);
     setPage(1);
+  }
+
+  if (isDarkMode) {
+    return (
+      <>
+        <div className="mt-4">
+          <CategoryPicker
+            categories={categories}
+            value={category}
+            onChange={updateCategory}
+            label="Categoria"
+            tone="dark"
+            categoryCounts={categoryCounts}
+          />
+        </div>
+
+        <section className="grid grid-cols-1 gap-2.5 pb-8 pt-3 min-[430px]:grid-cols-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4">
+          {paginated.map((guide) => (
+            <DarkGuideLibraryCard key={guide.slug} guide={guide} />
+          ))}
+        </section>
+
+        {filtered.length > pageSize ? (
+          <div className="mb-8 flex flex-col items-center justify-between gap-3 rounded-[18px] border border-[#26324f] bg-[#111a31] p-3 shadow-[0_10px_24px_rgba(0,0,0,0.16)] sm:flex-row">
+            <p className="text-[12px] font-bold text-[#aeb9d4]">
+              Mostrando {(currentPage - 1) * pageSize + 1}-
+              {Math.min(currentPage * pageSize, filtered.length)} de{" "}
+              {filtered.length} guias
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPage((value) => Math.max(1, value - 1))}
+                disabled={currentPage === 1}
+                className="rounded-full border border-[#2a3654] bg-[#0f172a] px-4 py-2 text-[12px] font-bold text-[#e8eeff] disabled:opacity-40"
+              >
+                Anterior
+              </button>
+              <span className="rounded-full bg-[#243461] px-3 py-2 text-[12px] font-extrabold text-[#ff9b4f]">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={() => setPage((value) => Math.min(totalPages, value + 1))}
+                disabled={currentPage === totalPages}
+                className="rounded-full bg-[#ff8a3d] px-4 py-2 text-[12px] font-bold text-[#111827] disabled:opacity-40"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {filtered.length === 0 ? (
+          <div className="pb-10">
+            <div className="rounded-[20px] border border-[#26324f] bg-[#111a31] p-5 text-[14px] font-semibold text-[#aeb9d4]">
+              No hay resultados en la biblioteca local actual.
+            </div>
+          </div>
+        ) : null}
+      </>
+    );
   }
 
   return (
@@ -290,5 +350,52 @@ function GuideCompactCard({ guide }: { guide: GuideDetail }) {
         <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
       </div>
     </Link>
+  );
+}
+
+function DarkGuideLibraryCard({ guide }: { guide: GuideDetail }) {
+  return (
+    <Link
+      href={`/guias/${guide.slug}`}
+      className="group rounded-[16px] border border-[#26324f] bg-[#111a31] p-3.5 shadow-[0_10px_26px_rgba(0,0,0,0.13)] transition hover:-translate-y-0.5 hover:bg-[#151f3a] sm:rounded-[20px] sm:p-4"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#ff9b4f] sm:text-[11px]">
+            {guide.category}
+          </p>
+          <h2 className="mt-1.5 text-[14px] font-extrabold leading-tight tracking-[-0.02em] text-white min-[430px]:line-clamp-2 sm:mt-2 sm:text-[17px]">
+            {guide.title}
+          </h2>
+        </div>
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#243461] text-[#ff9b4f] sm:h-10 sm:w-10 sm:rounded-[12px]">
+          <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
+        </span>
+      </div>
+      <p className="mt-2 line-clamp-2 text-[12px] font-medium leading-5 text-[#aeb9d4]">
+        {guide.summary}
+      </p>
+      <div className="mt-3 grid grid-cols-2 gap-1.5 sm:mt-4 sm:gap-2">
+        <GuideMetaPill label="Lectura" value={guide.readingTime} />
+        <GuideMetaPill label="Tipo" value="Referencial" />
+      </div>
+      <div className="mt-3 flex items-center gap-1 text-[11px] font-bold text-[#ff9b4f] sm:mt-4 sm:text-[13px]">
+        Leer guia
+        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+      </div>
+    </Link>
+  );
+}
+
+function GuideMetaPill({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-0 rounded-[10px] bg-[#121b32] px-2 py-2 sm:rounded-[12px] sm:px-3">
+      <p className="text-[8.5px] font-extrabold uppercase tracking-[0.1em] text-[#7f8cab] sm:text-[9.5px]">
+        {label}
+      </p>
+      <p className="mt-1 line-clamp-2 text-[10.5px] font-extrabold leading-[1.2] tracking-[-0.01em] text-[#e8eeff] sm:text-[11.5px]">
+        {value}
+      </p>
+    </div>
   );
 }

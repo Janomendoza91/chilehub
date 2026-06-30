@@ -728,6 +728,25 @@ Las URLs generadas de la tanda dark cambian para reflejar temas especificos. Las
 Owner:
 Product / Content / UX / Engineering.
 
+## 2026-06-30 - Biblioteca dark de guias con patron de tramites
+
+Status: Accepted
+
+Context:
+La vista de guias en dark mode seguia usando una seccion editorial con destacadas, buscador interno y un contenedor grande. Despues de escalar a 1000+ guias, esa composicion se sentia menos clara que la biblioteca de tramites en light mode.
+
+Decision:
+En dark mode, `/guias` usa el mismo patron de exploracion que `/tramites` en light mode: selector compacto de categorias arriba, grilla directa de cards, paginacion simple y sin bloque de destacadas ni buscador interno dentro de la seccion. La busqueda global y el boton de ayuda siguen cubriendo la busqueda rapida.
+
+Rationale:
+Cuando hay muchas entradas, el usuario necesita explorar por categoria y abrir rapido, no navegar una composicion editorial pesada. Un patron compartido mejora consistencia entre bibliotecas y reduce ruido visual.
+
+Consequences:
+Las guias dark se presentan como catalogo navegable. El modo claro mantiene su experiencia editorial actual con destacadas y buscador local.
+
+Owner:
+Product / UX / Engineering.
+
 ## 2026-06-30 - Escalar dark mode a 1000+ guias
 
 Status: Accepted
