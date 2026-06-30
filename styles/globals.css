@@ -18,6 +18,22 @@
   --ring: 227 87% 56%;
 }
 
+.dark {
+  --background: 224 50% 7%;
+  --foreground: 220 45% 96%;
+  --card: 223 41% 13%;
+  --card-foreground: 220 45% 96%;
+  --primary: 228 100% 72%;
+  --primary-foreground: 0 0% 100%;
+  --success: 151 72% 42%;
+  --success-foreground: 0 0% 100%;
+  --muted: 223 38% 16%;
+  --muted-foreground: 222 22% 74%;
+  --border: 224 26% 24%;
+  --input: 224 26% 24%;
+  --ring: 228 100% 72%;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import {
   PageIntro,
   ProductShell,
@@ -19,11 +20,13 @@ export default function GuidesPage() {
     <ProductShell>
       <PageIntro
         eyebrow="Guias rapidas"
-        title="Lee lo justo para no equivocarte."
-        description="Guias cortas, accionables y referenciales para saber que revisar antes de avanzar en un tramite, postulacion o decision importante."
+        title="Lee lo justo antes de avanzar."
+        description="Guias cortas, accionables y referenciales para saber que revisar, que riesgos evitar y donde confirmar el siguiente paso."
       />
       <ReferenceNotice />
-      <GuidesBrowser guides={guidesContent} />
+      <Suspense fallback={null}>
+        <GuidesBrowser guides={guidesContent} />
+      </Suspense>
     </ProductShell>
   );
 }

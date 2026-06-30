@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfcff] text-foreground">
+    <main className="min-h-screen overflow-hidden bg-[#fbfcff] text-foreground transition-colors dark:bg-[#090e1b]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLd({

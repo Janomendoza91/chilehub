@@ -45,6 +45,7 @@ Permitido en esta etapa:
 
 - Identidad basica devuelta por Google/Supabase para mostrar sesion iniciada.
 - Nombre de visualizacion no sensible.
+- Preferencia local de consentimiento +18 para acceder al modo oscuro, sin fecha de nacimiento ni identificacion.
 - Slugs de tramites guardados.
 - Historial local de tramites visitados.
 - Estado de checklist de documentos por titulo.

@@ -424,6 +424,27 @@ El catalogo pasa a una escala mayor y requiere priorizar revision editorial mens
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-29 - Modo oscuro como universo de contenido
+
+Status: Accepted
+
+Context:
+El usuario definio que el dark mode de ChileHub no debe ser solo una preferencia visual. Debe activar una segunda experiencia de contenido para temas digitales, adultos y sensibles que las personas buscan en internet, manteniendose dentro de la legalidad y sin reemplazar fuentes, profesionales ni plataformas externas.
+
+Decision:
+El toggle de modo oscuro cambia tema visual y tambien el contenido visible de la landing: headline, navegacion superior, accesos rapidos, sugerencias del buscador, cards destacadas y footer. El universo oscuro cubre privacidad digital, plataformas adultas legales, ingresos online, seguridad de cuentas, cannabis medicinal con enfoque medico/legal, apuestas legales y reputacion online. El contenido se trata como guia referencial de reduccion de incertidumbre, no como instrucciones para evadir reglas, comprar productos, realizar actividades ilegales ni obtener resultados medicos, legales o tributarios.
+
+El acceso al modo oscuro requiere una confirmacion local de mayoria de edad. ChileHub guarda solo una preferencia booleana en el navegador para no volver a pedir el consentimiento en cada visita; no solicita fecha de nacimiento, documento, nombre ni datos personales.
+
+Rationale:
+Esto diferencia a ChileHub de un portal de tramites tradicional: el modo claro prepara procesos formales; el modo oscuro ordena temas reales que la gente suele buscar en privado, con tono directo, limites claros y foco en privacidad.
+
+Consequences:
+Toda expansion del modo oscuro requiere revision de contenido, privacidad y seguridad. No se deben agregar guias que faciliten actividades ilegales, evasion de controles, fraude, acoso, explotacion o instrucciones medicas personalizadas. En temas de salud, impuestos, legalidad, pagos o denuncias, ChileHub debe derivar a profesionales, fuentes oficiales o plataformas responsables.
+
+Owner:
+Product / Content / Engineering / Security.
+
 ## Backlog de decisiones pendientes
 
 - Definir archivo fuente oficial de la imagen.

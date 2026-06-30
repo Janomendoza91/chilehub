@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { ChilehubModeProvider } from "@/components/theme/chilehub-mode-provider";
 import { absoluteUrl, siteConfig } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -48,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body>
-        {children}
+        <ChilehubModeProvider>{children}</ChilehubModeProvider>
         <GoogleAnalytics />
       </body>
     </html>

@@ -10,7 +10,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
-import { getGuide, guidesContent } from "@/data/content";
+import { allGuidesContent, getGuide } from "@/data/content";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -20,7 +20,7 @@ import {
 } from "@/lib/seo";
 
 export function generateStaticParams() {
-  return guidesContent.map((guide) => ({ slug: guide.slug }));
+  return allGuidesContent.map((guide) => ({ slug: guide.slug }));
 }
 
 type GuidePageProps = {
@@ -90,16 +90,16 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         )}
       />
       <article className="mx-auto max-w-[980px] pb-10 pt-3">
-        <Link href="/guias" className="text-[13px] font-bold text-primary">
+        <Link href="/guias" className="text-[13px] font-bold text-primary dark:text-[#9fb1ff]">
           Volver a guias
         </Link>
-        <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+        <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-primary dark:text-[#ff9b4f]">
           {guide.category} / {guide.readingTime}
         </p>
-        <h1 className="mt-2 text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-[#081642] sm:text-[56px]">
+        <h1 className="mt-2 text-[34px] font-extrabold leading-[1.04] tracking-[-0.05em] text-[#081642] dark:text-white sm:text-[56px]">
           {guide.title}
         </h1>
-        <p className="mt-4 text-[16px] font-medium leading-8 text-[#56617f] sm:text-[19px]">
+        <p className="mt-4 text-[16px] font-medium leading-8 text-[#56617f] dark:text-[#aeb9d4] sm:text-[19px]">
           {guide.summary}
         </p>
 
@@ -108,16 +108,16 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         </div>
 
         {guide.keyTakeaways?.length ? (
-          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
+          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
             <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-[13px] bg-[#eef7ff] text-primary">
+              <span className="grid h-9 w-9 place-items-center rounded-[13px] bg-[#eef7ff] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
                 <Sparkles className="h-4 w-4" />
               </span>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
                   En 30 segundos
                 </p>
-                <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
                   Lo que no puedes pasar por alto
                 </h2>
               </div>
@@ -126,7 +126,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
               {guide.keyTakeaways.map((item) => (
                 <div
                   key={item}
-                  className="rounded-[16px] border border-[#e7edf6] bg-[#fbfcff] p-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                  className="rounded-[16px] border border-[#e7edf6] bg-[#fbfcff] p-3 text-[13px] font-semibold leading-6 text-[#56617f] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#d8e2ff]"
                 >
                   {item}
                 </div>
@@ -140,15 +140,15 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             {guide.decisionCards.map((card) => (
               <div
                 key={card.label}
-                className="rounded-[20px] border border-[#e3e9f4] bg-white p-4 shadow-[0_12px_28px_rgba(35,49,86,0.035)]"
+                className="rounded-[20px] border border-[#e3e9f4] bg-white p-4 shadow-[0_12px_28px_rgba(35,49,86,0.035)] dark:border-[#26324f] dark:bg-[#111a31]"
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#7b86a3]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#7b86a3] dark:text-[#9aa8c7]">
                   {card.label}
                 </p>
-                <p className="mt-2 text-[17px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                <p className="mt-2 text-[17px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
                   {card.value}
                 </p>
-                <p className="mt-2 text-[12.5px] font-medium leading-5 text-[#66718f]">
+                <p className="mt-2 text-[12.5px] font-medium leading-5 text-[#66718f] dark:text-[#aeb9d4]">
                   {card.detail}
                 </p>
               </div>
@@ -159,20 +159,20 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         {(guide.practicalScenarios?.length || guide.sourceQuestions?.length) ? (
           <section className="mt-5 grid gap-3 lg:grid-cols-[0.95fr_1.05fr]">
             {guide.practicalScenarios?.length ? (
-              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
                   Segun tu caso
                 </p>
                 <div className="mt-4 grid gap-2">
                   {guide.practicalScenarios.map((scenario) => (
                     <div
                       key={scenario.title}
-                      className="rounded-[16px] bg-[#f7f9ff] p-3"
+                      className="rounded-[16px] bg-[#f7f9ff] p-3 dark:bg-[#121b32]"
                     >
-                      <h2 className="text-[14px] font-extrabold text-[#081642]">
+                      <h2 className="text-[14px] font-extrabold text-[#081642] dark:text-white">
                         {scenario.title}
                       </h2>
-                      <p className="mt-1.5 text-[12.5px] font-semibold leading-5 text-[#66718f]">
+                      <p className="mt-1.5 text-[12.5px] font-semibold leading-5 text-[#66718f] dark:text-[#aeb9d4]">
                         {scenario.detail}
                       </p>
                     </div>
@@ -182,17 +182,17 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             ) : null}
 
             {guide.sourceQuestions?.length ? (
-              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5">
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+              <div className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
                   Preguntas para confirmar
                 </p>
                 <div className="mt-4 grid gap-2">
                   {guide.sourceQuestions.map((question) => (
                     <div
                       key={question}
-                      className="flex gap-3 rounded-[14px] bg-[#fbfcff] px-3 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                      className="flex gap-3 rounded-[14px] bg-[#fbfcff] px-3 py-3 text-[13px] font-semibold leading-6 text-[#56617f] dark:bg-[#121b32] dark:text-[#d8e2ff]"
                     >
-                      <HelpCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <HelpCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary dark:text-[#ff9b4f]" />
                       {question}
                     </div>
                   ))}
@@ -206,17 +206,17 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           {guide.sections.map((section) => (
             <section
               key={section.title}
-              className="rounded-[22px] border border-[#e3e9f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] sm:p-5"
+              className="rounded-[22px] border border-[#e3e9f4] bg-white p-4 shadow-[0_14px_34px_rgba(35,49,86,0.04)] dark:border-[#26324f] dark:bg-[#111a31] sm:p-5"
             >
               <div className="flex gap-3">
-                <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-[12px] bg-[#f7f9ff] text-primary">
+                <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-[12px] bg-[#f7f9ff] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
                   <Clock3 className="h-4 w-4" />
                 </span>
                 <div>
-                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] sm:text-[20px]">
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white sm:text-[20px]">
                     {section.title}
                   </h2>
-                  <p className="mt-2 text-[13.5px] font-medium leading-7 text-[#66718f] sm:text-[14px]">
+                  <p className="mt-2 text-[13.5px] font-medium leading-7 text-[#66718f] dark:text-[#aeb9d4] sm:text-[14px]">
                     {section.body}
                   </p>
                 </div>
@@ -226,10 +226,10 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         </div>
 
         <div className="mt-5 grid gap-3 lg:grid-cols-[1.05fr_0.95fr]">
-          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 sm:p-5">
+          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
             <div className="flex items-center gap-2">
-              <ListChecks className="h-5 w-5 text-primary" />
-              <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+              <ListChecks className="h-5 w-5 text-primary dark:text-[#ff9b4f]" />
+              <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
                 Plan de 5 minutos
               </h2>
             </div>
@@ -237,9 +237,9 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
               {(guide.fiveMinutePlan ?? guide.checklist).map((item, index) => (
                 <div
                   key={item}
-                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f] dark:bg-[#121b32] dark:text-[#d8e2ff]"
                 >
-                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-[11px] font-extrabold text-primary">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-[11px] font-extrabold text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">
                     {index + 1}
                   </span>
                   {item}
@@ -248,17 +248,17 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             </div>
           </section>
 
-          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 sm:p-5">
-            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+          <section className="rounded-[24px] border border-[#dfe6f4] bg-white p-4 dark:border-[#26324f] dark:bg-[#111a31] sm:p-5">
+            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
               Checklist rapido
             </h2>
             <div className="mt-4 grid gap-2">
               {guide.checklist.map((item) => (
                 <div
                   key={item}
-                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f]"
+                  className="flex gap-3 rounded-[14px] bg-[#f7f9ff] px-4 py-3 text-[13px] font-semibold leading-6 text-[#56617f] dark:bg-[#121b32] dark:text-[#d8e2ff]"
                 >
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-primary dark:text-[#ff9b4f]" />
                   {item}
                 </div>
               ))}
@@ -269,10 +269,10 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         {(guide.commonMistakes?.length || guide.whenToGetHelp?.length) ? (
           <div className="mt-5 grid gap-3 lg:grid-cols-2">
             {guide.commonMistakes?.length ? (
-              <section className="rounded-[24px] border border-[#f2dfc7] bg-[#fffaf3] p-4 sm:p-5">
+              <section className="rounded-[24px] border border-[#f2dfc7] bg-[#fffaf3] p-4 dark:border-[#5a3b1d] dark:bg-[#2b1d12] sm:p-5">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="h-5 w-5 text-[#b46b14]" />
-                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
                     Errores que cuestan tiempo
                   </h2>
                 </div>
@@ -280,7 +280,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
                   {guide.commonMistakes.map((item) => (
                     <p
                       key={item}
-                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#6f5b3b]"
+                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#6f5b3b] dark:bg-[#3b2814] dark:text-[#ffcf9f]"
                     >
                       {item}
                     </p>
@@ -290,10 +290,10 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             ) : null}
 
             {guide.whenToGetHelp?.length ? (
-              <section className="rounded-[24px] border border-[#dce9f7] bg-[#f7fbff] p-4 sm:p-5">
+              <section className="rounded-[24px] border border-[#dce9f7] bg-[#f7fbff] p-4 dark:border-[#26324f] dark:bg-[#10172b] sm:p-5">
                 <div className="flex items-center gap-2">
-                  <HelpCircle className="h-5 w-5 text-primary" />
-                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+                  <HelpCircle className="h-5 w-5 text-primary dark:text-[#ff9b4f]" />
+                  <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
                     Cuando no basta una guia
                   </h2>
                 </div>
@@ -301,7 +301,7 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
                   {guide.whenToGetHelp.map((item) => (
                     <p
                       key={item}
-                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#52607f]"
+                      className="rounded-[14px] bg-white px-4 py-3 text-[13px] font-semibold leading-6 text-[#52607f] dark:bg-[#121b32] dark:text-[#d8e2ff]"
                     >
                       {item}
                     </p>
@@ -313,11 +313,11 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
         ) : null}
 
         {!guide.fiveMinutePlan ? null : (
-          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-5">
-            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642]">
+          <section className="mt-5 rounded-[24px] border border-[#dfe6f4] bg-white p-5 dark:border-[#26324f] dark:bg-[#111a31]">
+            <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#081642] dark:text-white">
               Resultado esperado
             </h2>
-            <p className="mt-3 text-[14px] font-medium leading-7 text-[#66718f]">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-[#66718f] dark:text-[#aeb9d4]">
               Al terminar esta guia deberias saber que dato falta, que fuente revisar y que accion externa corresponde. Si una condicion cambia por comuna, institucion o caso personal, confirmala antes de avanzar.
             </p>
           </section>
@@ -333,21 +333,21 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           </Link>
         ) : null}
 
-        <section className="mt-8 rounded-[22px] border border-[#e3e9f4] bg-white p-5">
-          <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-primary">
+        <section className="mt-8 rounded-[22px] border border-[#e3e9f4] bg-white p-5 dark:border-[#26324f] dark:bg-[#111a31]">
+          <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-primary dark:text-[#ff9b4f]">
             Fuentes y revision
           </p>
-          <p className="mt-2 text-[13px] font-semibold text-[#66718f]">
+          <p className="mt-2 text-[13px] font-semibold text-[#66718f] dark:text-[#aeb9d4]">
             Revisado: {guide.updatedAt}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            {guide.sources.map((source) => (
+            {guide.sources.map((source, index) => (
               <a
-                key={source.url}
+                key={`${source.url}-${index}`}
                 href={source.url}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-[#e3e9f4] bg-[#fbfcff] px-3 py-2 text-[12px] font-bold text-[#52607f]"
+                className="rounded-full border border-[#e3e9f4] bg-[#fbfcff] px-3 py-2 text-[12px] font-bold text-[#52607f] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#e8eeff]"
               >
                 {source.label}
               </a>

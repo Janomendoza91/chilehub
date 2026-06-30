@@ -15,6 +15,7 @@ import type {
   ProcedureDetail
 } from "@/types/chilehub";
 import { expandedGuides, expandedProcedures } from "@/data/expanded-content";
+import { darkGuidesContent } from "@/data/dark-guides";
 
 export const disclosureText =
   "Informacion referencial recopilada con IA para prepararte mejor. Los tramites no se realizan en ChileHub, no generamos cobros y la plataforma es gratuita.";
@@ -1555,6 +1556,10 @@ export const officeChannels = [
 export const procedures: ProcedureDetail[] = baseProcedures.map(enrichProcedure);
 
 export const guidesContent: GuideDetail[] = baseGuidesContent.map(enrichGuide);
+export const allGuidesContent: GuideDetail[] = [
+  ...guidesContent,
+  ...darkGuidesContent
+];
 
 export const procedureCards: ProcedureCard[] = procedures.slice(0, 4).map((item, index) => ({
   title: item.title,
@@ -1592,7 +1597,7 @@ export function getProcedure(slug: string) {
 }
 
 export function getGuide(slug: string) {
-  return guidesContent.find((item) => item.slug === slug);
+  return allGuidesContent.find((item) => item.slug === slug);
 }
 
 function uniqueList(items: string[]) {

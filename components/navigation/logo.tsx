@@ -28,13 +28,14 @@ export function Logo({
       </span>
       <span
         className={cn(
-          "font-bold tracking-[-0.02em] text-[#081642]",
+          "font-bold tracking-[-0.02em] text-[#081642] transition-colors dark:text-white",
           compact ? "text-[18px] lg:text-[22px]" : "text-[42px]",
           responsiveText ? "hidden sm:inline" : "inline"
         )}
       >
-        ChileHub
+        Chile<span className="dark:text-[#ff8a3d]">Hub</span>
       </span>
     </Link>
   );
 }
+

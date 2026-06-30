@@ -20,7 +20,7 @@ export function PhoneShell({
       <div className="absolute left-1/2 top-[10px] z-20 h-[18px] w-[66px] -translate-x-1/2 rounded-full bg-[#080a10] sm:top-[18px] sm:h-[26px] sm:w-[96px]" />
       <div
         className={cn(
-          "h-full overflow-hidden rounded-[40px] bg-white",
+          "h-full overflow-hidden rounded-[40px] bg-white transition-colors dark:bg-[#0b1120]",
           innerClassName
         )}
       >
@@ -29,3 +29,4 @@ export function PhoneShell({
     </div>
   );
 }
+

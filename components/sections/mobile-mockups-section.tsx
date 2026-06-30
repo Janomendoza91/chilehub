@@ -1,12 +1,21 @@
+"use client";
+
 import { CompletedScreen } from "@/components/mobile/completed-screen";
 import { DocumentsScreen } from "@/components/mobile/documents-screen";
 import { OfficesScreen } from "@/components/mobile/offices-screen";
 import { ProgressScreen } from "@/components/mobile/progress-screen";
 import { SectionReveal } from "@/components/layout/section-reveal";
+import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
 
 export function MobileMockupsSection() {
+  const { isDarkMode } = useChilehubMode();
+
+  if (isDarkMode) {
+    return null;
+  }
+
   return (
-    <section id="oficinas" className="bg-[#fbfcff] pb-5 pt-0 sm:pb-8">
+    <section id="oficinas" className="bg-[#fbfcff] pb-5 pt-0 transition-colors dark:bg-[#090e1b] sm:pb-8">
       <div className="container-page">
         <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-4">
             <SectionReveal delay={0.04}>
@@ -26,3 +35,4 @@ export function MobileMockupsSection() {
     </section>
   );
 }
+
