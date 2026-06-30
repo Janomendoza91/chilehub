@@ -481,6 +481,44 @@ Las paginas son informativas y no reemplazan revision legal formal. Si ChileHub 
 Owner:
 Product / Engineering / Security.
 
+## 2026-06-30 - Branding instalable y contacto accionable
+
+Status: Accepted
+
+Context:
+ChileHub ya tenia paginas de confianza, health check y security.txt, pero faltaban senales tecnicas de app moderna como manifest e iconos, y la pagina de contacto seguia describiendo canales futuros en vez de orientar reportes concretos.
+
+Decision:
+Agregar `manifest.webmanifest`, iconos generados para navegador/iOS, JSON-LD de organizacion en el layout, ampliar el smoke test para validar manifest, sitemap y paginas de confianza, y convertir `/contacto` en una ruta accionable para reportes de contenido, sugerencias y seguridad sin solicitar datos sensibles.
+
+Rationale:
+Estas mejoras aumentan confianza percibida, instalabilidad y verificabilidad operativa sin agregar dependencias ni recolectar datos nuevos. Contacto debe orientar al usuario incluso antes de existir un formulario o backend.
+
+Consequences:
+Los iconos generados son suficientes para una etapa inicial, pero pueden reemplazarse por assets oficiales cuando exista identidad visual final. Si se agrega formulario real, debe pasar por revision de privacidad y seguridad antes de recibir datos.
+
+Owner:
+Product / Engineering / Design / Security.
+
+## 2026-06-30 - Metodologia editorial publica y llms.txt
+
+Status: Accepted
+
+Context:
+ChileHub necesita competir en confianza contra contenido generico y contra fuentes oficiales sin fingir oficialidad. La gobernanza editorial existia en documentos internos, pero no habia una pagina publica que explicara como se clasifican fuentes, revisiones y limites.
+
+Decision:
+Publicar `/metodologia` con principios y estados editoriales, enlazarla desde footer y sitemap, y agregar `/llms.txt` para declarar alcance, paginas canonicas y uso responsable frente a asistentes o sistemas de recuperacion.
+
+Rationale:
+La metodologia publica ayuda a usuarios, buscadores y revisores a entender que ChileHub prepara y ordena, pero no reemplaza confirmacion oficial. `llms.txt` reduce ambiguedad para consumo automatizado sin agregar integraciones ni datos nuevos.
+
+Consequences:
+La pagina de metodologia no convierte contenido referencial en verificado. La verificacion oficial individual sigue pendiente para procesos prioritarios y debe reflejarse en datos cuando se implemente.
+
+Owner:
+Product / Content / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

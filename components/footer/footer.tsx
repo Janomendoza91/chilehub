@@ -38,6 +38,7 @@ const footerItems = [
 ];
 
 const legalLinks = [
+  { label: "Metodologia", href: "/metodologia" },
   { label: "Privacidad", href: "/privacidad" },
   { label: "Terminos", href: "/terminos" },
   { label: "Contacto", href: "/contacto" }

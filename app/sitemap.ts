@@ -9,6 +9,7 @@ const staticRoutes = [
   "/calculadoras",
   "/oficinas",
   "/contacto",
+  "/metodologia",
   "/privacidad",
   "/terminos"
 ] as const;

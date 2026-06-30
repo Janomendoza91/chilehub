@@ -106,6 +106,10 @@
 - [x] Crear rutas informativas para cuenta, guardados, mis tramites y contacto.
 - [x] Crear paginas publicas de privacidad y terminos.
 - [x] Publicar `/.well-known/security.txt` para reportes de seguridad.
+- [x] Agregar manifest e iconos base de app.
+- [x] Convertir contacto en ruta accionable para reportes sin datos sensibles.
+- [x] Crear pagina publica de metodologia editorial.
+- [x] Publicar `/llms.txt` con alcance referencial y rutas canonicas.
 
 ## Etapa 5 - Personalizacion V3
 
@@ -137,6 +141,7 @@
 - [ ] Mantener documentacion actualizada.
 - [ ] Registrar decisiones en `09_DECISIONS.md`.
 - [x] Crear endpoint `/api/health` para monitoreo externo.
+- [x] Agregar smoke test de seguridad, confianza y manifest.
 - [ ] Revisar accesibilidad.
 - [ ] Revisar performance.
 - [ ] Revisar SEO cuando aplique.

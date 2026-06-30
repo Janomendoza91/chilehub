@@ -48,8 +48,53 @@ async function checkSecurityTxt() {
   await assertOk(body.includes("Policy:"), "security.txt must include Policy");
 }
 
+async function checkTrustPages() {
+  for (const path of ["/metodologia", "/privacidad", "/terminos", "/contacto"]) {
+    const response = await fetch(`${baseUrl}${path}`);
+    const body = await response.text();
+
+    await assertOk(response.ok, `${path} must respond successfully`);
+    await assertOk(body.includes("ChileHub"), `${path} must render ChileHub content`);
+  }
+}
+
+async function checkManifest() {
+  const response = await fetch(`${baseUrl}/manifest.webmanifest`);
+  const body = await response.json();
+
+  await assertOk(response.ok, "Manifest must respond successfully");
+  await assertOk(body.name === "ChileHub", "Manifest must identify ChileHub");
+  await assertOk(body.start_url === "/", "Manifest must start at home");
+}
+
+async function checkSitemap() {
+  const response = await fetch(`${baseUrl}/sitemap.xml`);
+  const body = await response.text();
+
+  await assertOk(response.ok, "Sitemap must respond successfully");
+  await assertOk(body.includes(`${baseUrl}/privacidad`), "Sitemap must include privacy page");
+  await assertOk(body.includes(`${baseUrl}/terminos`), "Sitemap must include terms page");
+  await assertOk(body.includes(`${baseUrl}/metodologia`), "Sitemap must include methodology page");
+}
+
+async function checkLlmsTxt() {
+  const response = await fetch(`${baseUrl}/llms.txt`);
+  const body = await response.text();
+
+  await assertOk(response.ok, "llms.txt must respond successfully");
+  await assertOk(body.includes("ChileHub"), "llms.txt must identify ChileHub");
+  await assertOk(
+    body.includes("informacion referencial"),
+    "llms.txt must state referential scope"
+  );
+}
+
 await checkHeaders();
 await checkHealth();
 await checkSecurityTxt();
+await checkTrustPages();
+await checkManifest();
+await checkSitemap();
+await checkLlmsTxt();
 
 console.log(`Security smoke checks passed for ${baseUrl}`);
