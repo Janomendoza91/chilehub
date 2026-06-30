@@ -94,10 +94,15 @@ export function HeroSection() {
           <div className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-3 sm:grid-cols-4">
             {activeQuickActions.map((action) => {
               const Icon = action.icon;
+              const href =
+                "href" in action && typeof action.href === "string"
+                  ? action.href
+                  : `/buscar?q=${encodeURIComponent(action.label)}`;
+
               return (
                 <Link
                   key={action.label}
-                  href={`/buscar?q=${encodeURIComponent(action.label)}`}
+                  href={href}
                   className="flex items-center gap-2 rounded-[14px] border border-[#e5ebf5] bg-white px-3 py-3 text-left text-[12px] font-bold text-[#283451] transition hover:border-[#cfd9ec] hover:bg-[#fbfcff] dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#f2f6ff] dark:hover:border-[#3a4a70] dark:hover:bg-[#17213d]"
                 >
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[#eef2ff] text-primary dark:bg-[#243461] dark:text-[#ff9b4f]">

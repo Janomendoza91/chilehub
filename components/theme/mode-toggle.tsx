@@ -51,27 +51,27 @@ export function ModeToggle() {
 
       {showConsent ? (
         <div
-          className="fixed left-0 top-0 z-[100] flex h-dvh w-screen items-center justify-center bg-[#08111f]/55 px-5 py-6 backdrop-blur-sm"
+          className="fixed left-0 top-0 z-[100] flex h-dvh w-screen items-center justify-center overflow-y-auto bg-[#08111f]/55 px-4 py-5 backdrop-blur-sm sm:px-5 sm:py-8"
           role="dialog"
           aria-modal="true"
           aria-labelledby="dark-mode-consent-title"
         >
-          <div className="w-full max-w-[420px] rounded-[24px] border border-[#26324f] bg-[#10172b] p-5 text-left shadow-[0_28px_90px_rgba(0,0,0,0.45)] sm:p-6">
-            <div className="mb-4 grid h-11 w-11 place-items-center rounded-[14px] bg-[#243461] text-[#ff9b4f]">
+          <div className="my-auto max-h-[calc(100dvh-40px)] w-full max-w-[420px] overflow-y-auto rounded-[20px] border border-[#26324f] bg-[#10172b] p-4 text-left shadow-[0_28px_90px_rgba(0,0,0,0.45)] sm:max-h-[calc(100dvh-64px)] sm:rounded-[24px] sm:p-6">
+            <div className="mb-3 grid h-10 w-10 place-items-center rounded-[13px] bg-[#243461] text-[#ff9b4f] sm:mb-4 sm:h-11 sm:w-11 sm:rounded-[14px]">
               <Moon className="h-5 w-5" />
             </div>
             <h2
               id="dark-mode-consent-title"
-              className="text-[22px] font-extrabold leading-tight tracking-[-0.04em] text-white"
+              className="text-[19px] font-extrabold leading-tight tracking-[-0.04em] text-white sm:text-[22px]"
             >
               Contenido para mayores de 18
             </h2>
-            <p className="mt-3 text-[13px] font-semibold leading-6 text-[#b8c3dc]">
+            <p className="mt-2.5 text-[12px] font-semibold leading-5 text-[#b8c3dc] sm:mt-3 sm:text-[13px] sm:leading-6">
               El modo oscuro muestra guias sobre plataformas, privacidad,
               dinero online y temas adultos legales. Para continuar debes
               confirmar que tienes 18 anos o mas.
             </p>
-            <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            <div className="mt-4 grid gap-2 sm:mt-5 sm:grid-cols-2">
               <button
                 type="button"
                 onClick={() => setShowConsent(false)}

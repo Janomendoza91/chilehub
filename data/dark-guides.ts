@@ -68,6 +68,17 @@ const darkGuideSeeds: DarkGuideSeed[] = [
     sourceUrl: "https://help.instagram.com/"
   },
   {
+    slug: "cuenta-hackeada-primeros-pasos",
+    title: "Cuenta hackeada: primeros pasos para recuperar control",
+    category: "Seguridad digital",
+    summary:
+      "Guia general para ordenar correo, telefono, sesiones, doble factor, evidencia y canales oficiales antes de intentar recuperar una cuenta.",
+    focus: "identificar que cuenta controla el acceso principal, proteger correo y telefono, y usar recuperacion oficial",
+    risk: "cambiar una clave aislada sin revisar correo, telefono, sesiones, dispositivos, apps conectadas o mensajes enviados por terceros",
+    sourceLabel: "CSIRT Chile",
+    sourceUrl: "https://www.csirt.gob.cl/"
+  },
+  {
     slug: "recuperar-whatsapp-hackeado",
     title: "Que hacer si pierdes control de WhatsApp",
     category: "Seguridad digital",
@@ -407,7 +418,7 @@ function buildDarkQuestions(seed: DarkGuideSeed, groundingQuestions: string[]) {
     ];
   }
 
-  if (slug.includes("instagram") || slug.includes("whatsapp") || slug.includes("google") || slug.includes("tiktok") || slug.includes("baneo")) {
+  if (slug.includes("cuenta-hackeada") || slug.includes("instagram") || slug.includes("whatsapp") || slug.includes("google") || slug.includes("tiktok") || slug.includes("baneo")) {
     return [
       "Tengo acceso al correo, telefono o metodo de recuperacion asociado?",
       "Que aviso oficial, correo o pantalla muestra la plataforma?",
@@ -487,7 +498,7 @@ function buildDarkScenarios(seed: DarkGuideSeed) {
     ];
   }
 
-  if (slug.includes("instagram") || slug.includes("whatsapp") || slug.includes("google") || slug.includes("tiktok") || slug.includes("baneo")) {
+  if (slug.includes("cuenta-hackeada") || slug.includes("instagram") || slug.includes("whatsapp") || slug.includes("google") || slug.includes("tiktok") || slug.includes("baneo")) {
     return [
       {
         title: "Aun tienes acceso",

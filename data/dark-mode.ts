@@ -18,10 +18,26 @@ import type { GuideCard, ProcedureCard } from "@/types/chilehub";
 import { darkGuidesContent } from "@/data/dark-guides";
 
 export const darkModeQuickActions = [
-  { label: "Crear OnlyFans", icon: EyeOff },
-  { label: "Receta cannabis", icon: Cannabis },
-  { label: "Cuenta hackeada", icon: LockKeyhole },
-  { label: "Ingresos online", icon: WalletCards }
+  {
+    label: "Crear OnlyFans",
+    icon: EyeOff,
+    href: "/guias/crear-cuenta-onlyfans-con-privacidad"
+  },
+  {
+    label: "Receta cannabis",
+    icon: Cannabis,
+    href: "/guias/receta-cannabis-medicinal-chile"
+  },
+  {
+    label: "Cuenta hackeada",
+    icon: LockKeyhole,
+    href: "/guias/cuenta-hackeada-primeros-pasos"
+  },
+  {
+    label: "Ingresos online",
+    icon: WalletCards,
+    href: "/guias/declarar-ingresos-plataformas-digitales"
+  }
 ];
 
 export const darkModeTrustItems = [
@@ -57,7 +73,7 @@ export const darkModeProcedures: ProcedureCard[] = [
     meta: "Ver guia",
     status: "fast",
     icon: LockKeyhole,
-    href: "/guias/recuperar-instagram-hackeado"
+    href: "/guias/cuenta-hackeada-primeros-pasos"
   },
   {
     title: "Declarar ingresos de plataformas",
