@@ -14,6 +14,7 @@ import { allGuidesContent, getGuide } from "@/data/content";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
+  contentDate,
   jsonLd,
   pageMetadata,
   siteConfig
@@ -37,7 +38,14 @@ export async function generateMetadata({ params }: GuidePageProps) {
           title: guide.title,
           description: guide.summary,
           path: `/guias/${guide.slug}`,
-          type: "article"
+          type: "article",
+          keywords: [
+            guide.title,
+            guide.category,
+            "guia rapida",
+            "preparacion",
+            "Chile"
+          ]
         })
       : pageMetadata({
           title: "Guia",
@@ -65,7 +73,9 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
           headline: guide.title,
           description: guide.summary,
           mainEntityOfPage: absoluteUrl(`/guias/${guide.slug}`),
-          dateModified: guide.updatedAt,
+          datePublished: contentDate(guide.updatedAt).toISOString(),
+          dateModified: contentDate(guide.updatedAt).toISOString(),
+          inLanguage: siteConfig.language,
           author: {
             "@type": "Organization",
             name: siteConfig.name,
@@ -76,7 +86,8 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
             name: siteConfig.name,
             url: siteConfig.url
           },
-          about: guide.category
+          about: guide.category,
+          isAccessibleForFree: true
         })}
       />
       <script

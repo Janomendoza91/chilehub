@@ -14,6 +14,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "information",
   title: {
     default: "ChileHub | Prepara tramites y procesos importantes en Chile",
     template: "%s | ChileHub"
@@ -34,6 +37,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ChileHub | Prepara tramites y procesos importantes en Chile",
     description: siteConfig.description
+  },
+  formatDetection: {
+    telephone: false,
+    address: false,
+    email: false
   },
   robots: {
     index: true,

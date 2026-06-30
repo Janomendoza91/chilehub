@@ -3,6 +3,7 @@
 import { Moon, Sun } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
 
 export function ModeToggle() {
@@ -49,47 +50,52 @@ export function ModeToggle() {
         {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
       </button>
 
-      {showConsent ? (
-        <div
-          className="fixed left-0 top-0 z-[100] flex h-dvh w-screen items-center justify-center overflow-y-auto bg-[#08111f]/55 px-4 py-5 backdrop-blur-sm sm:px-5 sm:py-8"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="dark-mode-consent-title"
-        >
-          <div className="my-auto max-h-[calc(100dvh-40px)] w-full max-w-[420px] overflow-y-auto rounded-[20px] border border-[#26324f] bg-[#10172b] p-4 text-left shadow-[0_28px_90px_rgba(0,0,0,0.45)] sm:max-h-[calc(100dvh-64px)] sm:rounded-[24px] sm:p-6">
-            <div className="mb-3 grid h-10 w-10 place-items-center rounded-[13px] bg-[#243461] text-[#ff9b4f] sm:mb-4 sm:h-11 sm:w-11 sm:rounded-[14px]">
-              <Moon className="h-5 w-5" />
-            </div>
-            <h2
-              id="dark-mode-consent-title"
-              className="text-[19px] font-extrabold leading-tight tracking-[-0.04em] text-white sm:text-[22px]"
+      {showConsent
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-[999] grid min-h-[100svh] w-full place-items-center overflow-y-auto bg-[#08111f]/70 px-4 py-6 backdrop-blur-md"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="dark-mode-consent-title"
             >
-              Contenido para mayores de 18
-            </h2>
-            <p className="mt-2.5 text-[12px] font-semibold leading-5 text-[#b8c3dc] sm:mt-3 sm:text-[13px] sm:leading-6">
-              El modo oscuro muestra guias sobre plataformas, privacidad,
-              dinero online y temas adultos legales. Para continuar debes
-              confirmar que tienes 18 anos o mas.
-            </p>
-            <div className="mt-4 grid gap-2 sm:mt-5 sm:grid-cols-2">
-              <button
-                type="button"
-                onClick={() => setShowConsent(false)}
-                className="h-11 rounded-full border border-[#34415f] px-4 text-[13px] font-bold text-[#d8e2ff] transition hover:bg-white/[0.06]"
-              >
-                Cancelar
-              </button>
-              <button
-                type="button"
-                onClick={confirmConsent}
-                className="h-11 rounded-full bg-[#ff8a3d] px-4 text-[13px] font-extrabold text-[#111827] shadow-[0_16px_34px_rgba(255,138,61,0.24)] transition hover:bg-[#ff9b4f]"
-              >
-                Confirmo que soy +18
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+              <div className="w-full max-w-[430px] overflow-hidden rounded-[22px] border border-[#26324f] bg-[#10172b] text-left shadow-[0_28px_90px_rgba(0,0,0,0.5)]">
+                <div className="max-h-[calc(100svh-48px)] overflow-y-auto p-5 sm:max-h-[calc(100svh-72px)] sm:p-6">
+                  <div className="mb-4 grid h-11 w-11 place-items-center rounded-[14px] bg-[#243461] text-[#ff9b4f]">
+                    <Moon className="h-5 w-5" />
+                  </div>
+                  <h2
+                    id="dark-mode-consent-title"
+                    className="text-[21px] font-extrabold leading-tight tracking-[-0.04em] text-white sm:text-[23px]"
+                  >
+                    Contenido para mayores de 18
+                  </h2>
+                  <p className="mt-3 text-[13px] font-semibold leading-6 text-[#b8c3dc]">
+                    El modo oscuro muestra guias sobre plataformas, privacidad,
+                    dinero online y temas adultos legales. Para continuar debes
+                    confirmar que tienes 18 anos o mas.
+                  </p>
+                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowConsent(false)}
+                      className="h-11 rounded-full border border-[#34415f] px-4 text-[13px] font-bold text-[#d8e2ff] transition hover:bg-white/[0.06]"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={confirmConsent}
+                      className="h-11 rounded-full bg-[#ff8a3d] px-4 text-[13px] font-extrabold text-[#111827] shadow-[0_16px_34px_rgba(255,138,61,0.24)] transition hover:bg-[#ff9b4f]"
+                    >
+                      Confirmo que soy +18
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
     </>
   );
 }

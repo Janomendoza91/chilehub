@@ -12,7 +12,13 @@ export const metadata = pageMetadata({
   title: "Guias rapidas para tramites en Chile",
   description:
     "Guias accionables y referenciales para preparar documentos, costos, plazos y preguntas antes de avanzar en Chile.",
-  path: "/guias"
+  path: "/guias",
+  keywords: [
+    "guias de tramites Chile",
+    "como hacer tramites en Chile",
+    "preparacion de documentos",
+    "errores comunes tramites"
+  ]
 });
 
 export default function GuidesPage() {

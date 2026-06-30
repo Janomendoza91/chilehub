@@ -405,6 +405,25 @@ Antes de produccion se debe configurar el Measurement ID en Vercel. Cualquier ev
 Owner:
 Product / Engineering / Security.
 
+## 2026-06-29 - Refuerzo SEO para dominio final
+
+Status: Accepted
+
+Context:
+ChileHub ya tiene sitemap, robots, metadata y datos estructurados, pero el dominio final del proyecto es `chilehub.info` y las senales sociales/editoriales necesitaban mayor consistencia antes de indexacion publica.
+
+Decision:
+Actualizar el dominio canonico por defecto a `https://chilehub.info`, agregar keywords controladas por ruta, definir metadata global de publisher/creator/category, generar una imagen Open Graph propia, y usar fechas editoriales estables en `sitemap.xml` y schema `Article` en vez de fechas de build.
+
+Rationale:
+Google y plataformas sociales necesitan senales consistentes para descubrir, entender y compartir paginas long-tail. Usar fechas de contenido evita que el sitemap parezca actualizado artificialmente en cada deploy y protege confianza editorial.
+
+Consequences:
+Las paginas indexables tienen mejor metadata sin cambiar UI. Las paginas privadas o de estado local siguen con `noindex`. El contenido sensible del modo oscuro no se fuerza en sitemap hasta tener una estrategia editorial/SEO especifica.
+
+Owner:
+Product / Engineering / Content.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

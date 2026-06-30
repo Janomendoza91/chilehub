@@ -16,6 +16,7 @@ import { getProcedure, procedures } from "@/data/content";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
+  contentDate,
   jsonLd,
   pageMetadata,
   siteConfig
@@ -39,7 +40,15 @@ export async function generateMetadata({ params }: ProcedurePageProps) {
           title: `${procedure.title} en Chile`,
           description: procedure.summary,
           path: `/tramites/${procedure.slug}`,
-          type: "article"
+          type: "article",
+          keywords: [
+            procedure.title,
+            procedure.category,
+            procedure.channel,
+            "requisitos",
+            "documentos",
+            "costos referenciales"
+          ]
         })
       : pageMetadata({
           title: "Tramite",
@@ -69,7 +78,9 @@ export default async function ProcedureDetailPage({
           headline: `${procedure.title} en Chile`,
           description: procedure.summary,
           mainEntityOfPage: absoluteUrl(`/tramites/${procedure.slug}`),
-          dateModified: procedure.updatedAt,
+          datePublished: contentDate(procedure.updatedAt).toISOString(),
+          dateModified: contentDate(procedure.updatedAt).toISOString(),
+          inLanguage: siteConfig.language,
           author: {
             "@type": "Organization",
             name: siteConfig.name,
@@ -80,7 +91,8 @@ export default async function ProcedureDetailPage({
             name: siteConfig.name,
             url: siteConfig.url
           },
-          about: procedure.category
+          about: procedure.category,
+          isAccessibleForFree: true
         })}
       />
       <script

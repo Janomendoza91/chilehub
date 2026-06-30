@@ -9,7 +9,14 @@ export const metadata = pageMetadata({
   title: "Prepara tramites y procesos importantes en Chile",
   description:
     "ChileHub organiza documentos, costos referenciales, plazos, errores frecuentes y donde continuar antes de hacer un tramite en Chile.",
-  path: "/"
+  path: "/",
+  keywords: [
+    "preparar tramites en Chile",
+    "documentos para tramites",
+    "costos de tramites",
+    "ChileAtiende",
+    "Registro Civil"
+  ]
 });
 
 export default function Page() {

@@ -7,7 +7,13 @@ export const metadata = pageMetadata({
   title: "Tramites para preparar en Chile",
   description:
     "Biblioteca referencial de tramites en Chile con documentos, costos estimados, plazos, errores comunes y donde continuar.",
-  path: "/tramites"
+  path: "/tramites",
+  keywords: [
+    "tramites en Chile",
+    "requisitos tramites Chile",
+    "documentos para tramites",
+    "costos tramites Chile"
+  ]
 });
 
 export default function TramitesPage() {

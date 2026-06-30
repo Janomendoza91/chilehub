@@ -6,7 +6,13 @@ export const metadata = pageMetadata({
   title: "Calculadoras referenciales para tramites en Chile",
   description:
     "Calculadoras gratuitas y referenciales para estimar variables antes de confirmar valores oficiales en la fuente correspondiente.",
-  path: "/calculadoras"
+  path: "/calculadoras",
+  keywords: [
+    "calculadoras tramites Chile",
+    "estimar costos tramites",
+    "calculadora finiquito",
+    "calculadora IVA"
+  ]
 });
 
 export default function CalculadorasPage() {

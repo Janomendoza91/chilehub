@@ -12,7 +12,13 @@ export const metadata = pageMetadata({
   title: "Oficinas y canales externos para tramites",
   description:
     "Canales externos referenciales donde confirmar requisitos, horarios, disponibilidad y continuar procesos fuera de ChileHub.",
-  path: "/oficinas"
+  path: "/oficinas",
+  keywords: [
+    "oficinas tramites Chile",
+    "Registro Civil",
+    "ChileAtiende",
+    "canales oficiales Chile"
+  ]
 });
 
 export default function OficinasPage() {
