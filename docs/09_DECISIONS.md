@@ -595,6 +595,25 @@ La ayuda flotante aumenta el JavaScript de cliente porque carga el catalogo loca
 Owner:
 Product / UX / Engineering / Security.
 
+## 2026-06-30 - Expansion fidedigna con fuentes primarias
+
+Status: Accepted
+
+Context:
+ChileHub necesita seguir ampliando cobertura sin degradar confianza. El usuario pidio mas tramites y guias enriquecidas en modo claro y oscuro, con informacion fidedigna.
+
+Decision:
+Agregar una nueva tanda separada de 20 procesos en modo claro, distribuidos por categorias existentes, y 20 guias nuevas de modo oscuro. Cada item usa fuentes primarias u oficiales como Registro Civil, SII, Direccion del Trabajo, SERNAC, SUBTEL, SAG, Fonasa, Superintendencia de Salud, Mercado Publico, INAPI, CMF, CSIRT Chile, PDI, Ministerio Publico, ISP o documentacion oficial de plataformas.
+
+Rationale:
+Separar esta expansion en archivos dedicados mantiene el catalogo mantenible y evita seguir inflando seeds anteriores. Las fuentes primarias permiten mayor confianza sin afirmar que cada costo, plazo o requisito fue verificado punto por punto para todos los casos.
+
+Consequences:
+El contenido nuevo se publica como preparacion referencial con fuente primaria visible. No debe presentarse como tramite ejecutable ni como informacion oficial definitiva. La verificacion oficial individual por ficha sigue siendo necesaria para declarar una ficha como verificada.
+
+Owner:
+Product / Content / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

@@ -1,4 +1,5 @@
 import type { GuideDetail } from "@/types/chilehub";
+import { verifiedDarkGuideSeeds } from "@/data/dark-verified-guides";
 
 type DarkGuideSeed = {
   slug: string;
@@ -11,7 +12,7 @@ type DarkGuideSeed = {
   sourceUrl: string;
 };
 
-const darkGuideSeeds: DarkGuideSeed[] = [
+const baseDarkGuideSeeds: DarkGuideSeed[] = [
   {
     slug: "crear-cuenta-onlyfans-con-privacidad",
     title: "Como crear una cuenta en OnlyFans cuidando tu privacidad",
@@ -167,17 +168,6 @@ const darkGuideSeeds: DarkGuideSeed[] = [
     sourceUrl: "https://www.cmfchile.cl/educa/"
   },
   {
-    slug: "receta-cannabis-medicinal-chile",
-    title: "Que entender sobre receta de cannabis medicinal en Chile",
-    category: "Consumo adulto legal",
-    summary:
-      "Guia referencial para preparar preguntas medicas, receta, compra autorizada, riesgos y limites. No reemplaza consulta profesional.",
-    focus: "conversar con un medico y confirmar canales autorizados antes de cualquier decision",
-    risk: "confundir informacion de internet con indicacion medica o asumir que una receta permite cualquier compra, porte o cultivo",
-    sourceLabel: "ISP Chile",
-    sourceUrl: "https://www.ispch.cl/"
-  },
-  {
     slug: "app-prestamos-presiona-contactos",
     title: "Que hacer si una app de prestamos presiona o amenaza",
     category: "Dinero online",
@@ -276,6 +266,11 @@ const darkGuideSeeds: DarkGuideSeed[] = [
     sourceLabel: "SERNAC",
     sourceUrl: "https://www.sernac.cl/"
   }
+];
+
+const darkGuideSeeds: DarkGuideSeed[] = [
+  ...baseDarkGuideSeeds,
+  ...verifiedDarkGuideSeeds
 ];
 
 export const darkGuidesContent: GuideDetail[] = darkGuideSeeds.map((seed) =>

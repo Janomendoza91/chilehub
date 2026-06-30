@@ -83,6 +83,8 @@
 - [x] Agregar una nueva tanda de 10 tramites por categoria principal.
 - [x] Agregar 10 guias rapidas enriquecidas por categoria principal.
 - [x] Agregar 15 tramites cotidianos adicionales por categoria principal y sus guias rapidas generadas.
+- [x] Agregar 20 procesos fidedignos adicionales con fuentes primarias y guias derivadas.
+- [x] Agregar 20 guias dark adicionales con fuentes primarias.
 - [x] Crear primera capa de modo oscuro como universo de contenido alternativo en landing.
 - [ ] Revisar una por una las guias dark contra fuentes oficiales o fuentes primarias antes de considerarlas verificadas.
 - [x] Agregar capa editorial de confirmacion en tramites y guias.
