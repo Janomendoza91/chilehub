@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/navigation/header";
+import { FloatingHelpAssistant } from "@/components/search/floating-help-assistant";
 import { disclosureText } from "@/data/content";
 
 export function ProductShell({ children }: { children: ReactNode }) {
@@ -10,6 +11,7 @@ export function ProductShell({ children }: { children: ReactNode }) {
       <div className="container-page pt-[128px] sm:pt-[154px] xl:pt-[122px]">
         {children}
       </div>
+      <FloatingHelpAssistant />
       <Footer />
     </main>
   );

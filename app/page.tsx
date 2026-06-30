@@ -1,5 +1,6 @@
 import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/navigation/header";
+import { FloatingHelpAssistant } from "@/components/search/floating-help-assistant";
 import { HeroSection } from "@/components/sections/hero-section";
 import { HomePreviewSection } from "@/components/sections/home-preview-section";
 import { MobileMockupsSection } from "@/components/sections/mobile-mockups-section";
@@ -52,6 +53,7 @@ export default function Page() {
       <HeroSection />
       <HomePreviewSection />
       <MobileMockupsSection />
+      <FloatingHelpAssistant />
       <Footer />
     </main>
   );

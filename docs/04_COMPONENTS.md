@@ -151,13 +151,25 @@ Estados:
 
 ## FloatingHelpAction
 
-Descripcion: acceso flotante inferior para encontrar ayuda rapidamente desde la home.
+Descripcion: asistente flotante inferior para encontrar ayuda rapidamente desde cualquier pantalla.
 
 Responsabilidad:
 
-- Llevar al usuario a la busqueda cuando necesita encontrar un tramite o guia.
+- Abrir un panel de ayuda sin sacar al usuario de la pagina actual.
+- Buscar tramites o guias locales con resultados rapidos.
 - Mantenerse visible sin competir con la navegacion principal.
-- Usar un link real para navegacion y foco accesible.
+- Usar controles reales, foco accesible y links reales en resultados.
+
+## ContactReportPanel
+
+Descripcion: formulario client-side para reportes, sugerencias y problemas.
+
+Responsabilidad:
+
+- Preparar un reporte estructurado sin guardar datos en servidor.
+- Permitir copiar el reporte o abrir un issue publico para reportes no sensibles.
+- Separar reportes de seguridad para evitar publicar detalles explotables.
+- Recordar al usuario que no incluya datos personales ni documentos.
 
 ## ProductShell
 
