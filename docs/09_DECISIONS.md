@@ -584,13 +584,13 @@ Context:
 El boton flotante "Ayuda" existia como accion visual y luego se conecto a busqueda, pero la experiencia esperada era un patron tipo chatbot que ayudara a encontrar tramites o guias sin sacar al usuario de la pagina. La pagina de contacto tambien tenia tarjetas que orientaban, pero no preparaban un reporte real.
 
 Decision:
-Convertir "Ayuda" en un asistente flotante local disponible en todo el sitio, con input, sugerencias y resultados rapidos de tramites o guias. Convertir `/contacto` en un formulario client-side que arma reportes estructurados, permite copiarlos y abre un issue publico de GitHub solo para sugerencias, contenido o problemas no sensibles. Los reportes de seguridad se separan y no se envian a canales publicos desde la UI.
+Convertir "Ayuda" en un asistente flotante local disponible en todo el sitio, con input, sugerencias y resultados rapidos de tramites o guias. Convertir `/contacto` en un formulario client-side que arma reportes estructurados, permite copiarlos y genera un email prellenado para enviar a ChileHub desde el cliente de correo del usuario. Los reportes de seguridad se separan visualmente para evitar publicar detalles explotables.
 
 Rationale:
 ChileHub necesita ayuda inmediata sin introducir un chatbot remoto, backend, IA ni recoleccion de datos. La busqueda local resuelve la necesidad principal de encontrar procesos rapidamente, y el reporte estructurado mejora la accionabilidad de contacto sin prometer un sistema de soporte que todavia no existe.
 
 Consequences:
-La ayuda flotante aumenta el JavaScript de cliente porque carga el catalogo local para buscar. Si el catalogo crece mucho mas, debera moverse a un indice liviano o busqueda dedicada. Contacto no guarda datos en ChileHub; los reportes publicos deben evitar informacion sensible y los hallazgos de seguridad requieren canal privado antes de publicar detalles.
+La ayuda flotante aumenta el JavaScript de cliente porque carga el catalogo local para buscar. Si el catalogo crece mucho mas, debera moverse a un indice liviano o busqueda dedicada. Contacto no guarda datos en ChileHub; el envio depende del cliente de correo del usuario y debe evitar informacion sensible.
 
 Owner:
 Product / UX / Engineering / Security.

@@ -115,12 +115,12 @@ ChileHub no debe:
 
 ## Reportes y contacto sin backend
 
-El formulario publico de contacto funciona en el navegador y no guarda datos en servidores de ChileHub. Puede preparar texto para copiar o abrir un issue publico solo cuando el reporte no contiene informacion sensible.
+El formulario publico de contacto funciona en el navegador y no guarda datos en servidores de ChileHub. Puede preparar texto para copiar o generar un email prellenado desde el cliente de correo del usuario.
 
 Reglas:
 
 - No solicitar RUT, claves, documentos, tokens, direcciones, correos privados ni datos personales.
-- No enviar hallazgos de seguridad explotables a issues publicos.
+- No publicar hallazgos de seguridad explotables en canales publicos.
 - Separar reportes de contenido, sugerencias, problemas tecnicos y seguridad.
 - Si se agrega backend de contacto, debe incluir rate limit, retencion definida, sanitizacion y revision de privacidad.
 

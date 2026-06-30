@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   Clipboard,
-  ExternalLink,
+  Mail,
   ShieldAlert,
   Sparkles
 } from "lucide-react";
@@ -33,7 +33,7 @@ const reportTypes = [
 
 type ReportType = (typeof reportTypes)[number]["value"];
 
-const githubIssueUrl = "https://github.com/Janomendoza91/chilehub/issues/new";
+const contactEmail = "contacto@chilehub.info";
 
 export function ContactReportPanel() {
   const [type, setType] = useState<ReportType>("contenido");
@@ -58,8 +58,8 @@ export function ContactReportPanel() {
     ].join("\n");
   }, [details, route, selectedType.label, subject]);
 
-  const githubHref = `${githubIssueUrl}?title=${encodeURIComponent(
-    `[${selectedType.label}] ${subject || "Reporte ChileHub"}`
+  const emailHref = `mailto:${contactEmail}?subject=${encodeURIComponent(
+    `[ChileHub] ${selectedType.label}: ${subject || "Reporte"}`
   )}&body=${encodeURIComponent(reportBody)}`;
 
   async function copyReport() {
@@ -82,7 +82,7 @@ export function ContactReportPanel() {
           Arma un reporte claro
         </h2>
         <p className="mt-3 text-[13px] font-semibold leading-6 text-[#66718f] dark:text-[#b8c3dc]">
-          Esto no guarda datos en servidor. Preparamos un texto ordenado para que puedas copiarlo o abrir un issue publico cuando no sea seguridad.
+          Esto no guarda datos en servidor. Preparamos un email ordenado para que lo envies desde tu correo.
         </p>
         <div className="mt-4 rounded-[16px] bg-[#fff7ed] p-3 text-[12px] font-semibold leading-5 text-[#8a4b12] dark:bg-[#2b1d12] dark:text-[#ffcf9f]">
           No incluyas RUT, claves, documentos, tokens, direcciones, correos privados ni datos personales.
@@ -152,7 +152,7 @@ export function ContactReportPanel() {
         {isSecurity ? (
           <div className="mt-4 flex gap-3 rounded-[16px] border border-[#f2dfc7] bg-[#fffaf3] p-3 text-[12px] font-semibold leading-5 text-[#8a4b12] dark:border-[#5a3b1d] dark:bg-[#2b1d12] dark:text-[#ffcf9f]">
             <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
-            No abras un issue publico con detalles explotables. Copia el reporte y compartelo por un canal privado con el equipo.
+            Si es seguridad, evita publicar detalles explotables. Envia solo la informacion necesaria para revisar el hallazgo.
           </div>
         ) : null}
 
@@ -166,17 +166,13 @@ export function ContactReportPanel() {
             {copied ? "Copiado" : "Copiar reporte"}
           </button>
 
-          {!isSecurity ? (
-            <a
-              href={githubHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-4 text-[12px] font-extrabold text-white shadow-[0_14px_28px_rgba(42,81,232,0.24)] transition hover:bg-[#1f48e8]"
-            >
-              Abrir reporte
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          ) : null}
+          <a
+            href={emailHref}
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-4 text-[12px] font-extrabold text-white shadow-[0_14px_28px_rgba(42,81,232,0.24)] transition hover:bg-[#1f48e8]"
+          >
+            Enviar por email
+            <Mail className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </section>

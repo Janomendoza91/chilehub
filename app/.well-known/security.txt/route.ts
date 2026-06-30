@@ -4,6 +4,7 @@ export const dynamic = "force-static";
 
 export function GET() {
   const body = [
+    "Contact: mailto:contacto@chilehub.info",
     `Contact: ${siteConfig.url}/contacto`,
     `Policy: ${siteConfig.url}/privacidad`,
     "Preferred-Languages: es, en",

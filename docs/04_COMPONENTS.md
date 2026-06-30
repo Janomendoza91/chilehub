@@ -167,7 +167,7 @@ Descripcion: formulario client-side para reportes, sugerencias y problemas.
 Responsabilidad:
 
 - Preparar un reporte estructurado sin guardar datos en servidor.
-- Permitir copiar el reporte o abrir un issue publico para reportes no sensibles.
+- Permitir copiar el reporte o enviarlo por email desde el cliente de correo del usuario.
 - Separar reportes de seguridad para evitar publicar detalles explotables.
 - Recordar al usuario que no incluya datos personales ni documentos.
 
