@@ -1,6 +1,24 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
+const configuredSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://chilehub.supabase.co";
+
+function getSupabaseOrigin(value: string) {
+  try {
+    const parsed = new URL(value);
+
+    if (parsed.protocol === "https:" && parsed.hostname.endsWith(".supabase.co")) {
+      return parsed.origin;
+    }
+  } catch {
+    return "https://chilehub.supabase.co";
+  }
+
+  return "https://chilehub.supabase.co";
+}
+
+const supabaseOrigin = getSupabaseOrigin(configuredSupabaseUrl);
+const supabaseRealtimeOrigin = supabaseOrigin.replace("https://", "wss://");
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -10,12 +28,18 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://vercel.live https://www.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https: https://www.google-analytics.com https://stats.g.doubleclick.net",
+  [
+    "img-src 'self' data: blob:",
+    "https://www.google-analytics.com",
+    "https://stats.g.doubleclick.net",
+    "https://www.googletagmanager.com",
+    "https://lh3.googleusercontent.com"
+  ].join(" "),
   "font-src 'self' data:",
   [
     "connect-src 'self'",
-    "https://*.supabase.co",
-    "wss://*.supabase.co",
+    supabaseOrigin,
+    supabaseRealtimeOrigin,
     "https://accounts.google.com",
     "https://www.googleapis.com",
     "https://vercel.live",
@@ -51,9 +75,21 @@ const securityHeaders = [
     value: "DENY"
   },
   {
+    key: "X-DNS-Prefetch-Control",
+    value: "off"
+  },
+  {
+    key: "X-Permitted-Cross-Domain-Policies",
+    value: "none"
+  },
+  {
+    key: "Origin-Agent-Cluster",
+    value: "?1"
+  },
+  {
     key: "Permissions-Policy",
     value:
-      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=()"
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), autoplay=(), encrypted-media=(), fullscreen=(self), gyroscope=(), magnetometer=(), midi=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), browsing-topics=()"
   },
   {
     key: "Cross-Origin-Opener-Policy",

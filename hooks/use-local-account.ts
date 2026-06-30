@@ -31,23 +31,6 @@ const defaultState: LocalAccountState = {
   reminders: []
 };
 
-function readState() {
-  if (typeof window === "undefined") {
-    return defaultState;
-  }
-
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    return raw ? { ...defaultState, ...JSON.parse(raw) } as LocalAccountState : defaultState;
-  } catch {
-    return defaultState;
-  }
-}
-
-function writeState(state: LocalAccountState) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
 function sanitizePlainText(value: string, maxLength: number) {
   return value
     .replace(/[\u0000-\u001f\u007f]/g, "")
@@ -56,8 +39,108 @@ function sanitizePlainText(value: string, maxLength: number) {
     .slice(0, maxLength);
 }
 
+function sanitizeSlug(value: unknown) {
+  return typeof value === "string" && /^[a-z0-9-]{1,120}$/.test(value) ? value : null;
+}
+
+function sanitizeStringList(value: unknown, maxItems: number) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return Array.from(
+    new Set(value.map(sanitizeSlug).filter((item): item is string => Boolean(item)))
+  ).slice(0, maxItems);
+}
+
 function isIsoDate(value: string) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
+}
+
+function normalizeState(value: unknown): LocalAccountState {
+  if (!value || typeof value !== "object") {
+    return defaultState;
+  }
+
+  const candidate = value as Partial<LocalAccountState>;
+  const completedDocuments = Object.entries(candidate.completedDocuments ?? {}).reduce<
+    Record<string, string[]>
+  >((acc, [slug, documents]) => {
+    const safeSlug = sanitizeSlug(slug);
+
+    if (!safeSlug || !Array.isArray(documents)) {
+      return acc;
+    }
+
+    acc[safeSlug] = documents
+      .filter((documentTitle): documentTitle is string => typeof documentTitle === "string")
+      .map((documentTitle) => sanitizePlainText(documentTitle, 120))
+      .filter(Boolean)
+      .slice(0, 40);
+
+    return acc;
+  }, {});
+
+  const reminders = Array.isArray(candidate.reminders)
+    ? candidate.reminders
+        .map((reminder) => {
+          const safeReminder = reminder as Partial<LocalAccountState["reminders"][number]>;
+          const procedureSlug = sanitizeSlug(safeReminder.procedureSlug);
+          const note =
+            typeof safeReminder.note === "string"
+              ? sanitizePlainText(safeReminder.note, MAX_NOTE_LENGTH)
+              : "";
+          const date = typeof safeReminder.date === "string" ? safeReminder.date : "";
+
+          if (!procedureSlug || !note || !isIsoDate(date)) {
+            return null;
+          }
+
+          return {
+            id:
+              typeof safeReminder.id === "string"
+                ? sanitizePlainText(safeReminder.id, 160)
+                : `${procedureSlug}-${date}`,
+            procedureSlug,
+            note,
+            date,
+            done: Boolean(safeReminder.done)
+          };
+        })
+        .filter((reminder): reminder is LocalAccountState["reminders"][number] =>
+          Boolean(reminder)
+        )
+        .slice(0, MAX_REMINDERS)
+    : [];
+
+  return {
+    active: Boolean(candidate.active),
+    name:
+      typeof candidate.name === "string"
+        ? sanitizePlainText(candidate.name, MAX_NAME_LENGTH)
+        : "",
+    savedSlugs: sanitizeStringList(candidate.savedSlugs, 100),
+    historySlugs: sanitizeStringList(candidate.historySlugs, 20),
+    completedDocuments,
+    reminders
+  };
+}
+
+function readState() {
+  if (typeof window === "undefined") {
+    return defaultState;
+  }
+
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    return raw ? normalizeState(JSON.parse(raw)) : defaultState;
+  } catch {
+    return defaultState;
+  }
+}
+
+function writeState(state: LocalAccountState) {
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 export function useLocalAccount() {

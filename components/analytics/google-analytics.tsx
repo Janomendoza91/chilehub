@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 
 const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -15,22 +15,18 @@ declare global {
 
 function GoogleAnalyticsPageView() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!measurementId || !window.gtag) {
       return;
     }
 
-    const queryString = searchParams.toString();
-    const pagePath = queryString ? `${pathname}?${queryString}` : pathname;
-
     window.gtag("config", measurementId, {
-      page_path: pagePath,
-      page_location: window.location.href,
+      page_path: pathname,
+      page_location: `${window.location.origin}${pathname}`,
       page_title: document.title
     });
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }

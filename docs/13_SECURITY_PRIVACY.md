@@ -41,6 +41,8 @@ Cualquier feature que toque estas categorias requiere revision explicita de prod
 
 El espacio personal de ChileHub tiene Google preparado mediante Supabase Auth para identificar al usuario. Google debe permanecer desactivado por feature flag hasta publicar en Vercel y autorizar el dominio final en Google Cloud. En esta etapa, la preparacion personal se guarda solo en el navegador del usuario mediante almacenamiento local.
 
+El dominio publico de Supabase Auth esperado para OAuth es `chilehub.supabase.co`. El callback autorizado en Google Cloud debe ser `https://chilehub.supabase.co/auth/v1/callback`. El dominio propio `auth.chilehub.info` queda reservado para una etapa posterior si se habilita el add-on de Custom Domain en Supabase.
+
 Permitido en esta etapa:
 
 - Identidad basica devuelta por Google/Supabase para mostrar sesion iniciada.
@@ -86,7 +88,9 @@ ChileHub debe servir todas las rutas con headers defensivos desde Next.js:
 
 La CSP permite Supabase y Google solo porque el acceso con Google esta preparado por feature flag. Si se agregan analytics, mapas, embeds, pagos, chat o scripts externos, deben agregarse explicitamente a la CSP y documentarse en `09_DECISIONS.md`.
 
-Google Analytics puede cargarse solo si existe `NEXT_PUBLIC_GA_MEASUREMENT_ID`. La medicion debe limitarse a trafico y uso general de paginas; no se deben enviar RUT, documentos, recordatorios, nombres, correos, direcciones ni contenido escrito por usuarios como eventos o parametros.
+La URL publica de Supabase debe usar HTTPS y terminar en `.supabase.co` mientras se use el dominio administrado por Supabase. Si se migra a `auth.chilehub.info`, la CSP y la validacion de entorno deben actualizarse junto con la decision de arquitectura.
+
+Google Analytics puede cargarse solo si existe `NEXT_PUBLIC_GA_MEASUREMENT_ID`. La medicion debe limitarse a trafico y uso general de paginas; no se deben enviar RUT, documentos, recordatorios, nombres, correos, direcciones, query strings ni contenido escrito por usuarios como eventos o parametros.
 
 ## Persistencia local segura
 
@@ -96,6 +100,7 @@ Reglas obligatorias:
 
 - No guardar RUT, direccion, documentos, certificados, datos bancarios, datos medicos ni contrasenas en `localStorage`.
 - Limitar recordatorios locales a textos cortos y fechas validas.
+- Normalizar y limitar el estado leido desde `localStorage` antes de usarlo en UI.
 - Mantener una accion visible para borrar datos locales.
 - No presentar datos locales como sincronizados o respaldados.
 

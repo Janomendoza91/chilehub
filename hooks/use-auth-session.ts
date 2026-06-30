@@ -8,6 +8,12 @@ import {
   supabaseBrowserClient
 } from "@/lib/supabase/browser";
 
+const allowedRedirectPaths = new Set(["/mis-tramites", "/guardados"]);
+
+function safeRedirectPath(path: string) {
+  return allowedRedirectPaths.has(path) ? path : "/mis-tramites";
+}
+
 export function useAuthSession() {
   const [ready, setReady] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -36,7 +42,7 @@ export function useAuthSession() {
       return { error: "Google se activara cuando publiquemos el dominio final." };
     }
 
-    const redirectTo = `${window.location.origin}${redirectPath}`;
+    const redirectTo = `${window.location.origin}${safeRedirectPath(redirectPath)}`;
     const { error } = await supabaseBrowserClient.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo }

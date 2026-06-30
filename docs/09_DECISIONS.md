@@ -424,6 +424,44 @@ Las paginas indexables tienen mejor metadata sin cambiar UI. Las paginas privada
 Owner:
 Product / Engineering / Content.
 
+## 2026-06-30 - Vanity domain para Supabase Auth
+
+Status: Accepted
+
+Context:
+El login con Google funcionaba mediante Supabase Auth, pero la pantalla de seleccion de cuenta mostraba el identificador tecnico `zztuntqhtsfwubuwgyhj.supabase.co`, lo que se percibe menos confiable y menos alineado con la experiencia premium de ChileHub.
+
+Decision:
+Activar el vanity subdomain de Supabase `chilehub.supabase.co` y actualizar `NEXT_PUBLIC_SUPABASE_URL` en local y Vercel para que OAuth use `https://chilehub.supabase.co/auth/v1/callback`. Se preparo DNS `auth.chilehub.info` como CNAME hacia Supabase, pero el custom domain propio queda pendiente hasta habilitar el add-on de Custom Domain en Supabase.
+
+Rationale:
+El vanity domain reduce friccion visual y reemplaza un identificador tecnico por una marca reconocible sin introducir una migracion de Auth mas grande. El custom domain `auth.chilehub.info` seria la solucion mas premium, pero requiere habilitacion de billing/add-on fuera del repositorio.
+
+Consequences:
+Google Cloud debe autorizar `https://chilehub.supabase.co/auth/v1/callback` como redirect URI. Mientras no exista el add-on de Custom Domain en Supabase, Google seguira mostrando `chilehub.supabase.co` en vez de `auth.chilehub.info`.
+
+Owner:
+Product / Engineering / Security.
+
+## 2026-06-30 - Hardening incremental de auth, analitica y estado local
+
+Status: Accepted
+
+Context:
+ChileHub ya tenia headers defensivos, Supabase Auth con Google y persistencia local no sensible. Al activar autenticacion publica, conviene reducir superficie antes de incorporar datos remotos o flujos mas sensibles.
+
+Decision:
+Restringir la URL publica de Supabase a origenes HTTPS bajo `supabase.co`, limitar el redirect OAuth a rutas internas permitidas, reducir la CSP de Supabase desde wildcard a origen configurado, evitar enviar query strings a Google Analytics, agregar headers defensivos adicionales y normalizar estrictamente el estado leido desde `localStorage`.
+
+Rationale:
+Estas defensas reducen riesgo de configuracion incorrecta, open redirects accidentales, filtracion de parametros por analitica y manipulacion local del estado sin cambiar la experiencia del usuario ni introducir dependencias nuevas.
+
+Consequences:
+Si ChileHub migra a un custom domain propio de Supabase Auth como `auth.chilehub.info`, la validacion de origen y la CSP deben actualizarse junto con `NEXT_PUBLIC_SUPABASE_URL`. Eventos analiticos futuros no deben reintroducir parametros o datos escritos por usuarios sin revision de privacidad.
+
+Owner:
+Engineering / Security / Product.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

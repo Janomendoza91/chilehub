@@ -3,7 +3,22 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+function isAllowedSupabaseUrl(value: string | undefined) {
+  if (!value) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:" && parsed.hostname.endsWith(".supabase.co");
+  } catch {
+    return false;
+  }
+}
+
+export const isSupabaseConfigured = Boolean(
+  isAllowedSupabaseUrl(supabaseUrl) && supabaseAnonKey
+);
 export const isGoogleAuthEnabled =
   process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH === "true" && isSupabaseConfigured;
 
