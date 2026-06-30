@@ -1,4 +1,5 @@
 import type { GuideDetail } from "@/types/chilehub";
+import { expandedDarkGuideSeeds } from "@/data/dark-expanded-guides";
 import { verifiedDarkGuideSeeds } from "@/data/dark-verified-guides";
 
 type DarkGuideSeed = {
@@ -270,6 +271,7 @@ const baseDarkGuideSeeds: DarkGuideSeed[] = [
 
 const darkGuideSeeds: DarkGuideSeed[] = [
   ...baseDarkGuideSeeds,
+  ...expandedDarkGuideSeeds,
   ...verifiedDarkGuideSeeds
 ];
 

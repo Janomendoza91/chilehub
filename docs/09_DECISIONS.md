@@ -709,6 +709,25 @@ El indice local crece junto al catalogo y debe vigilarse con build y performance
 Owner:
 Product / Engineering.
 
+## 2026-06-30 - Escalar dark mode a 1000+ guias
+
+Status: Accepted
+
+Context:
+El modo claro ya supera 1000 tramites, pero el modo oscuro seguia con una cobertura mucho menor. El usuario pidio aplicar la misma dinamica de expansion al dark mode.
+
+Decision:
+Agregar un generador estructurado de 1000 guias dark adicionales mediante 20 dominios sensibles pero legales y 50 escenarios transversales. Los dominios cubren seguridad de cuentas, privacidad en redes, estafas digitales, reputacion online, contenido intimo no consentido, dinero online, inversiones riesgosas, impuestos digitales, plataformas adultas legales, apps de citas, marketplaces, suscripciones, menores online, trabajo digital, dispositivos, nube, mensajeria, IA generativa, juegos/apuestas y salud digital sensible.
+
+Rationale:
+El dark mode no debe ser un repositorio de instrucciones riesgosas. Debe ordenar situaciones privadas, adultas o sensibles con foco en privacidad, evidencia, reclamos, soporte oficial, limites y fuente primaria.
+
+Consequences:
+Las guias nuevas son preparacion referencial, no instrucciones para evadir reglas, vulnerar cuentas, hacer dano o reemplazar asesoria legal, medica, tributaria o financiera. El crecimiento del indice debe seguir monitoreandose con build y presupuesto de performance.
+
+Owner:
+Product / Content / Security / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted
