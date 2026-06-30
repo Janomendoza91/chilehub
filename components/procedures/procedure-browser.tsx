@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CategoryPicker } from "@/components/ui/category-picker";
 import type { ProcedureDetail } from "@/types/chilehub";
 
 export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[] }) {
@@ -44,22 +45,17 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
 
   return (
     <>
-      <div className="mt-4 rounded-[20px] border border-[#dfe6f4] bg-white p-2.5 shadow-[0_16px_38px_rgba(35,49,86,0.045)] sm:p-3">
-        <div className="grid grid-cols-2 gap-2 min-[430px]:grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
-          {categories.map((item) => (
-            <button
-              key={item}
-              onClick={() => updateCategory(item)}
-              type="button"
-              className={
-                category === item
-                  ? "min-h-[38px] rounded-[12px] bg-primary px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-white sm:min-h-[42px] sm:px-3 sm:text-[12px]"
-                  : "min-h-[38px] rounded-[12px] border border-[#e5ebf5] bg-white px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-[#52607f] transition hover:border-[#cfd9ec] hover:bg-[#fbfcff] sm:min-h-[42px] sm:px-3 sm:text-[12px]"
-              }
-            >
-              {item}
-            </button>
-          ))}
+      <div className="mt-4 grid gap-2.5 sm:grid-cols-[minmax(0,360px)_1fr] sm:items-center">
+        <CategoryPicker
+          categories={categories}
+          value={category}
+          onChange={updateCategory}
+          label="Categoria"
+        />
+        <div className="hidden rounded-[18px] border border-[#e5ebf5] bg-[#fbfcff] px-4 py-3 text-[12px] font-semibold leading-5 text-[#66718f] sm:block">
+          {category === "Todos"
+            ? `Explorando ${procedures.length} procesos organizados por tema.`
+            : `${filtered.length} procesos en ${category}.`}
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock3, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { CategoryPicker } from "@/components/ui/category-picker";
 import type { GuideDetail } from "@/types/chilehub";
 import { darkGuidesContent } from "@/data/dark-guides";
 import { useChilehubMode } from "@/components/theme/chilehub-mode-provider";
@@ -133,7 +134,7 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
           </div>
         </div>
 
-        <div className="mt-3 grid gap-2.5 lg:grid-cols-[minmax(260px,0.85fr)_minmax(0,1.15fr)]">
+        <div className="mt-3 grid gap-2.5 lg:grid-cols-[minmax(260px,1fr)_minmax(240px,360px)]">
           <div className="flex items-center gap-2 rounded-[14px] bg-[#f7f9ff] px-3 dark:bg-[#070c18]">
             <Search className="h-4 w-4 shrink-0 text-[#7a86a6] dark:text-[#9aa8c7]" />
             <input
@@ -151,24 +152,13 @@ export function GuidesBrowser({ guides }: { guides: GuideDetail[] }) {
               aria-label="Filtrar guias"
             />
           </div>
-          <div className="min-w-0">
-            <div className="grid grid-cols-2 gap-2 min-[430px]:grid-cols-3 sm:grid-cols-4 xl:grid-cols-5">
-              {categories.map((item) => (
-                <button
-                  key={item}
-                  onClick={() => updateCategory(item)}
-                  type="button"
-                  className={
-                    category === item
-                      ? "min-h-[38px] rounded-[12px] bg-primary px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-white dark:bg-[#ff8a3d] dark:text-[#111827] sm:min-h-[42px] sm:px-3"
-                      : "min-h-[38px] rounded-[12px] border border-[#e5ebf5] bg-[#fbfcff] px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-[#52607f] transition hover:border-[#cfd9ec] hover:bg-white dark:border-[#2a3654] dark:bg-[#121b32] dark:text-[#e8eeff] dark:hover:bg-[#17213d] sm:min-h-[42px] sm:px-3"
-                  }
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
+          <CategoryPicker
+            categories={categories}
+            value={category}
+            onChange={updateCategory}
+            label="Categoria"
+            tone={isDarkMode ? "dark" : "light"}
+          />
         </div>
 
         <div className="mt-3 grid grid-cols-1 gap-2.5 min-[430px]:grid-cols-2 sm:mt-4 lg:grid-cols-3 xl:grid-cols-4">

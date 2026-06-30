@@ -652,21 +652,21 @@ El contenido nuevo sigue siendo preparacion referencial, no informacion oficial 
 Owner:
 Product / Content / Engineering.
 
-## 2026-06-30 - Categorias responsivas en bibliotecas grandes
+## 2026-06-30 - Selector compacto de categorias en bibliotecas grandes
 
 Status: Accepted
 
 Context:
-Al escalar el catalogo a 1000+ tramites, las categorias de `/tramites` y `/guias` crecieron lo suficiente como para que los chips horizontales se cortaran o quedaran ocultos en pantallas pequenas.
+Al escalar el catalogo a 1000+ tramites, las categorias de `/tramites` y `/guias` crecieron lo suficiente como para que los chips horizontales se cortaran o quedaran ocultos en pantallas pequenas. La primera correccion con grilla resolvia el corte, pero ocupaba demasiado alto en mobile y no se sentia como un control de app premium.
 
 Decision:
-Reemplazar los carruseles horizontales de categorias por grillas responsivas de chips con alto estable y texto multilínea. En guias se mantiene el buscador local, pero las categorias ya no viven en una columna `auto` ni dependen de scroll horizontal oculto.
+Usar un selector compacto reutilizable para categorias: boton con categoria activa, contador y panel desplegable con opciones en chips pequenos. En guias se mantiene el buscador local; en tramites el selector queda acompanado por un resumen discreto en desktop.
 
 Rationale:
-Las categorias son navegacion principal de exploracion. Deben ser visibles, legibles y accionables sin exigir desplazamiento lateral poco evidente, especialmente en mobile.
+Las categorias son navegacion principal de exploracion, pero no deben dominar la pantalla. Un selector compacto preserva jerarquia, evita overflow horizontal y reduce altura en mobile.
 
 Consequences:
-Las bibliotecas usan mas alto vertical cuando hay muchas categorias, pero evitan texto cortado, overflow horizontal y acciones invisibles.
+Las categorias quedan accesibles desde un control claro y profesional. Si a futuro se requiere exploracion visual por categoria, debe ser una seccion dedicada con cards, no una barra de filtros gigante.
 
 Owner:
 Product / UX / Engineering.
