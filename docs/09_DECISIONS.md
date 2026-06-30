@@ -633,6 +633,25 @@ Los usuarios que sepan exactamente que escribir deben usar la busqueda global o 
 Owner:
 Product / UX / Engineering.
 
+## 2026-06-30 - Escalar catalogo a 1000+ tramites
+
+Status: Accepted
+
+Context:
+ChileHub debe ampliar su cobertura hasta una biblioteca de al menos 1000 tramites o procesos preparatorios. El catalogo previo tenia cerca de 440 fichas publicadas y ya usaba enriquecimiento referencial con fuentes primarias, categorias y guias derivadas.
+
+Decision:
+Agregar una expansion nacional estructurada con 616 procesos adicionales agrupados por dominios institucionales y nuevas categorias cuando aportan claridad: identidad, migracion, educacion, telecomunicaciones, servicios basicos, finanzas, propiedad intelectual, agricultura y alimentos, medio ambiente, beneficios sociales, justicia, seguridad, viajes y compras publicas, entre otras. Cada dominio define fuente primaria, canal, documentos base, costo/plazo referencial y advertencia comun; cada item aporta slug, titulo y resumen especifico.
+
+Rationale:
+Usar dominios generadores evita mantener cientos de objetos repetidos y conserva trazabilidad editorial. La meta se cumple como 1000+ porque truncar categorias para llegar exactamente a 1000 dejaria cobertura artificialmente incompleta.
+
+Consequences:
+El contenido nuevo sigue siendo preparacion referencial, no informacion oficial definitiva ni tramite ejecutable dentro de ChileHub. El crecimiento del catalogo puede presionar busqueda, build y bundle; debe monitorearse con build y presupuesto de performance.
+
+Owner:
+Product / Content / Engineering.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

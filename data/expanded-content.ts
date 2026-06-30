@@ -1,5 +1,6 @@
 import type { ContentSource, GuideDetail, ProcedureDetail } from "@/types/chilehub";
 import { everydayProcedureSeeds } from "@/data/everyday-procedure-seeds";
+import { nationalProcedureSeeds } from "@/data/national-procedure-seeds";
 import { verifiedProcedureSeeds } from "@/data/verified-procedure-seeds";
 
 type ProcedureSeed = {
@@ -738,6 +739,7 @@ function makeGuideFromProcedureSeed({ procedure, angle }: GeneratedGuideSeed): G
 const generatedGuideSeeds = [
   ...moreProcedureSeeds,
   ...everydayProcedureSeeds,
+  ...nationalProcedureSeeds,
   ...verifiedProcedureSeeds
 ];
 
@@ -754,6 +756,7 @@ export const expandedProcedures: ProcedureDetail[] =
     ...additionalProcedureSeeds,
     ...moreProcedureSeeds,
     ...everydayProcedureSeeds,
+    ...nationalProcedureSeeds,
     ...verifiedProcedureSeeds
   ].map(makeProcedure);
 
