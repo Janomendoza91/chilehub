@@ -20,7 +20,8 @@ export function CategoryPicker({
 }: CategoryPickerProps) {
   const [open, setOpen] = useState(false);
   const isDark = tone === "dark";
-  const hasManyCategories = categories.length > 6;
+  const orderedCategories = orderCategories(categories);
+  const hasManyCategories = orderedCategories.length > 6;
 
   function selectCategory(category: string) {
     onChange(category);
@@ -76,7 +77,7 @@ export function CategoryPicker({
         role="listbox"
         aria-label={label}
       >
-        {categories.map((category) => {
+        {orderedCategories.map((category) => {
           const selected = category === value;
 
           return (
@@ -115,4 +116,65 @@ export function CategoryPicker({
       ) : null}
     </div>
   );
+}
+
+const categoryOrder = [
+  "Todos",
+  "Todas",
+  "Autos",
+  "Documentos",
+  "Trabajo",
+  "Familia",
+  "Vivienda",
+  "Salud",
+  "Impuestos",
+  "Empresas",
+  "Municipalidad",
+  "Transporte",
+  "Viajes",
+  "Viajes y aduanas",
+  "Migracion",
+  "Educacion",
+  "Beneficios sociales",
+  "Justicia y familia",
+  "Seguridad y denuncias",
+  "Consumo",
+  "Telecomunicaciones",
+  "Servicios basicos",
+  "Finanzas",
+  "Compras publicas",
+  "Propiedad intelectual",
+  "Agricultura y alimentos",
+  "Medio ambiente",
+  "Privacidad digital",
+  "Seguridad digital",
+  "Dinero online",
+  "Plataformas",
+  "Plataformas adultas",
+  "Denuncias digitales",
+  "Reputacion online",
+  "Consumo adulto legal"
+];
+
+function orderCategories(categories: string[]) {
+  const priority = new Map(categoryOrder.map((category, index) => [category, index]));
+
+  return [...categories].sort((first, second) => {
+    const firstIndex = priority.get(first);
+    const secondIndex = priority.get(second);
+
+    if (firstIndex !== undefined && secondIndex !== undefined) {
+      return firstIndex - secondIndex;
+    }
+
+    if (firstIndex !== undefined) {
+      return -1;
+    }
+
+    if (secondIndex !== undefined) {
+      return 1;
+    }
+
+    return first.localeCompare(second, "es");
+  });
 }

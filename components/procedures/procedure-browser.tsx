@@ -45,18 +45,13 @@ export function ProcedureBrowser({ procedures }: { procedures: ProcedureDetail[]
 
   return (
     <>
-      <div className="mt-4 grid gap-2.5 sm:grid-cols-[minmax(0,360px)_1fr] sm:items-center">
+      <div className="mt-4">
         <CategoryPicker
           categories={categories}
           value={category}
           onChange={updateCategory}
           label="Categoria"
         />
-        <div className="hidden rounded-[18px] border border-[#e5ebf5] bg-[#fbfcff] px-4 py-3 text-[12px] font-semibold leading-5 text-[#66718f] sm:block">
-          {category === "Todos"
-            ? `Explorando ${procedures.length} procesos organizados por tema.`
-            : `${filtered.length} procesos en ${category}.`}
-        </div>
       </div>
 
       <section className="grid grid-cols-1 gap-2.5 pb-8 pt-3 min-[430px]:grid-cols-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4">
