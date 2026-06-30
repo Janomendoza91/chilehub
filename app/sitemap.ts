@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { guidesContent, procedures } from "@/data/content";
+import { allGuidesContent, procedures } from "@/data/content";
 import { absoluteUrl, contentDate } from "@/lib/seo";
 
 const staticRoutes = [
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72
   }));
 
-  const guideEntries = guidesContent.map((guide) => ({
+  const guideEntries = allGuidesContent.map((guide) => ({
     url: absoluteUrl(`/guias/${guide.slug}`),
     lastModified: contentDate(guide.updatedAt),
     changeFrequency: "monthly" as const,

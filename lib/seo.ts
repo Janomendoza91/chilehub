@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { GuideDetail, ProcedureDetail } from "@/types/chilehub";
 
 export const siteConfig = {
   name: "ChileHub",
@@ -31,6 +32,19 @@ export function absoluteUrl(path = "/") {
   return new URL(cleanPath, siteConfig.url).toString();
 }
 
+export function seoText(value: string, maxLength = 155) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const clipped = normalized.slice(0, maxLength - 3);
+  const lastSpace = clipped.lastIndexOf(" ");
+
+  return `${clipped.slice(0, lastSpace > 80 ? lastSpace : clipped.length)}...`;
+}
+
 export function pageMetadata({
   title,
   description,
@@ -48,10 +62,11 @@ export function pageMetadata({
 }): Metadata {
   const canonical = absoluteUrl(path);
   const ogImage = absoluteUrl(siteConfig.ogImagePath);
+  const cleanDescription = seoText(description);
 
   return {
     title,
-    description,
+    description: cleanDescription,
     applicationName: siteConfig.name,
     creator: siteConfig.name,
     publisher: siteConfig.name,
@@ -67,7 +82,7 @@ export function pageMetadata({
     },
     openGraph: {
       title,
-      description,
+      description: cleanDescription,
       url: canonical,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
@@ -84,7 +99,7 @@ export function pageMetadata({
     twitter: {
       card: "summary_large_image",
       title,
-      description,
+      description: cleanDescription,
       images: [ogImage]
     },
     robots: noIndex
@@ -136,5 +151,108 @@ export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
       name: item.name,
       item: absoluteUrl(item.path)
     }))
+  };
+}
+
+export function articleJsonLd({
+  title,
+  description,
+  path,
+  updatedAt,
+  section,
+  keywords
+}: {
+  title: string;
+  description: string;
+  path: string;
+  updatedAt: string;
+  section: string;
+  keywords: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: seoText(description),
+    mainEntityOfPage: absoluteUrl(path),
+    datePublished: contentDate(updatedAt).toISOString(),
+    dateModified: contentDate(updatedAt).toISOString(),
+    inLanguage: siteConfig.language,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url
+    },
+    articleSection: section,
+    keywords,
+    isAccessibleForFree: true
+  };
+}
+
+export function procedureHowToJsonLd(procedure: ProcedureDetail) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `Como preparar ${procedure.title} en Chile`,
+    description: seoText(procedure.summary),
+    inLanguage: siteConfig.language,
+    mainEntityOfPage: absoluteUrl(`/tramites/${procedure.slug}`),
+    supply: procedure.documents.map((document) => ({
+      "@type": "HowToSupply",
+      name: document.title
+    })),
+    step: procedure.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step,
+      text: step
+    }))
+  };
+}
+
+export function procedureCollectionJsonLd(procedures: ProcedureDetail[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Tramites para preparar en Chile",
+    description: siteConfig.description,
+    url: absoluteUrl("/tramites"),
+    inLanguage: siteConfig.language,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: procedures.map((procedure, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(`/tramites/${procedure.slug}`),
+        name: procedure.title,
+        description: seoText(procedure.summary, 120)
+      }))
+    }
+  };
+}
+
+export function guideCollectionJsonLd(guides: GuideDetail[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Guias rapidas para tramites en Chile",
+    description: "Guias accionables para preparar procesos importantes en Chile.",
+    url: absoluteUrl("/guias"),
+    inLanguage: siteConfig.language,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: guides.map((guide, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(`/guias/${guide.slug}`),
+        name: guide.title,
+        description: seoText(guide.summary, 120)
+      }))
+    }
   };
 }

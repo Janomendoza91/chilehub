@@ -5,8 +5,8 @@ import {
   ReferenceNotice
 } from "@/components/layout/product-shell";
 import { GuidesBrowser } from "@/components/guides/guides-browser";
-import { guidesContent } from "@/data/content";
-import { pageMetadata } from "@/lib/seo";
+import { allGuidesContent, guidesContent } from "@/data/content";
+import { guideCollectionJsonLd, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Guias rapidas para tramites en Chile",
@@ -24,6 +24,10 @@ export const metadata = pageMetadata({
 export default function GuidesPage() {
   return (
     <ProductShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(guideCollectionJsonLd(allGuidesContent))}
+      />
       <PageIntro
         eyebrow="Guias rapidas"
         title="Lee lo justo antes de avanzar."

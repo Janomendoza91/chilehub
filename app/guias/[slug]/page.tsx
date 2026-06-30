@@ -12,12 +12,11 @@ import {
 import { ProductShell, ReferenceNotice } from "@/components/layout/product-shell";
 import { allGuidesContent, getGuide } from "@/data/content";
 import {
-  absoluteUrl,
+  articleJsonLd,
   breadcrumbJsonLd,
-  contentDate,
   jsonLd,
   pageMetadata,
-  siteConfig
+  seoText
 } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -36,7 +35,9 @@ export async function generateMetadata({ params }: GuidePageProps) {
     ...(guide
       ? pageMetadata({
           title: guide.title,
-          description: guide.summary,
+          description: seoText(
+            `${guide.summary} Revisa pasos rapidos, errores frecuentes, checklist y preguntas para confirmar.`
+          ),
           path: `/guias/${guide.slug}`,
           type: "article",
           keywords: [
@@ -67,28 +68,22 @@ export default async function GuideDetailPage({ params }: GuidePageProps) {
     <ProductShell>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLd({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: guide.title,
-          description: guide.summary,
-          mainEntityOfPage: absoluteUrl(`/guias/${guide.slug}`),
-          datePublished: contentDate(guide.updatedAt).toISOString(),
-          dateModified: contentDate(guide.updatedAt).toISOString(),
-          inLanguage: siteConfig.language,
-          author: {
-            "@type": "Organization",
-            name: siteConfig.name,
-            url: siteConfig.url
-          },
-          publisher: {
-            "@type": "Organization",
-            name: siteConfig.name,
-            url: siteConfig.url
-          },
-          about: guide.category,
-          isAccessibleForFree: true
-        })}
+        dangerouslySetInnerHTML={jsonLd(
+          articleJsonLd({
+            title: guide.title,
+            description: guide.summary,
+            path: `/guias/${guide.slug}`,
+            updatedAt: guide.updatedAt,
+            section: guide.category,
+            keywords: [
+              guide.title,
+              guide.category,
+              "guia rapida",
+              "preparacion",
+              "Chile"
+            ]
+          })
+        )}
       />
       <script
         type="application/ld+json"

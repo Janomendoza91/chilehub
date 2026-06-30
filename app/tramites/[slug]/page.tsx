@@ -10,12 +10,12 @@ import { ProcedureStepFlow } from "@/components/procedures/procedure-step-flow";
 import { SellCarPreparationFlow } from "@/components/procedures/sell-car-preparation-flow";
 import { getProcedure, procedures } from "@/data/content";
 import {
-  absoluteUrl,
+  articleJsonLd,
   breadcrumbJsonLd,
-  contentDate,
   jsonLd,
   pageMetadata,
-  siteConfig
+  procedureHowToJsonLd,
+  seoText
 } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -33,8 +33,10 @@ export async function generateMetadata({ params }: ProcedurePageProps) {
   return {
     ...(procedure
       ? pageMetadata({
-          title: `${procedure.title} en Chile`,
-          description: procedure.summary,
+          title: `Como preparar ${procedure.title} en Chile`,
+          description: seoText(
+            `${procedure.summary} Revisa pasos, documentos, costos estimados, errores frecuentes y donde confirmar.`
+          ),
           path: `/tramites/${procedure.slug}`,
           type: "article",
           keywords: [
@@ -68,28 +70,27 @@ export default async function ProcedureDetailPage({
     <ProductShell>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLd({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: `${procedure.title} en Chile`,
-          description: procedure.summary,
-          mainEntityOfPage: absoluteUrl(`/tramites/${procedure.slug}`),
-          datePublished: contentDate(procedure.updatedAt).toISOString(),
-          dateModified: contentDate(procedure.updatedAt).toISOString(),
-          inLanguage: siteConfig.language,
-          author: {
-            "@type": "Organization",
-            name: siteConfig.name,
-            url: siteConfig.url
-          },
-          publisher: {
-            "@type": "Organization",
-            name: siteConfig.name,
-            url: siteConfig.url
-          },
-          about: procedure.category,
-          isAccessibleForFree: true
-        })}
+        dangerouslySetInnerHTML={jsonLd(
+          articleJsonLd({
+            title: `Como preparar ${procedure.title} en Chile`,
+            description: procedure.summary,
+            path: `/tramites/${procedure.slug}`,
+            updatedAt: procedure.updatedAt,
+            section: procedure.category,
+            keywords: [
+              procedure.title,
+              procedure.category,
+              procedure.channel,
+              "requisitos",
+              "documentos",
+              "costos referenciales"
+            ]
+          })
+        )}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(procedureHowToJsonLd(procedure))}
       />
       <script
         type="application/ld+json"

@@ -7,7 +7,6 @@ import {
   EyeOff,
   Home,
   LockKeyhole,
-  Search,
   ShieldAlert,
   WalletCards
 } from "lucide-react";
@@ -61,15 +60,6 @@ export function Header() {
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             <ModeToggle />
-            <Link
-              href="/buscar"
-              prefetch={false}
-              aria-label="Buscar un tramite o guia"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#e3e9f4] bg-white px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] hover:text-primary dark:border-white/10 dark:bg-white/[0.04] dark:text-[#c8d3ee] dark:hover:bg-white/[0.08] dark:hover:text-white sm:h-10 sm:px-3 sm:text-[13px] lg:px-4"
-            >
-              <Search className="h-3.5 w-3.5" />
-              <span className="hidden lg:inline">Necesito un tramite</span>
-            </Link>
             <Link href={isDarkMode ? "/guardados" : "/mis-tramites"} prefetch={false} className="grid h-9 place-items-center rounded-full px-2.5 text-[11px] font-bold text-[#4d5b7f] transition hover:bg-[#f3f6fb] dark:text-[#c8d3ee] dark:hover:bg-white/[0.08] sm:h-10 sm:px-4 sm:text-[13px]">
               {isDarkMode ? "Mis guias" : "Mis tramites"}
             </Link>

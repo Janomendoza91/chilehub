@@ -557,6 +557,25 @@ Las fichas crecen levemente en altura, pero ganan claridad y eliminan truncamien
 Owner:
 Product / UX / Engineering.
 
+## 2026-06-30 - SEO estructurado para catalogos y fichas
+
+Status: Accepted
+
+Context:
+ChileHub ya generaba metadata, canonicals, Open Graph, Twitter cards y sitemap para tramites y guias, pero las paginas necesitaban senales estructuradas mas especificas para buscadores a medida que el catalogo crece.
+
+Decision:
+Centralizar helpers SEO para descripciones y JSON-LD, mantener `Article` por ficha, agregar `HowTo` a tramites con pasos y documentos de preparacion, y agregar `CollectionPage` con `ItemList` en los indices de tramites y guias. Las descripciones se normalizan a longitud segura y siguen marcando el contenido como preparacion referencial.
+
+Rationale:
+Cada tramite y guia debe ser entendible por buscadores como una pagina unica, accionable y trazable sin fingir oficialidad. `HowTo` aplica al flujo de preparacion, no a ejecucion oficial del tramite, y los catalogos necesitan declarar sus items principales.
+
+Consequences:
+Los costos y plazos referenciales no se declaran como campos estructurados rigidos cuando son texto variable. Cualquier expansion SEO futura debe preservar canonicals, sitemap y limites de contenido referencial definidos en gobierno editorial.
+
+Owner:
+Product / Engineering / Content.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

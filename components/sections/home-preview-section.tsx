@@ -91,10 +91,14 @@ export function HomePreviewSection() {
           </div>
         </SectionReveal>
       </div>
-      <button className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full bg-primary px-4 text-[13px] font-bold text-white shadow-[0_18px_40px_rgba(42,81,232,0.28)] transition hover:bg-[#1f48e8]">
+      <Link
+        href="/buscar"
+        prefetch={false}
+        className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full bg-primary px-4 text-[13px] font-bold text-white shadow-[0_18px_40px_rgba(42,81,232,0.28)] transition hover:bg-[#1f48e8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
         <MessageCircle className="h-4 w-4" />
         Ayuda
-      </button>
+      </Link>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import { ProductShell, PageIntro, ReferenceNotice } from "@/components/layout/product-shell";
 import { procedures } from "@/data/content";
 import { ProcedureBrowser } from "@/components/procedures/procedure-browser";
-import { pageMetadata } from "@/lib/seo";
+import { jsonLd, pageMetadata, procedureCollectionJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Tramites para preparar en Chile",
@@ -19,6 +19,10 @@ export const metadata = pageMetadata({
 export default function TramitesPage() {
   return (
     <ProductShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(procedureCollectionJsonLd(procedures))}
+      />
       <PageIntro
         eyebrow="Tramites"
         title="Elige un proceso y llega preparado."

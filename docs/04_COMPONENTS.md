@@ -19,7 +19,6 @@ Responsabilidad:
 
 - Mostrar logo.
 - Mostrar navegacion principal.
-- Mantener un acceso global a busqueda para usuarios que necesitan encontrar un tramite o guia.
 - Mostrar acciones de acceso e inicio.
 
 Props futuras:
@@ -149,6 +148,16 @@ Estados:
 - Sin busqueda.
 - Con resultados.
 - Sin resultados.
+
+## FloatingHelpAction
+
+Descripcion: acceso flotante inferior para encontrar ayuda rapidamente desde la home.
+
+Responsabilidad:
+
+- Llevar al usuario a la busqueda cuando necesita encontrar un tramite o guia.
+- Mantenerse visible sin competir con la navegacion principal.
+- Usar un link real para navegacion y foco accesible.
 
 ## ProductShell
 
