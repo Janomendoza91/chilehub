@@ -142,6 +142,9 @@
 - [ ] Registrar decisiones en `09_DECISIONS.md`.
 - [x] Crear endpoint `/api/health` para monitoreo externo.
 - [x] Agregar smoke test de seguridad, confianza y manifest.
+- [x] Agregar presupuesto automatizado de performance para CSS y JS compartido.
+- [x] Remover Framer Motion de la landing para reducir JavaScript inicial.
+- [x] Evitar cargar el catalogo completo de contenido en la portada.
 - [ ] Revisar accesibilidad.
 - [ ] Revisar performance.
 - [ ] Revisar SEO cuando aplique.

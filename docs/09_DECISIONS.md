@@ -519,6 +519,25 @@ La pagina de metodologia no convierte contenido referencial en verificado. La ve
 Owner:
 Product / Content / Engineering.
 
+## 2026-06-30 - Presupuesto y reduccion del bundle inicial
+
+Status: Accepted
+
+Context:
+Lighthouse reporto JavaScript antiguo en el framework chunk de Next.js y CSS render-blocking inicial de aproximadamente 12 KiB transferidos. El bloque de polyfills detectado corresponde a codigo interno de Next, no a codigo de producto de ChileHub. La portada tambien estaba cargando Framer Motion y el catalogo completo de contenido para animaciones y sugerencias del hero.
+
+Decision:
+Agregar `performance:budget` para controlar CSS raw/gzip y JS compartido raw/gzip despues de cada build. Remover Framer Motion de las animaciones de revelado de la landing y evitar que la portada importe `data/content`; el hero usa sugerencias curadas livianas y la busqueda completa queda en `/buscar`. Se probo subir target TypeScript y declarar browserslist moderna, pero se descarto porque en Vercel amplio el chunk compartido al activar una ruta de compatibilidad mas pesada.
+
+Rationale:
+La mejora mas confiable es reducir trabajo inicial propio: menos dependencias client y menos datos serializados en la portada. No se parchea `node_modules`, no se fuerza browserslist y no se difiere la hoja CSS principal porque eso podria introducir fragilidad o flashes visuales. Un presupuesto automatizado captura regresiones reales de peso antes de deploy.
+
+Consequences:
+El aviso de JavaScript antiguo puede seguir apareciendo mientras Next incluya polyfills defensivos internos. El CSS principal sigue siendo render-blocking por diseno, pero queda bajo presupuesto y mantiene estabilidad visual. La portada mantiene sugerencias destacadas; el catalogo completo se carga solo en rutas donde aporta valor directo.
+
+Owner:
+Engineering / Performance.
+
 ## 2026-06-29 - Expansion cotidiana por categoria
 
 Status: Accepted

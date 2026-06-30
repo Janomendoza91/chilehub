@@ -23,9 +23,6 @@ import type {
   GuideCard,
   ProcedureCard
 } from "@/types/chilehub";
-import { calculatorsContent, guideCards, procedureCards } from "@/data/content";
-
-export const popularProcedures: ProcedureCard[] = procedureCards;
 
 export const legacyPopularProcedures: ProcedureCard[] = [
   {
@@ -33,57 +30,65 @@ export const legacyPopularProcedures: ProcedureCard[] = [
     description: "Paso a paso, requisitos, costos y mas.",
     meta: "Ver guia",
     status: "popular",
-    icon: IdCard
+    icon: IdCard,
+    href: "/tramites/renovar-licencia-conducir"
   },
   {
     title: "Vender un auto",
     description: "Paso a paso, requisitos, costos y mas.",
     meta: "Ver guia",
     status: "fast",
-    icon: Car
+    icon: Car,
+    href: "/tramites/vender-un-auto"
   },
   {
     title: "Sacar pasaporte",
     description: "Paso a paso, requisitos, costos y mas.",
     meta: "Ver guia",
     status: "new",
-    icon: BadgeCheck
+    icon: BadgeCheck,
+    href: "/tramites/sacar-pasaporte"
   },
   {
     title: "Permiso de circulacion",
     description: "Paso a paso, requisitos, costos y mas.",
     meta: "Ver guia",
     status: "popular",
-    icon: FileText
+    icon: FileText,
+    href: "/tramites/permiso-circulacion"
   }
 ];
 
-export const guides: GuideCard[] = guideCards;
+export const popularProcedures: ProcedureCard[] = legacyPopularProcedures;
 
 export const legacyGuides: GuideCard[] = [
   {
     title: "Como vender un auto en Chile?",
     label: "Paso a paso para hacerlo rapido y seguro.",
     time: "Popular",
-    icon: Car
+    icon: Car,
+    href: "/guias/como-vender-un-auto-en-chile"
   },
   {
     title: "Que necesito para comprar una casa?",
     label: "Guia completa para compradores.",
     time: "Popular",
-    icon: Home
+    icon: Home,
+    href: "/guias/que-necesito-para-comprar-una-casa"
   },
   {
     title: "Como abrir una empresa?",
     label: "Guia completa paso a paso.",
     time: "Nuevo",
-    icon: BriefcaseBusiness
+    icon: BriefcaseBusiness,
+    href: "/guias/como-abrir-una-empresa"
   },
   {
     title: "Que revisar antes de firmar?",
     label: "Errores frecuentes y documentos clave.",
     time: "Popular",
-    icon: FileBadge
+    icon: FileBadge,
+    href: "/guias/que-revisar-antes-de-firmar-finiquito"
   },
   {
     title: "Como preparar un viaje?",
@@ -95,11 +100,12 @@ export const legacyGuides: GuideCard[] = [
     title: "Documentos que suelen faltar",
     label: "Checklist rapido antes de avanzar.",
     time: "Popular",
-    icon: FileText
+    icon: FileText,
+    href: "/guias/documentos-que-suelen-faltar"
   }
 ];
 
-export const calculators: CalculatorCard[] = calculatorsContent;
+export const guides: GuideCard[] = legacyGuides;
 
 export const legacyCalculators: CalculatorCard[] = [
   {
@@ -127,6 +133,8 @@ export const legacyCalculators: CalculatorCard[] = [
     icon: FileText
   }
 ];
+
+export const calculators: CalculatorCard[] = legacyCalculators;
 
 export const sidebarItems = [
   { label: "Inicio", icon: Home, active: true, href: "/" },

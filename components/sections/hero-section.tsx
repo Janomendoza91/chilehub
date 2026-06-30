@@ -10,8 +10,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { SectionReveal } from "@/components/layout/section-reveal";
-import { HeroPredictiveSearch } from "@/components/search/hero-predictive-search";
-import { guidesContent, procedures } from "@/data/content";
+import {
+  HeroPredictiveSearch,
+  type HeroSearchSuggestion
+} from "@/components/search/hero-predictive-search";
 import {
   darkModeQuickActions,
   darkModeSuggestions,
@@ -33,21 +35,98 @@ const trustItems = [
   "Donde continuar"
 ];
 
-const heroSuggestions = [
-  ...procedures.map((item) => ({
-    type: "Tramite" as const,
-    title: item.title,
-    description: item.summary,
-    category: item.category,
-    href: `/tramites/${item.slug}`
-  })),
-  ...guidesContent.map((item) => ({
-    type: "Guia" as const,
-    title: item.title,
-    description: item.summary,
-    category: item.category,
-    href: `/guias/${item.slug}`
-  }))
+const heroSuggestions: HeroSearchSuggestion[] = [
+  {
+    type: "Tramite",
+    title: "Renovar licencia de conducir",
+    description: "Documentos, costos y examenes que conviene revisar antes de ir a la municipalidad.",
+    category: "Autos",
+    href: "/tramites/renovar-licencia-conducir"
+  },
+  {
+    type: "Tramite",
+    title: "Vender un auto",
+    description: "Ordena multas, contrato, pago y transferencia antes de entregar el vehiculo.",
+    category: "Autos",
+    href: "/tramites/vender-un-auto"
+  },
+  {
+    type: "Tramite",
+    title: "Sacar pasaporte",
+    description: "Revisa documentos, agenda, costos referenciales y vigencia antes de asistir.",
+    category: "Viajes",
+    href: "/tramites/sacar-pasaporte"
+  },
+  {
+    type: "Tramite",
+    title: "Permiso de circulacion",
+    description: "Prepara SOAP, revision tecnica, multas y pagos antes de renovar.",
+    category: "Autos",
+    href: "/tramites/permiso-circulacion"
+  },
+  {
+    type: "Tramite",
+    title: "Abrir una empresa",
+    description: "Define tipo de empresa, socios, giro, domicilio y permisos antes de constituir.",
+    category: "Empresas",
+    href: "/tramites/abrir-empresa"
+  },
+  {
+    type: "Tramite",
+    title: "Obtener ClaveUnica",
+    description: "Prepara identidad, canal de atencion y recuperacion segura de acceso.",
+    category: "Documentos",
+    href: "/tramites/obtener-clave-unica"
+  },
+  {
+    type: "Tramite",
+    title: "Certificado de antecedentes",
+    description: "Revisa para que lo necesitas, vigencia esperada y donde continuar.",
+    category: "Documentos",
+    href: "/tramites/certificado-antecedentes"
+  },
+  {
+    type: "Tramite",
+    title: "Ratificar finiquito",
+    description: "Compara contrato, liquidaciones y pagos antes de firmar.",
+    category: "Trabajo",
+    href: "/tramites/ratificar-finiquito"
+  },
+  {
+    type: "Tramite",
+    title: "Registro Social de Hogares",
+    description: "Ordena datos del hogar, documentos y cambios antes de actualizar tu registro.",
+    category: "Familia",
+    href: "/tramites/registro-social-hogares"
+  },
+  {
+    type: "Guia",
+    title: "Como vender un auto en Chile?",
+    description: "Checklist para documentos, pago, contrato y riesgos frecuentes.",
+    category: "Autos",
+    href: "/guias/como-vender-un-auto-en-chile"
+  },
+  {
+    type: "Guia",
+    title: "Que necesito para comprar una casa?",
+    description: "Ordena ahorro, financiamiento, promesa, documentos y gastos iniciales.",
+    category: "Vivienda",
+    href: "/guias/que-necesito-para-comprar-una-casa"
+  },
+  {
+    type: "Guia",
+    title: "Como abrir una empresa?",
+    description: "Decisiones clave antes de elegir tipo de empresa, giro y domicilio.",
+    category: "Empresas",
+    href: "/guias/como-abrir-una-empresa"
+  },
+  {
+    type: "Guia",
+    title: "Documentos que suelen faltar",
+    description: "Checklist rapido para llegar preparado a procesos comunes.",
+    category: "Documentos",
+    href: "/guias/documentos-que-suelen-faltar"
+  }
 ];
 
 export function HeroSection() {

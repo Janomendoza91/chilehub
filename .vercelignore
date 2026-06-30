@@ -1,0 +1,10 @@
+.git
+.next
+.pnpm-store
+.vercel
+Chilehub
+node_modules
+*.log
+.env
+.env*
+next-env.d.ts

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "performance:budget": "node scripts/performance-budget.mjs",
     "security:audit": "corepack pnpm audit --prod",
     "security:smoke": "node scripts/security-smoke.mjs",
     "format": "prettier --write ."
@@ -16,7 +17,6 @@
     "@supabase/supabase-js": "^2.108.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.6.3",
     "lucide-react": "^0.468.0",
     "next": "^15.1.4",
     "react": "^19.0.0",
